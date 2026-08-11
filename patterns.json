@@ -13,7 +13,9 @@
       "dead-hover-states": "Requires knowing what the hover does.",
       "icon-larger-than-content": "Relative sizing between elements."
     },
-    "corpus_validation": "Validated against shadcn/ui, tailwindcss.com and cal.com. The first run refused 32.7% of tailwindcss.com, which exposed three wrong `rarely_legitimate` calls (dark-mode grey text, backdrop-blur on navs, John Doe as an input placeholder) and four rules that had to be demoted. Demonstration directories are exempt from the copy and asset rules only , placeholder content is correct in a demo; a purple gradient is not. Second pass: default-grey-body demoted (grey on dark is correct and undetectable by regex), and test/fixture directories exempted from every rule."
+    "corpus_validation": "Validated against shadcn/ui, tailwindcss.com and cal.com. The first run refused 32.7% of tailwindcss.com, which exposed three wrong `rarely_legitimate` calls (dark-mode grey text, backdrop-blur on navs, John Doe as an input placeholder) and four rules that had to be demoted. Demonstration directories are exempt from the copy and asset rules only , placeholder content is correct in a demo; a purple gradient is not. Second pass: default-grey-body demoted (grey on dark is correct and undetectable by regex), and test/fixture directories exempted from every rule.",
+    "method": "Patterns are drawn from publicly documented catalogs of AI design tells: impeccable (https://github.com/pbakaus/impeccable), Taste Skill (https://github.com/Leonxlnx/taste-skill), Anthropic's frontend-design skill (https://github.com/anthropics/skills/tree/main/skills/frontend-design), the UI/UX Pro Max anti-pattern database, and several independent 2026 write-ups.",
+    "correction": "An earlier version of this file cited a catalog called 'web-taste'. That could not be verified as a distinct project and has been removed. Some `catalogs` counts may therefore be overstated by one. Since flag-001 those counts are provenance only and do not affect severity."
   },
   "rules": [
     {

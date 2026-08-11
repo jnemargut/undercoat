@@ -247,9 +247,9 @@ them stops code you meant to write, that judgment was wrong and worth telling me
 ## Credit
 
 Other people worked out most of these patterns first. Undercoat's rules describe things
-named by [impeccable](https://github.com/pbakaus/impeccable),
-[Taste Skill](https://www.tasteskill.dev/), web-taste and Anthropic's frontend-design skill.
-See `NOTICE`.
+named by [impeccable](https://github.com/pbakaus/impeccable), [Taste Skill](https://github.com/Leonxlnx/taste-skill), and
+[Anthropic's frontend-design skill](https://github.com/anthropics/skills/tree/main/skills/frontend-design), plus a
+handful of independent write-ups on AI design tells. See `NOTICE`.
 
 The list is not the interesting part. The interesting part is when it happens: at the save,
 before the file exists.

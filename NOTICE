@@ -5,14 +5,25 @@ This product includes design anti-pattern knowledge derived from publicly docume
 catalogs. Undercoat's rules are written independently, but the patterns they describe
 were identified and named by these projects:
 
-  impeccable, https://github.com/pbakaus/impeccable
-    Licensed under the Apache License, Version 2.0.
-    Copyright Paul Bakaus.
+  impeccable
+    https://github.com/pbakaus/impeccable
+    Licensed under the Apache License, Version 2.0. Copyright Paul Bakaus.
 
-  Taste Skill, https://www.tasteskill.dev/
-  web-taste
+  Taste Skill
+    https://github.com/Leonxlnx/taste-skill
+    MIT licensed.
+
   frontend-design (Anthropic)
+    https://github.com/anthropics/skills/tree/main/skills/frontend-design
 
-No rule files were copied from these projects. The `catalogs` counts in patterns.json
-are reconstructed from each project's published descriptions and write-ups, and have
-NOT been verified against their source rule files. See patterns.json `_provenance`.
+  Plus several independent 2026 write-ups cataloguing AI design tells, including the
+  UI/UX Pro Max anti-pattern database.
+
+No rule files were copied from these projects.
+
+Correction: earlier versions of this file also credited a project called "web-taste".
+That was a mistake. The original citation was an aggregator listing page rather than a
+distinct project, and no such catalog could be verified. It has been removed. Because
+the `catalogs` counts in patterns.json were assembled partly from that citation, some
+counts may be overstated by one. Those counts are provenance only and do not affect
+which rules refuse a write.
