@@ -1,10 +1,10 @@
 # Undercoat
 
-**Stops your coding agent building the same generic page it builds for everyone else.**
+**Sends your coding agent back to try again when it reaches for the same generic page it builds for everyone else.**
 
 You've seen this page. Everyone has.
 
-![A generated landing page with ten Undercoat rules labelled on it, seven of which refuse the file](assets/what-it-refuses.png)
+![A generated landing page with ten Undercoat rules labelled on it, seven of which send it back](assets/what-it-refuses.png)
 
 Your agent didn't pick the purple, or the headline, or the button that says Get Started.
 None of that was a decision. It's just what comes out when nothing tells the model
@@ -13,12 +13,13 @@ otherwise, because it's the average of every landing page it ever read.
 You can tell it not to. That works for about forty files, and then it forgets.
 
 Undercoat doesn't ask. It reads each file as the agent goes to save it, and if that stuff is
-in there, the save just fails.
+in there, the save doesn't go through. The agent gets told which rule caught it and what to do
+instead, so it writes a different version.
 
-![Undercoat refusing a write, the agent retrying, and the second attempt going through](assets/refusal.gif)
+![Undercoat turning a write back, the agent retrying, and the second attempt going through](assets/refusal.gif)
 
-The agent reads the message and has another go. You don't get interrupted, and you never
-see the first version.
+Nothing halts. The agent reads the message, has another go, and carries on with the rest of
+the job. You are not asked to approve anything, and you never see the first version.
 
 ## Install it
 
@@ -43,14 +44,14 @@ There's no account and no API key. It's Python and a couple of markdown files, s
 
 ## What actually changes
 
-![The refused page beside the one that got written, same product and same brief](assets/before-after.png)
+![The page that got sent back, beside the one that got written, same product and same brief](assets/before-after.png)
 
-Undercoat didn't design the page on the right. It only refused the one on the left and told
-the agent which parts to think about again. The agent did the rest.
+Undercoat didn't design the page on the right. It turned back the one on the left and named
+the parts to think about again. The agent did the rest.
 
 ## How it works
 
-![patterns.json feeding AGENTS.md, which advises everywhere, and hook.py, which refuses in Claude Code](assets/how-it-works.png)
+![patterns.json feeding AGENTS.md, which advises everywhere, and hook.py, which turns writes back in Claude Code](assets/how-it-works.png)
 
 You edit one file, `patterns.json`. Both halves come out of it.
 
@@ -58,10 +59,10 @@ You edit one file, `patterns.json`. Both halves come out of it.
 task, so it works in Cursor, Codex, Copilot, Aider and a couple of dozen others. It can't
 stop anything. It just tells the agent what to steer clear of.
 
-**The hook** is the half that actually refuses, and it only works in Claude Code. It reads
-every file the agent tries to save, before the file exists.
+**The hook** is the half with teeth, and it only works in Claude Code. It reads every file the
+agent tries to save, before the file exists, and hands back a reason when it turns one down.
 
-You get the advice everywhere and the refusal in Claude Code. If you've only got the first
+You get the advice everywhere and the redirect in Claude Code. If you've only got the first
 one, nothing breaks.
 
 It keeps an eye on shell commands too. An agent that can't use the save tool will happily
@@ -69,10 +70,10 @@ try `cat > file` instead, so Undercoat turns that down and points it back at the
 
 ## The rules
 
-**72 of them. 34 refuse the file, 38 leave a note and let it through.**
+**72 of them. 34 send the file back to be rewritten, 38 leave a note and let it through.**
 
 <details>
-<summary><strong>The 34 that refuse</strong></summary>
+<summary><strong>The 34 that send it back</strong></summary>
 
 **Colour**
 
@@ -226,17 +227,17 @@ says something and gets out of your way.
 
 </details>
 
-### Why some refuse and some don't
+### Why some send it back and some don't
 
-A rule only gets to refuse a file if two things are true. What it looks for has to mean one
+A rule only gets to turn a file back if two things are true. What it looks for has to mean one
 thing and nothing else, and almost nobody should ever want it on purpose.
 
 Take a hot-linked Unsplash photo in shipped code. It means one thing, and almost nobody
-wants it, so that one refuses. Three cards in a row is a genuine tell, but plenty of good
-pages have three cards in a row, so that one just says something and moves on.
+wants it, so that one sends the file back. Three cards in a row is a genuine tell, but plenty
+of good pages have three cards in a row, so that one just says something and moves on.
 
 How many people agree a pattern is ugly doesn't come into it. The only question is whether
-stopping you would ever be the wrong call.
+sending the file back would ever be the wrong call.
 
 ## When a rule gets it wrong
 
@@ -250,8 +251,8 @@ Turn it off for that project:
 One rule, one project. You can't skip a single line, and that's deliberate, because if you
 could then the agent could write the skip itself and wave its own work through.
 
-If a rule refuses the same file three times, Undercoat gives up and hands it to you rather
-than letting the agent go round in circles.
+If the same rule turns the same file back three times, Undercoat stops trying and hands the
+problem to you, rather than letting the agent go round in circles.
 
 ## What it can't do
 
@@ -270,22 +271,22 @@ design reviewer. Undercoat is built to work alongside one, not replace it.
 ## Does it get in the way?
 
 I ran it over shadcn/ui, tailwindcss.com and cal.com, which is about 4,700 files of
-carefully written code by people who know what they're doing. It refuses 0.3% of them now,
+carefully written code by people who know what they're doing. It sends back 0.3% of them now,
 and most of those are fair.
 
 That corpus decides things, and it is also how most of the rules got written. The loop is:
 generate a page that already passes every rule, look at what is still wrong with it, turn
-that into a rule, then measure the rule before it is allowed to refuse anything.
+that into a rule, then measure the rule before it is allowed to turn anything back.
 
 Sixteen rules came out of three rounds of that. It also cost one: `hardcoded-slate` used to
-refuse, until widening it to zinc and gray showed that hardcoding neutral hexes is normal in
+send files back, until widening it to zinc and gray showed that hardcoding neutral hexes is normal in
 real code. It advises now.
 
-The first version refused a third of tailwindcss.com, which was how I found out that five
+The first version turned back a third of tailwindcss.com, which was how I found out that five
 rules were badly judged and several were far too broad.
 
-The rules that refuse are all judgement calls about what nobody would want on purpose. If
-one of them stops something you meant to write, I got that judgement wrong, and I'd like to
+The rules with teeth are all judgement calls about what nobody would want on purpose. If one
+of them turns back something you meant to write, I got that judgement wrong, and I'd like to
 know.
 
 ## Credit
@@ -297,14 +298,14 @@ named by [impeccable](https://github.com/pbakaus/impeccable),
 plus a handful of write-ups cataloguing AI design tells. There's a fuller note in `NOTICE`.
 
 What's different here is when it happens. Other tools tell the agent what to do before it
-starts, or check your code once it's finished. This one stops the file from being written
-in the first place.
+starts, or check your code once it's finished. This one catches the file on its way to disk
+and sends the agent back to write a better one.
 
 ## Try it
 
-Point it at whatever you're building next and see what it stops.
+Point it at whatever you're building next and see what it sends back.
 
-Then tell me what it got wrong. A rule that refuses something you actually wanted is worth
+Then tell me what it got wrong. A rule that turns back something you actually wanted is worth
 more to me than ten that fire correctly.
 
 Apache-2.0. See `LICENSE` and `NOTICE`.
