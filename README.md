@@ -69,10 +69,10 @@ try `cat > file` instead, so Undercoat turns that down and points it back at the
 
 ## The rules
 
-**56 of them. 20 refuse the file, 36 leave a note and let it through.**
+**57 of them. 21 refuse the file, 36 leave a note and let it through.**
 
 <details>
-<summary><strong>The 20 that refuse</strong></summary>
+<summary><strong>The 21 that refuse</strong></summary>
 
 **Colour**
 
@@ -98,6 +98,7 @@ try `cat > file` instead, so Undercoat turns that down and points it back at the
 | Rule | What it catches |
 |---|---|
 | `default-sans-inter` | Inter set as the typeface |
+| `hero-italic-emphasis` | One italic word inside a hero headline |
 
 **Words on the page**
 
@@ -251,6 +252,10 @@ design reviewer. Undercoat is built to work alongside one, not replace it.
 I ran it over shadcn/ui, tailwindcss.com and cal.com, which is about 4,700 files of
 carefully written code by people who know what they're doing. It refuses 0.3% of them now,
 and most of those are fair.
+
+That corpus decides things. When someone suggested the italic-word-in-a-hero rule, it turned
+up zero times in all 4,700 files, which is what earned it a place in the refusing list rather
+than the advisory one.
 
 The first version refused a third of tailwindcss.com, which was how I found out that five
 rules were badly judged and several were far too broad.

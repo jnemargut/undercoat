@@ -176,6 +176,14 @@ Emoji standing in for an icon system is a named tell. It renders differently on 
 
 *Applies to: `**/*.tsx`, `**/*.jsx`, `**/*.vue`, `**/*.svelte`, `**/*.html`*
 
+### hero-italic-emphasis
+
+One word of the headline set in italic, usually in a different colour, is a template move. It is emphasis applied because the layout felt flat, not because that word carries more weight than the others. Checked against 4,516 files of hand-written UI from shadcn/ui, tailwindcss.com and cal.com: it appears zero times.
+
+**Instead:** Let the sentence do it. If a word matters more, the headline probably needs rewriting rather than restyling.
+
+*Applies to: `**/*.tsx`, `**/*.jsx`, `**/*.vue`, `**/*.svelte`, `**/*.html`*
+
 ## Think twice about these
 
 Real tells that fail one of the two blocking tests. Either the match is a proxy that also catches legitimate code, or the pattern is sometimes wanted deliberately. These do not block anything.

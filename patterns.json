@@ -15,7 +15,8 @@
     },
     "corpus_validation": "Validated against shadcn/ui, tailwindcss.com and cal.com. The first run refused 32.7% of tailwindcss.com, which exposed three wrong `rarely_legitimate` calls (dark-mode grey text, backdrop-blur on navs, John Doe as an input placeholder) and four rules that had to be demoted. Demonstration directories are exempt from the copy and asset rules only , placeholder content is correct in a demo; a purple gradient is not. Second pass: default-grey-body demoted (grey on dark is correct and undetectable by regex), and test/fixture directories exempted from every rule.",
     "method": "Patterns are drawn from publicly documented catalogs of AI design tells: impeccable (https://github.com/pbakaus/impeccable), Taste Skill (https://github.com/Leonxlnx/taste-skill), Anthropic's frontend-design skill (https://github.com/anthropics/skills/tree/main/skills/frontend-design), the UI/UX Pro Max anti-pattern database, and several independent 2026 write-ups.",
-    "correction": "An earlier version of this file cited a catalog called 'web-taste'. That could not be verified as a distinct project and has been removed. Some `catalogs` counts may therefore be overstated by one. Since flag-001 those counts are provenance only and do not affect severity."
+    "correction": "An earlier version of this file cited a catalog called 'web-taste'. That could not be verified as a distinct project and has been removed. Some `catalogs` counts may therefore be overstated by one. Since flag-001 those counts are provenance only and do not affect severity.",
+    "hero_italic_note": "hero-italic-emphasis came from a user spotting it as a tell rather than from a catalog, so catalogs is 0. It blocks because it measured 0 hits across 4,516 real files, which is the evidence for rarely_legitimate."
   },
   "rules": [
     {
@@ -1787,6 +1788,35 @@
       "because": "A placeholder used as the only label disappears the moment someone types, and takes the field's meaning with it.",
       "instead": "A real label above the field. Placeholders are for examples, not names.",
       "catches": "A placeholder used as the only label"
+    },
+    {
+      "id": "hero-italic-emphasis",
+      "severity": "block",
+      "unambiguous": true,
+      "rarely_legitimate": true,
+      "catalogs": 0,
+      "match": "(?i)<h[12][^>]*\\bitalic\\b|<h[12][^>]*>[\\s\\S]{0,200}?<(?:em|i)\\b|<h[12][^>]*>[\\s\\S]{0,200}?<span[^>]*\\bitalic\\b|<h[12][^>]*>[\\s\\S]{0,200}?font-style\\s*:\\s*italic",
+      "in": [
+        "**/*.tsx",
+        "**/*.jsx",
+        "**/*.vue",
+        "**/*.svelte",
+        "**/*.html"
+      ],
+      "not_in": [
+        "**/*.spec.*",
+        "**/*.stories.*",
+        "**/*.test.*",
+        "**/__fixtures__/**",
+        "**/__tests__/**",
+        "**/fixtures/**",
+        "**/node_modules/**",
+        "**/test/**",
+        "**/tests/**"
+      ],
+      "because": "One word of the headline set in italic, usually in a different colour, is a template move. It is emphasis applied because the layout felt flat, not because that word carries more weight than the others. Checked against 4,516 files of hand-written UI from shadcn/ui, tailwindcss.com and cal.com: it appears zero times.",
+      "instead": "Let the sentence do it. If a word matters more, the headline probably needs rewriting rather than restyling.",
+      "catches": "An italic word inside a hero headline"
     }
   ]
 }
