@@ -41,8 +41,8 @@ OPT_IN_MARKERS = (".undercoat.patterns.json", "UNDERCOAT.md")
 OPT_OUT_MARKER = ".undercoat.off"
 GLOBAL_FLAG = HERE / "global"
 
-# D6 assumption: three attempts on the same rule and file, then stop and hand it to
-# the human rather than letting the agent loop.
+# Three attempts on the same rule and file, then stop and hand it to the human
+# rather than letting the agent loop on a refusal.
 RETRY_CAP = 3
 
 
@@ -123,7 +123,7 @@ def load_rules(root: Path):
 
 
 def load_mutes() -> set:
-    """Per-project muted rule ids. Local, uncommitted (D5)."""
+    """Per-project muted rule ids. Local, uncommitted."""
     for base in (Path.cwd(), *Path.cwd().parents):
         candidate = base / LOCAL_MUTES
         if candidate.is_file():
@@ -160,7 +160,7 @@ def targets_from(tool_name: str, tool_input: dict):
     return []
 
 
-# Shell constructs that put bytes into a file (D3). We refuse the *route*, not the
+# Shell constructs that put bytes into a file. We refuse the *route*, not the
 # content travelling down it — a far smaller job than parsing shell.
 BASH_WRITE_ROUTES = [
     (re.compile(r"(?<![0-9&])>>?\s*([^\s;|&'\"<>]+)"), "redirect"),
@@ -203,7 +203,7 @@ def attempt_count(session_id: str, rule_id: str, path: str) -> int:
 # -------------------------------------------------------------------------- messages
 
 def refusal(rule: dict, path: str, matched: str) -> str:
-    """D6: a directive, not a complaint."""
+    """A directive, not a complaint — the agent is the reader, not the human."""
     return "\n".join([
         f"REFUSED  undercoat/{rule['id']}",
         f"FILE  {path}",
@@ -226,7 +226,7 @@ def stop_message(rule: dict, path: str, count: int) -> str:
 
 
 def note(rule: dict, path: str, matched: str) -> str:
-    """Warn tier — same shape, no prohibition (D5, D6)."""
+    """Warn tier — same shape, no prohibition."""
     return "\n".join([
         f"NOTE  undercoat/{rule['id']}",
         f"FILE  {path}",
@@ -240,9 +240,9 @@ def allow_with_note(text: str):
     """
     Attach a note to an allowed write.
 
-    NOTE: whether the agent actually reads permissionDecisionReason on an allow is the
-    open question flagged in design decision 5's tripwires. If warnings are visibly
-    ignored across a few builds, promote those rules to block or delete the tier.
+    NOTE: whether the agent actually reads permissionDecisionReason on an allow is
+    unverified. If warnings are visibly ignored across a few builds, promote those
+    rules to block or delete the tier.
     We also write to stderr so the note is at least visible to the human.
     """
     print(text, file=sys.stderr)

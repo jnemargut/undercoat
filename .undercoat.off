@@ -1,11 +1,7 @@
 This repo is exempt from its own rules.
 
-Undercoat's decision pages, README and generated AGENTS.md all quote the patterns
-they describe — "from-purple-600", "Lorem ipsum", "images.unsplash.com" — so the
-rules fire on the documentation about them. That is a false alarm, not a finding.
-
-Note this is NOT why the exemption exists for every hit. The decision pages also
-used #6366f1 as their real accent colour, which is a genuine ai-purple-hex catch.
-That one is worth fixing rather than exempting.
+Undercoat's README and generated AGENTS.md quote the patterns they describe —
+"from-purple-600", "Lorem ipsum", "images.unsplash.com" — so the rules fire on
+the documentation about them. Undercoat cannot tell use from mention.
 
 Delete this file to enforce here.
