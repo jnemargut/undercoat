@@ -151,6 +151,7 @@ says something and gets out of your way.
 | Rule | What it catches |
 |---|---|
 | `tailwind-default-blue` | bg-blue-500 or bg-blue-600 as the brand colour |
+| `hardcoded-neutral-ramp` | Tailwind's slate, zinc, gray or stone ramps hardcoded as the palette |
 | `default-grey-body` | Light grey body text on a light background |
 | `pure-black-on-white` | Pure #000 text |
 | `hardcoded-hex-in-markup` | Arbitrary hex values inline in class names |
@@ -204,6 +205,7 @@ says something and gets out of your way.
 | `magic-spacing` | Arbitrary pixel spacing off the scale |
 | `small-touch-target` | Buttons under roughly 44px |
 | `placeholder-as-label` | A placeholder doing the job of a label |
+| `nothing-here-yet` | A No X yet or Nothing here yet empty state heading |
 
 **Movement**
 
