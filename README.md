@@ -227,17 +227,23 @@ says something and gets out of your way.
 
 </details>
 
-### Why some send it back and some don't
+### Why some rules send it back and some only leave a note
 
-A rule only gets to turn a file back if two things are true. What it looks for has to mean one
-thing and nothing else, and almost nobody should ever want it on purpose.
+Every rule has to pass two tests before it's allowed to stop a file.
 
-Take a hot-linked Unsplash photo in shipped code. It means one thing, and almost nobody
-wants it, so that one sends the file back. Three cards in a row is a genuine tell, but plenty
-of good pages have three cards in a row, so that one just says something and moves on.
+**Is there only one explanation for it?** A hot-linked Unsplash URL in shipped code is only
+ever one thing. Three cards in a row isn't: sometimes that's a template, and sometimes it's
+just three cards.
 
-How many people agree a pattern is ugly doesn't come into it. The only question is whether
-sending the file back would ever be the wrong call.
+**Would anyone ever choose it on purpose?** Nobody means to ship a photo that loads off
+someone else's server. Plenty of good pages have three cards.
+
+A rule needs a yes to both. Unsplash gets a yes to both, so `stock-placeholder-image` sends
+the file back. Three cards gets a no to both, so `three-card-grid` leaves a note and the file
+goes through.
+
+Whether the pattern is ugly doesn't come into it. The only thing I ask is whether sending a
+file back could ever be the wrong call. If it could, the rule doesn't get to.
 
 ## When a rule gets it wrong
 
@@ -248,11 +254,11 @@ Turn it off for that project:
 { "off": ["ai-purple"] }
 ```
 
-One rule, one project. You can't skip a single line, and that's deliberate, because if you
-could then the agent could write the skip itself and wave its own work through.
+That switches off one rule in one project. There's no way to skip a single line, and that's
+deliberate: if there were, the agent could write the skip itself and wave its own work through.
 
-If the same rule turns the same file back three times, Undercoat stops trying and hands the
-problem to you, rather than letting the agent go round in circles.
+If the same rule turns the same file back three times, Undercoat gives up and tells you,
+instead of letting the agent loop.
 
 ## What it can't do
 
@@ -274,20 +280,19 @@ I ran it over shadcn/ui, tailwindcss.com and cal.com, which is about 4,700 files
 carefully written code by people who know what they're doing. It sends back 0.3% of them now,
 and most of those are fair.
 
-That corpus decides things, and it is also how most of the rules got written. The loop is:
-generate a page that already passes every rule, look at what is still wrong with it, turn
-that into a rule, then measure the rule before it is allowed to turn anything back.
+Those three codebases are also how most of the rules got written. The loop is: generate a
+page that already passes every rule, look at what's still wrong with it, write a rule for
+that, then measure the new rule against real code before letting it stop anything.
 
-Sixteen rules came out of three rounds of that. It also cost one: `hardcoded-slate` used to
-send files back, until widening it to zinc and gray showed that hardcoding neutral hexes is normal in
-real code. It advises now.
+Three rounds of that produced sixteen rules. It also killed one. `hardcoded-slate` used to
+send files back, until widening it to zinc and gray showed that hardcoding neutral hexes is
+normal in real code. It only leaves a note now.
 
-The first version turned back a third of tailwindcss.com, which was how I found out that five
-rules were badly judged and several were far too broad.
+The first version sent back a third of tailwindcss.com. That's how I found five rules I'd
+judged badly and several that were far too broad.
 
-The rules with teeth are all judgement calls about what nobody would want on purpose. If one
-of them turns back something you meant to write, I got that judgement wrong, and I'd like to
-know.
+Every rule with teeth is my judgment about what nobody would want on purpose. If one of them
+sends back something you meant to write, I got that judgment wrong, and I'd like to know.
 
 ## Credit
 
