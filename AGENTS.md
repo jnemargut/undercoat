@@ -184,6 +184,78 @@ One word of the headline set in italic, usually in a different colour, is a temp
 
 *Applies to: `**/*.tsx`, `**/*.jsx`, `**/*.vue`, `**/*.svelte`, `**/*.html`*
 
+### stat-row
+
+The wall of impressive figures. 12,000+ / 99.9% / 40+ with no source and no date, sitting in a row because the section looked empty without them. Measured against 4,722 files of hand-written UI from shadcn/ui, tailwindcss.com and cal.com: 0 hits.
+
+**Instead:** One number you can stand behind, with where it came from. If you cannot source it, the section is better without it.
+
+*Applies to: `**/*.tsx`, `**/*.jsx`, `**/*.vue`, `**/*.svelte`, `**/*.html`*
+
+### marketing-eyebrow
+
+A one-word label above a centred heading above a centred sentence. It is the same block repeated down the page, and the label never tells the reader anything the heading did not. Measured against 4,722 files of hand-written UI from shadcn/ui, tailwindcss.com and cal.com: 1 hit.
+
+**Instead:** Delete the label. If the heading needs a preamble to make sense, rewrite the heading.
+
+*Applies to: `**/*.tsx`, `**/*.jsx`, `**/*.vue`, `**/*.svelte`, `**/*.html`*
+
+### hero-pill-badge
+
+The little pill announcing a feature nobody asked about yet. It is the default way to fill the space above a headline. Measured against 4,722 files of hand-written UI from shadcn/ui, tailwindcss.com and cal.com: 0 hits.
+
+**Instead:** Start with the headline. If the announcement matters, it deserves more than a chip.
+
+*Applies to: `**/*.tsx`, `**/*.jsx`, `**/*.vue`, `**/*.svelte`, `**/*.html`*
+
+### testimonial-triplet
+
+Three testimonials of near-identical length, side by side, each with a grey circle where a face should be. Real praise does not arrive in matching sizes. Measured against 4,722 files of hand-written UI from shadcn/ui, tailwindcss.com and cal.com: 0 hits.
+
+**Instead:** One real quote you can attribute, or none. Three invented ones read as three invented ones.
+
+*Applies to: `**/*.tsx`, `**/*.jsx`, `**/*.vue`, `**/*.svelte`, `**/*.html`*
+
+### card-icon-tile
+
+The tinted rounded tile with an outline icon in it, once per feature card. It is decoration standing in for a picture nobody had. Measured against 4,722 files of hand-written UI from shadcn/ui, tailwindcss.com and cal.com: 2 hits.
+
+**Instead:** Drop the tile. An icon can sit inline at text size, or the card can lead with its heading.
+
+*Applies to: `**/*.tsx`, `**/*.jsx`, `**/*.vue`, `**/*.svelte`, `**/*.html`*
+
+### pricing-most-popular
+
+The badge on the middle tier, almost always the one you want sold. It is a template slot rather than an observation about what people actually buy. Measured against 4,722 files of hand-written UI from shadcn/ui, tailwindcss.com and cal.com: 0 hits.
+
+**Instead:** If a plan genuinely suits most teams, say who it suits and why, in words.
+
+*Applies to: `**/*.tsx`, `**/*.jsx`, `**/*.vue`, `**/*.svelte`, `**/*.html`*
+
+### invented-faq
+
+Four questions nobody asked, written to fill a section. A real FAQ comes from support tickets and reads nothing like this. Measured against 4,722 files of hand-written UI from shadcn/ui, tailwindcss.com and cal.com: 1 hit.
+
+**Instead:** Answer the questions people actually send you, and put them where they get asked.
+
+*Applies to: `**/*.tsx`, `**/*.jsx`, `**/*.vue`, `**/*.svelte`, `**/*.html`*
+
+### repeated-cta
+
+The identical call to action at the top and again at the bottom. Saying it twice in the same words does not make it more persuasive, it makes the page feel padded. Measured against 4,722 files of hand-written UI from shadcn/ui, tailwindcss.com and cal.com: 0 hits.
+
+**Instead:** If the second one is worth having, it should offer something the first did not.
+
+*Applies to: `**/*.tsx`, `**/*.jsx`, `**/*.vue`, `**/*.svelte`, `**/*.html`*
+
+### hardcoded-slate
+
+Slate is what a model reaches for the moment blue and purple are off the table. Hardcoding the ramp means the greys were inherited rather than chosen. Measured against 4,722 files of hand-written UI from shadcn/ui, tailwindcss.com and cal.com: 1 hit.
+
+**Instead:** Pick a neutral with a temperature. Warm greys, cool greys and true greys all read differently, and any deliberate choice beats the default.
+
+*Applies to: `**/*.tsx`, `**/*.jsx`, `**/*.vue`, `**/*.svelte`, `**/*.html`, `**/*.css`, `**/*.scss`*
+
 ## Think twice about these
 
 Real tells that fail one of the two blocking tests. Either the match is a proxy that also catches legitimate code, or the pattern is sometimes wanted deliberately. These do not block anything.

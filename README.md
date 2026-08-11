@@ -69,15 +69,16 @@ try `cat > file` instead, so Undercoat turns that down and points it back at the
 
 ## The rules
 
-**57 of them. 21 refuse the file, 36 leave a note and let it through.**
+**66 of them. 30 refuse the file, 36 leave a note and let it through.**
 
 <details>
-<summary><strong>The 21 that refuse</strong></summary>
+<summary><strong>The 30 that refuse</strong></summary>
 
 **Colour**
 
 | Rule | What it catches |
 |---|---|
+| `hardcoded-slate` | Tailwind's slate ramp hardcoded as the palette |
 | `ai-purple` | Purple, violet or indigo gradient stops |
 | `ai-purple-hex` | The seven hex values models reach for when they mean "primary" |
 | `rainbow-gradient` | Gradients with three or more colour stops |
@@ -99,6 +100,19 @@ try `cat > file` instead, so Undercoat turns that down and points it back at the
 |---|---|
 | `default-sans-inter` | Inter set as the typeface |
 | `hero-italic-emphasis` | One italic word inside a hero headline |
+
+**The template page**
+
+| Rule | What it catches |
+|---|---|
+| `stat-row` | Three or more round, unsourced numbers in a row |
+| `marketing-eyebrow` | Section labels like Features, Benefits, How it works |
+| `hero-pill-badge` | A small rounded chip sitting above the hero headline |
+| `testimonial-triplet` | Three quote cards in a row, each with a circle avatar and a job title |
+| `card-icon-tile` | An icon in a small rounded square at the top of a card |
+| `pricing-most-popular` | A Most popular badge on a pricing tier |
+| `invented-faq` | A Frequently asked questions block |
+| `repeated-cta` | The same button wording repeated down the page |
 
 **Words on the page**
 
@@ -253,9 +267,11 @@ I ran it over shadcn/ui, tailwindcss.com and cal.com, which is about 4,700 files
 carefully written code by people who know what they're doing. It refuses 0.3% of them now,
 and most of those are fair.
 
-That corpus decides things. When someone suggested the italic-word-in-a-hero rule, it turned
-up zero times in all 4,700 files, which is what earned it a place in the refusing list rather
-than the advisory one.
+That corpus decides things. Nine of the rules came from someone looking at pages that had
+already passed the floor and pointing at what was still wrong with them. Each one was then
+measured before it was allowed to refuse anything: the stat row, the pill badge above a
+hero, three matching testimonials and a repeated call to action all turn up zero times in
+4,722 files of careful hand-written code.
 
 The first version refused a third of tailwindcss.com, which was how I found out that five
 rules were badly judged and several were far too broad.
