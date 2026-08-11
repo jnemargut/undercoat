@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Undercoat — the write-time floor.
+Undercoat: the write-time floor.
 
 A Claude Code PreToolUse hook. Reads the tool call about to run, matches the content
 against patterns.json, and refuses the write before the file lands.
@@ -161,7 +161,7 @@ def targets_from(tool_name: str, tool_input: dict):
 
 
 # Shell constructs that put bytes into a file. We refuse the *route*, not the
-# content travelling down it — a far smaller job than parsing shell.
+# content travelling down it, a far smaller job than parsing shell.
 BASH_WRITE_ROUTES = [
     (re.compile(r"(?<![0-9&])>>?\s*([^\s;|&'\"<>]+)"), "redirect"),
     (re.compile(r"\btee\b(?:\s+-\w+)*\s+([^\s;|&'\"<>]+)"), "tee"),
@@ -203,7 +203,7 @@ def attempt_count(session_id: str, rule_id: str, path: str) -> int:
 # -------------------------------------------------------------------------- messages
 
 def refusal(rule: dict, path: str, matched: str) -> str:
-    """A directive, not a complaint — the agent is the reader, not the human."""
+    """A directive, not a complaint. The agent is the reader, not the human."""
     return "\n".join([
         f"REFUSED  undercoat/{rule['id']}",
         f"FILE  {path}",
@@ -226,7 +226,7 @@ def stop_message(rule: dict, path: str, count: int) -> str:
 
 
 def note(rule: dict, path: str, matched: str) -> str:
-    """Warn tier — same shape, no prohibition."""
+    """Warn tier: same shape, no prohibition."""
     return "\n".join([
         f"NOTE  undercoat/{rule['id']}",
         f"FILE  {path}",
@@ -267,7 +267,7 @@ def main() -> int:
     tool_input = payload.get("tool_input", {}) or {}
     session_id = payload.get("session_id", "")
 
-    # Opted out, or not a project at all — do nothing at all.
+    # Opted out, or not a project at all, so do nothing.
     root = project_root()
     if root is None:
         return 0

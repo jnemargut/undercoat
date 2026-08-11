@@ -104,7 +104,7 @@ if settings_path.exists():
         try:
             settings = json.loads(raw)
         except json.JSONDecodeError as exc:
-            # Refuse rather than guess — this file governs the whole agent setup.
+            # Refuse rather than guess. This file governs the whole agent setup.
             print(f"  ! {settings_path} is not valid JSON ({exc}).")
             print("  ! Refusing to touch it. Add this hook by hand:")
             print(f'  !   PreToolUse matcher "Write|Edit|MultiEdit|NotebookEdit|Bash" -> {command}')

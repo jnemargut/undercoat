@@ -4,17 +4,17 @@
 
 The invisible layer that keeps AI-built interfaces from looking AI-built.
 
-This file is the floor. It won't make an interface beautiful — it exists to stop one
+This file is the floor. It will not make an interface beautiful. It exists to stop one
 looking machine-made. Every rule below is a documented tell of machine-made
 interfaces. A rule refuses a write only when its match means one thing and almost
 nobody wants that thing on purpose; everything else advises.
 
 On tools that support hooks, the `block` rules are enforced at the write and the file
-never lands. Everywhere else, this file is the whole of it — read it and honour it.
+never lands. Everywhere else, this file is all there is, so read it and honour it.
 
 ## Do not write these
 
-Patterns that mean one thing and that almost nobody wants on purpose. On Claude Code these are refused at the write — the file will not be created until they are gone.
+Patterns that mean one thing and that almost nobody wants on purpose. On Claude Code these are refused at the write, and the file will not be created until they are gone.
 
 ### ai-purple
 
@@ -178,7 +178,7 @@ Emoji standing in for an icon system is a named tell. It renders differently on 
 
 ## Think twice about these
 
-Real tells that fail one of the two blocking tests — either the match is a proxy that also catches legitimate code, or the pattern is sometimes wanted deliberately. These do not block anything.
+Real tells that fail one of the two blocking tests. Either the match is a proxy that also catches legitimate code, or the pattern is sometimes wanted deliberately. These do not block anything.
 
 ### tailwind-default-blue
 
@@ -192,13 +192,13 @@ Tailwind's mid-blue as the primary brand colour is the framework default wearing
 
 ### default-grey-body
 
-Light grey body text is the most common accessibility failure in generated UI, and it reads as washed out rather than subtle. (Dark-mode variants are excluded — dark:text-gray-400 is correct.)
+Light grey body text is the most common accessibility failure in generated UI, and it reads as washed out rather than subtle. Dark-mode variants are excluded, since dark:text-gray-400 is correct.
 
 **Instead:** Body copy at full strength. If something should recede, reduce its size or weight, not its contrast.
 
 *Applies to: `**/*.tsx`, `**/*.jsx`, `**/*.vue`, `**/*.svelte`, `**/*.html`*
 
-*Advises rather than blocks: Correct on dark surfaces — tailwindcss.com pairs text-gray-400 with text-white. A regex cannot see the background colour, so this advises.*
+*Advises rather than blocks: Correct on dark surfaces. tailwindcss.com pairs text-gray-400 with text-white, and a regex cannot see the background colour, so this advises.*
 
 ### pure-black-on-white
 
@@ -212,7 +212,7 @@ Pure black on pure white is harsher than print ever was and reads as untuned.
 
 ### hardcoded-hex-in-markup
 
-Arbitrary hex values scattered through markup means there is no palette — every colour was decided separately and none of them relate.
+Arbitrary hex values scattered through markup means there is no palette. Every colour was decided separately and none of them relate.
 
 **Instead:** Put the value in your theme and use the token. If it is worth using twice it is worth naming.
 
@@ -238,7 +238,7 @@ When everything is bold nothing is. Uniform heavy weight is what happens when hi
 
 *Applies to: `**/*.tsx`, `**/*.jsx`, `**/*.ts`, `**/*.js`, `**/*.vue`, `**/*.svelte`*
 
-*Advises rather than blocks: Counting occurrences in a window is a proxy — a dense component can trip it legitimately.*
+*Advises rather than blocks: Counting occurrences in a window is a proxy, and a dense component can trip it legitimately.*
 
 ### eyebrow-label
 
@@ -284,7 +284,7 @@ Frosted glass on everything is the current default for 'make it look premium'. A
 
 Oversized rounding on every surface is a named tell. When cards, buttons and inputs share one bubbly radius, nothing reads as a different kind of thing.
 
-**Instead:** Pick one radius for the project and vary it deliberately — tighter on inputs, looser on containers.
+**Instead:** Pick one radius for the project and vary it deliberately: tighter on inputs, looser on containers.
 
 *Applies to: `**/*.tsx`, `**/*.jsx`, `**/*.vue`, `**/*.svelte`, `**/*.html`*
 
@@ -382,7 +382,7 @@ Centred everything is the layout equivalent of a shrug. Centred text is hard to 
 
 ### nested-cards
 
-Everything wrapped in a card, then cards inside cards — three levels of container because hierarchy was never decided.
+Everything wrapped in a card, then cards inside cards. Three levels of container, because hierarchy was never decided.
 
 **Instead:** One container. Use spacing to group what is inside it.
 
@@ -392,7 +392,7 @@ Everything wrapped in a card, then cards inside cards — three levels of contai
 
 ### hero-icon-circle
 
-The big circled icon floating above a centred heading is a named tell — decoration sized larger than the message it introduces.
+The big circled icon floating above a centred heading is a named tell. The decoration is sized larger than the message it introduces.
 
 **Instead:** Lose the circle. If the icon earns its place, let it sit inline at text scale.
 
@@ -442,7 +442,7 @@ Interfaces generated without a spacing decision default to too tight. Padding is
 
 ### magic-spacing
 
-Arbitrary pixel values mean there is no spacing scale — every gap was decided in isolation.
+Arbitrary pixel values mean there is no spacing scale. Every gap was decided in isolation.
 
 **Instead:** Use the scale. If nothing on the scale fits, the scale is wrong and should change.
 
@@ -464,7 +464,7 @@ A button under about 44px is hard to hit and reads as an afterthought.
 
 The same fade-in on every element is motion applied as a finish rather than to show a relationship. It delays everything and explains nothing.
 
-**Instead:** Animate what changes meaning — a thing arriving, a state flipping. Leave the rest still.
+**Instead:** Animate what changes meaning: a thing arriving, a state flipping. Leave the rest still.
 
 *Applies to: `**/*.tsx`, `**/*.jsx`, `**/*.ts`, `**/*.js`, `**/*.vue`, `**/*.svelte`*
 
@@ -542,7 +542,7 @@ A placeholder used as the only label disappears the moment someone types, and ta
 
 ## When a rule is wrong
 
-Some projects genuinely need a banned pattern — a brand really is purple, a client
+Some projects genuinely need a banned pattern. A brand really is purple, a client
 really did specify that face. Mute the rule for the project rather than working around
 it:
 

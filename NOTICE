@@ -5,11 +5,11 @@ This product includes design anti-pattern knowledge derived from publicly docume
 catalogs. Undercoat's rules are written independently, but the patterns they describe
 were identified and named by these projects:
 
-  impeccable — https://github.com/pbakaus/impeccable
+  impeccable, https://github.com/pbakaus/impeccable
     Licensed under the Apache License, Version 2.0.
     Copyright Paul Bakaus.
 
-  Taste Skill — https://www.tasteskill.dev/
+  Taste Skill, https://www.tasteskill.dev/
   web-taste
   frontend-design (Anthropic)
 

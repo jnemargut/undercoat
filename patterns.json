@@ -4,7 +4,7 @@
   "_provenance": {
     "severity_model": "Since flag-001, severity derives from risk, not consensus. A rule blocks only if `unambiguous` (the regex means one thing) AND `rarely_legitimate` (almost nobody wants this on purpose) are both true. Every warn rule carries `risk_note` saying which test it failed.",
     "why_changed": "Catalog count measures how contested a pattern is. It says nothing about whether refusing on it will ever be wrong. design-005 conflated the two; flag-001 separates them.",
-    "catalogs_field": "Retained as provenance only. Counts are reconstructed from published descriptions and write-ups, NOT verified against source rule files. Severity no longer depends on them, which lowers the cost of that gap — but they are still unverified.",
+    "catalogs_field": "Retained as provenance only. Counts are reconstructed from published descriptions and write-ups, NOT verified against source rule files. Severity no longer depends on them, which lowers the cost of that gap, but they are still unverified.",
     "authored_by": "The `rarely_legitimate` calls are judgments, not measurements. They are the thing to audit if a block ever fires on legitimate code.",
     "not_shipped": {
       "wcag-contrast": "True contrast ratio needs computed style. The lexical proxy ships as `default-grey-body`.",
@@ -13,7 +13,7 @@
       "dead-hover-states": "Requires knowing what the hover does.",
       "icon-larger-than-content": "Relative sizing between elements."
     },
-    "corpus_validation": "Validated against shadcn/ui, tailwindcss.com and cal.com. The first run refused 32.7% of tailwindcss.com, which exposed three wrong `rarely_legitimate` calls (dark-mode grey text, backdrop-blur on navs, John Doe as an input placeholder) and four rules that had to be demoted. Demonstration directories are exempt from the copy and asset rules only — placeholder content is correct in a demo; a purple gradient is not. Second pass: default-grey-body demoted (grey on dark is correct and undetectable by regex), and test/fixture directories exempted from every rule."
+    "corpus_validation": "Validated against shadcn/ui, tailwindcss.com and cal.com. The first run refused 32.7% of tailwindcss.com, which exposed three wrong `rarely_legitimate` calls (dark-mode grey text, backdrop-blur on navs, John Doe as an input placeholder) and four rules that had to be demoted. Demonstration directories are exempt from the copy and asset rules only , placeholder content is correct in a demo; a purple gradient is not. Second pass: default-grey-body demoted (grey on dark is correct and undetectable by regex), and test/fixture directories exempted from every rule."
   },
   "rules": [
     {
@@ -44,7 +44,8 @@
         "**/tests/**"
       ],
       "because": "The purple-to-violet gradient is the single strongest tell of machine-made UI. Models reach for it because it sits under thousands of SaaS landing pages in the training data.",
-      "instead": "One flat colour chosen for this project. If you want depth, use spacing and type weight, not a gradient."
+      "instead": "One flat colour chosen for this project. If you want depth, use spacing and type weight, not a gradient.",
+      "catches": "Purple, violet or indigo gradient stops"
     },
     {
       "id": "ai-purple-hex",
@@ -74,7 +75,8 @@
         "**/tests/**"
       ],
       "because": "These are the exact hex values models default to for 'primary'. Seeing one hardcoded means the colour was inherited, not chosen.",
-      "instead": "Define your own value. Any deliberate hue beats the one that arrived by default."
+      "instead": "Define your own value. Any deliberate hue beats the one that arrived by default.",
+      "catches": "The seven hex values models pick for 'primary'"
     },
     {
       "id": "rainbow-gradient",
@@ -102,7 +104,8 @@
         "**/tests/**"
       ],
       "because": "A three-stop gradient is decoration with no informational job. It is the 'make it look exciting' reflex.",
-      "instead": "One colour, or a two-stop gradient with a reason. Excitement comes from contrast, not from hue count."
+      "instead": "One colour, or a two-stop gradient with a reason. Excitement comes from contrast, not from hue count.",
+      "catches": "Gradients with three or more colour stops"
     },
     {
       "id": "tailwind-default-blue",
@@ -131,7 +134,8 @@
       ],
       "because": "Tailwind's mid-blue as the primary brand colour is the framework default wearing a brand's clothes.",
       "instead": "Define one project colour and use it. Any deliberate hue beats the palette you got for free.",
-      "risk_note": "Plenty of real products deliberately use a mid-blue, and Tailwind's is a reasonable one."
+      "risk_note": "Plenty of real products deliberately use a mid-blue, and Tailwind's is a reasonable one.",
+      "catches": "bg-blue-500 or bg-blue-600 as the brand colour"
     },
     {
       "id": "default-grey-body",
@@ -158,9 +162,10 @@
         "**/test/**",
         "**/tests/**"
       ],
-      "because": "Light grey body text is the most common accessibility failure in generated UI, and it reads as washed out rather than subtle. (Dark-mode variants are excluded — dark:text-gray-400 is correct.)",
+      "because": "Light grey body text is the most common accessibility failure in generated UI, and it reads as washed out rather than subtle. Dark-mode variants are excluded, since dark:text-gray-400 is correct.",
       "instead": "Body copy at full strength. If something should recede, reduce its size or weight, not its contrast.",
-      "risk_note": "Correct on dark surfaces — tailwindcss.com pairs text-gray-400 with text-white. A regex cannot see the background colour, so this advises."
+      "risk_note": "Correct on dark surfaces. tailwindcss.com pairs text-gray-400 with text-white, and a regex cannot see the background colour, so this advises.",
+      "catches": "Light grey body text on a light background"
     },
     {
       "id": "tinted-shadow",
@@ -188,7 +193,8 @@
         "**/tests/**"
       ],
       "because": "A coloured shadow is a glow with extra steps. It is the most-copied way to make a button look special without deciding anything.",
-      "instead": "Neutral shadow, or none. If the element needs to stand out, change its size, weight or position."
+      "instead": "Neutral shadow, or none. If the element needs to stand out, change its size, weight or position.",
+      "catches": "Coloured shadows like shadow-purple-500/50"
     },
     {
       "id": "gradient-on-root",
@@ -216,7 +222,8 @@
         "**/tests/**"
       ],
       "because": "A gradient across the whole page background is the default 'premium' move and it fights every piece of content placed on it.",
-      "instead": "A flat background. Let the content carry the interest."
+      "instead": "A flat background. Let the content carry the interest.",
+      "catches": "A gradient applied to the page background itself"
     },
     {
       "id": "pure-black-on-white",
@@ -247,7 +254,8 @@
         "**/tests/**"
       ],
       "because": "Pure black on pure white is harsher than print ever was and reads as untuned.",
-      "instead": "Near-black around #14141a. The eye reads it as black and it stops vibrating."
+      "instead": "Near-black around #14141a. The eye reads it as black and it stops vibrating.",
+      "catches": "Pure #000 text"
     },
     {
       "id": "hardcoded-hex-in-markup",
@@ -275,8 +283,9 @@
         "**/test/**",
         "**/tests/**"
       ],
-      "because": "Arbitrary hex values scattered through markup means there is no palette — every colour was decided separately and none of them relate.",
-      "instead": "Put the value in your theme and use the token. If it is worth using twice it is worth naming."
+      "because": "Arbitrary hex values scattered through markup means there is no palette. Every colour was decided separately and none of them relate.",
+      "instead": "Put the value in your theme and use the token. If it is worth using twice it is worth naming.",
+      "catches": "Arbitrary hex values inline in class names"
     },
     {
       "id": "default-sans-inter",
@@ -304,7 +313,8 @@
         "**/tests/**"
       ],
       "because": "Inter is the default of defaults. It is not a bad typeface; it is the one chosen when nobody chose.",
-      "instead": "Pick a face with a point of view and commit to it. Name it in the project's own styles."
+      "instead": "Pick a face with a point of view and commit to it. Name it in the project's own styles.",
+      "catches": "Inter declared as the typeface"
     },
     {
       "id": "system-font-only",
@@ -326,14 +336,15 @@
         "**/fixtures/**",
         "**/test/**",
         "**/tests/**"
-      ]
+      ],
+      "catches": "The system font stack as the only typographic choice"
     },
     {
       "id": "all-bold",
       "severity": "warn",
       "unambiguous": false,
       "rarely_legitimate": true,
-      "risk_note": "Counting occurrences in a window is a proxy — a dense component can trip it legitimately.",
+      "risk_note": "Counting occurrences in a window is a proxy, and a dense component can trip it legitimately.",
       "catalogs": 1,
       "match": "(?:\\bfont-bold\\b[\\s\\S]{0,300}){4,}",
       "in": [
@@ -356,7 +367,8 @@
         "**/tests/**"
       ],
       "because": "When everything is bold nothing is. Uniform heavy weight is what happens when hierarchy was never decided.",
-      "instead": "One or two weights doing different jobs. Let size and space carry the rest."
+      "instead": "One or two weights doing different jobs. Let size and space carry the rest.",
+      "catches": "font-bold repeated until nothing stands out"
     },
     {
       "id": "eyebrow-label",
@@ -385,7 +397,8 @@
         "**/tests/**"
       ],
       "because": "The tiny uppercase letterspaced kicker above every heading is a template convention, repeated until it means nothing.",
-      "instead": "Say it in the heading, or drop it. A label that adds no information is decoration."
+      "instead": "Say it in the heading, or drop it. A label that adds no information is decoration.",
+      "catches": "The tiny uppercase letterspaced kicker above a heading"
     },
     {
       "id": "giant-hero-text",
@@ -414,7 +427,8 @@
         "**/tests/**"
       ],
       "because": "Enormous hero type is how generated pages signal importance without earning it. At this size the words usually say less than the space they take.",
-      "instead": "Drop a step or two and give the line something worth reading."
+      "instead": "Drop a step or two and give the line something worth reading.",
+      "catches": "text-7xl and above"
     },
     {
       "id": "neon-glow",
@@ -441,7 +455,8 @@
         "**/tests/**"
       ],
       "because": "A zero-offset glow is decoration standing in for hierarchy. Neon-on-dark with glowing borders is the v0 and Cursor signature.",
-      "instead": "Offset shadows describe light and depth. If the element needs emphasis, give it size, weight or space."
+      "instead": "Offset shadows describe light and depth. If the element needs emphasis, give it size, weight or space.",
+      "catches": "Zero-offset box shadows used as a glow"
     },
     {
       "id": "default-heavy-shadow",
@@ -470,7 +485,8 @@
       ],
       "because": "The default heavy drop shadow on every card is how generated UI signals 'this is a component'. Real interfaces use shadow sparingly and at one or two depths.",
       "instead": "A hairline border, or a shadow one or two steps lighter. Reserve the heaviest depth for things that actually float.",
-      "risk_note": "shadow-xl is the right depth for modals, popovers and dropdowns that genuinely float."
+      "risk_note": "shadow-xl is the right depth for modals, popovers and dropdowns that genuinely float.",
+      "catches": "shadow-xl and shadow-2xl on ordinary cards"
     },
     {
       "id": "glassmorphism",
@@ -501,7 +517,8 @@
       ],
       "because": "Frosted glass on everything is the current default for 'make it look premium'. Applied without a reason it flattens hierarchy and wrecks contrast.",
       "instead": "Solid surfaces. If you want separation, use a different background value or real spacing.",
-      "risk_note": "Correct for translucent navs, modal scrims and overlays. Observed on sticky headers in cal.com; blocking it would break standard practice."
+      "risk_note": "Correct for translucent navs, modal scrims and overlays. Observed on sticky headers in cal.com; blocking it would break standard practice.",
+      "catches": "Frosted glass via backdrop-blur"
     },
     {
       "id": "ambient-blur-orb",
@@ -529,7 +546,8 @@
         "**/tests/**"
       ],
       "because": "The giant blurred colour blob floating behind the hero is pure decoration, and it is in every generated landing page written since 2023.",
-      "instead": "Delete it. If the background needs interest, use a real edge, a rule, or a change of surface."
+      "instead": "Delete it. If the background needs interest, use a real edge, a rule, or a change of surface.",
+      "catches": "The blurred colour blob floating behind a hero"
     },
     {
       "id": "uniform-bubbly-radius",
@@ -557,8 +575,9 @@
         "**/tests/**"
       ],
       "because": "Oversized rounding on every surface is a named tell. When cards, buttons and inputs share one bubbly radius, nothing reads as a different kind of thing.",
-      "instead": "Pick one radius for the project and vary it deliberately — tighter on inputs, looser on containers.",
-      "risk_note": "rounded-3xl is a legitimate deliberate choice for soft design systems."
+      "instead": "Pick one radius for the project and vary it deliberately: tighter on inputs, looser on containers.",
+      "risk_note": "rounded-3xl is a legitimate deliberate choice for soft design systems.",
+      "catches": "rounded-3xl applied to every surface"
     },
     {
       "id": "gradient-border-trick",
@@ -586,7 +605,8 @@
         "**/tests/**"
       ],
       "because": "The one-pixel gradient wrapper faking a glowing border is a copied trick, not a design decision.",
-      "instead": "A real border in one colour. If the edge needs emphasis, change the surface inside it."
+      "instead": "A real border in one colour. If the edge needs emphasis, change the surface inside it.",
+      "catches": "A 1px gradient wrapper faking a glowing border"
     },
     {
       "id": "z-index-nuke",
@@ -616,7 +636,8 @@
         "**/tests/**"
       ],
       "because": "A four-digit z-index means the stacking order was never designed, only fought with.",
-      "instead": "Fix the stacking context. If two things overlap, one of them is in the wrong place in the tree."
+      "instead": "Fix the stacking context. If two things overlap, one of them is in the wrong place in the tree.",
+      "catches": "Four-digit z-index values"
     },
     {
       "id": "ring-decoration",
@@ -645,7 +666,8 @@
         "**/tests/**"
       ],
       "because": "Rings used as decoration rather than focus states dilute the one signal keyboard users depend on.",
-      "instead": "Keep ring for focus. For emphasis use a border or a background change."
+      "instead": "Keep ring for focus. For emphasis use a border or a background change.",
+      "catches": "Focus rings used as ornament"
     },
     {
       "id": "border-and-shadow",
@@ -674,7 +696,8 @@
         "**/tests/**"
       ],
       "because": "A border and a shadow on the same element is two solutions to one problem, applied because neither was chosen.",
-      "instead": "Pick one. Borders suit dense interfaces, shadows suit floating things."
+      "instead": "Pick one. Borders suit dense interfaces, shadows suit floating things.",
+      "catches": "A border and a shadow doing the same job"
     },
     {
       "id": "generic-cta",
@@ -709,7 +732,8 @@
         "**/tests/**"
       ],
       "because": "A call to action that says nothing about what happens next is the same button on ten thousand pages.",
-      "instead": "Name the action in the user's words. 'Start a 14-day trial', 'See it running', 'Read the first chapter'."
+      "instead": "Name the action in the user's words. 'Start a 14-day trial', 'See it running', 'Read the first chapter'.",
+      "catches": "Buttons that say Get Started, Learn More, Click Here"
     },
     {
       "id": "vague-headline",
@@ -744,7 +768,8 @@
         "**/tests/**"
       ],
       "because": "A headline that could sit on any product's page tells the reader nothing and wastes the only line they are guaranteed to read.",
-      "instead": "Say what this specific thing does for this specific person, in their words."
+      "instead": "Say what this specific thing does for this specific person, in their words.",
+      "catches": "Headlines like Transform your workflow or Unlock the power"
     },
     {
       "id": "buzzword-copy",
@@ -779,7 +804,8 @@
         "**/tests/**"
       ],
       "because": "Marketing vocabulary with no referent. These words survive because they are hard to disagree with, which is exactly why they persuade nobody.",
-      "instead": "Replace the adjective with the fact underneath it. 'Seamless' usually means 'no configuration'. Say that."
+      "instead": "Replace the adjective with the fact underneath it. 'Seamless' usually means 'no configuration'. Say that.",
+      "catches": "Seamless, cutting-edge, revolutionary, game-changing"
     },
     {
       "id": "lorem-ipsum",
@@ -817,7 +843,8 @@
         "**/tests/**"
       ],
       "because": "Placeholder copy in a real component means the content question was skipped, and skipped content is where generic layouts come from.",
-      "instead": "Write the actual sentence, even badly. Real copy changes the layout you need."
+      "instead": "Write the actual sentence, even badly. Real copy changes the layout you need.",
+      "catches": "Placeholder latin left in a real component"
     },
     {
       "id": "placeholder-copy",
@@ -854,7 +881,8 @@
         "**/tests/**"
       ],
       "because": "Template scaffolding that shipped. It signals that nobody read the page after it was generated.",
-      "instead": "Write the real thing, or delete the element until you have it."
+      "instead": "Write the real thing, or delete the element until you have it.",
+      "catches": "Your Company, Text goes here, Replace this"
     },
     {
       "id": "fake-testimonial",
@@ -891,7 +919,8 @@
         "**/tests/**"
       ],
       "because": "Invented social proof is worse than none. Placeholder names rendered as testimonial text are the clearest sign the section was generated wholesale.",
-      "instead": "Real quotes with real names, or remove the section until you have them."
+      "instead": "Real quotes with real names, or remove the section until you have them.",
+      "catches": "John Doe or Acme Inc rendered as social proof"
     },
     {
       "id": "ai-implementation-comment",
@@ -922,7 +951,8 @@
         "**/tests/**"
       ],
       "because": "A comment apologising for the code being a sketch. It is the most direct evidence possible that generated output shipped unread.",
-      "instead": "Either finish it or delete the branch. A comment is not a substitute for a decision."
+      "instead": "Either finish it or delete the branch. A comment is not a substitute for a decision.",
+      "catches": "Comments like // In a real implementation this would"
     },
     {
       "id": "exclamation-marketing",
@@ -951,7 +981,8 @@
         "**/tests/**"
       ],
       "because": "Exclamation marks in interface copy are enthusiasm applied to a reader who did not ask for it.",
-      "instead": "Say it flat. If the news is good the reader will supply the feeling."
+      "instead": "Say it flat. If the news is good the reader will supply the feeling.",
+      "catches": "Exclamation marks in interface copy"
     },
     {
       "id": "trusted-by-logos",
@@ -987,7 +1018,8 @@
         "**/tests/**"
       ],
       "because": "The logo strip is a template slot. When it appears before there are real customers, it is a slot filled rather than a claim made.",
-      "instead": "Only if the logos are real and you have permission. Otherwise the space is better empty."
+      "instead": "Only if the logos are real and you have permission. Otherwise the space is better empty.",
+      "catches": "A Trusted by logo strip"
     },
     {
       "id": "powered-by-ai-copy",
@@ -1023,7 +1055,8 @@
         "**/tests/**"
       ],
       "because": "Saying it is AI-powered describes the implementation, not the benefit. It is the first thing generated copy reaches for.",
-      "instead": "Say what it does for the reader. They do not care what is behind it."
+      "instead": "Say what it does for the reader. They do not care what is behind it.",
+      "catches": "Copy that sells the implementation rather than the benefit"
     },
     {
       "id": "stock-placeholder-image",
@@ -1062,7 +1095,8 @@
         "**/tests/**"
       ],
       "because": "Hot-linked stock photography is a placeholder that ships. It breaks offline, leaks referrers, and guarantees someone else's site looks identical.",
-      "instead": "A real asset in the repo, or an honest empty state. A blank space beats a stranger's photograph."
+      "instead": "A real asset in the repo, or an honest empty state. A blank space beats a stranger's photograph.",
+      "catches": "Hot-linked Unsplash, placehold.co or picsum URLs"
     },
     {
       "id": "generated-avatar-service",
@@ -1099,7 +1133,8 @@
         "**/tests/**"
       ],
       "because": "Procedurally generated avatars are the visual equivalent of Lorem ipsum, and they make every user look like a placeholder.",
-      "instead": "Initials on a flat background, or the user's real image. Both beat a robot face."
+      "instead": "Initials on a flat background, or the user's real image. Both beat a robot face.",
+      "catches": "Procedural avatars from dicebear or ui-avatars"
     },
     {
       "id": "emoji-as-icon",
@@ -1127,7 +1162,8 @@
         "**/tests/**"
       ],
       "because": "Emoji standing in for an icon system is a named tell. It renders differently on every platform and signals that no icon decision was made.",
-      "instead": "A real icon set, or no icon. If the label needs an emoji to carry meaning, the label needs rewriting."
+      "instead": "A real icon set, or no icon. If the label needs an emoji to carry meaning, the label needs rewriting.",
+      "catches": "Emoji standing in for an icon inside headings or buttons"
     },
     {
       "id": "sparkles-icon",
@@ -1157,7 +1193,8 @@
         "**/tests/**"
       ],
       "because": "The sparkle icon is the universal shorthand for 'this bit is AI'. It arrived with the first wave of AI products and has meant nothing since.",
-      "instead": "An icon that describes the action. If the action is 'generate', draw generating."
+      "instead": "An icon that describes the action. If the action is 'generate', draw generating.",
+      "catches": "The sparkle or wand icon as shorthand for AI"
     },
     {
       "id": "three-card-grid",
@@ -1185,7 +1222,8 @@
         "**/tests/**"
       ],
       "because": "Three equal-weight cards in a row is the default answer to 'show some features', repeated for every section. It gives every item the same importance, which usually means none were ranked.",
-      "instead": "Decide which one matters most and let the layout say so."
+      "instead": "Decide which one matters most and let the layout say so.",
+      "catches": "Three equal cards as a page's main content"
     },
     {
       "id": "default-container-width",
@@ -1215,7 +1253,8 @@
         "**/tests/**"
       ],
       "because": "Every generated page is 1280px centred. It is not wrong, it is the width nobody chose, and it makes unrelated products feel like the same site.",
-      "instead": "Pick a measure from your type. Long-form reading wants far narrower; a dashboard usually wants wider."
+      "instead": "Pick a measure from your type. Long-form reading wants far narrower; a dashboard usually wants wider.",
+      "catches": "max-w-7xl mx-auto, the width nobody chose"
     },
     {
       "id": "everything-centered",
@@ -1244,7 +1283,8 @@
         "**/tests/**"
       ],
       "because": "Centred everything is the layout equivalent of a shrug. Centred text is hard to read in paragraphs and removes the left edge the eye scans against.",
-      "instead": "Left-align body copy. Centre only short, deliberate lines."
+      "instead": "Left-align body copy. Centre only short, deliberate lines.",
+      "catches": "Whole sections centre-aligned"
     },
     {
       "id": "nested-cards",
@@ -1273,8 +1313,9 @@
         "**/test/**",
         "**/tests/**"
       ],
-      "because": "Everything wrapped in a card, then cards inside cards — three levels of container because hierarchy was never decided.",
-      "instead": "One container. Use spacing to group what is inside it."
+      "because": "Everything wrapped in a card, then cards inside cards. Three levels of container, because hierarchy was never decided.",
+      "instead": "One container. Use spacing to group what is inside it.",
+      "catches": "A card inside a card"
     },
     {
       "id": "hero-icon-circle",
@@ -1304,8 +1345,9 @@
         "**/test/**",
         "**/tests/**"
       ],
-      "because": "The big circled icon floating above a centred heading is a named tell — decoration sized larger than the message it introduces.",
-      "instead": "Lose the circle. If the icon earns its place, let it sit inline at text scale."
+      "because": "The big circled icon floating above a centred heading is a named tell. The decoration is sized larger than the message it introduces.",
+      "instead": "Lose the circle. If the icon earns its place, let it sit inline at text scale.",
+      "catches": "A large circled icon floating above a heading"
     },
     {
       "id": "full-height-hero",
@@ -1334,7 +1376,8 @@
         "**/tests/**"
       ],
       "because": "A hero that fills the viewport before saying anything is the template default. It costs the reader a scroll to learn nothing.",
-      "instead": "Size the section to its content. Let the next thing peek above the fold."
+      "instead": "Size the section to its content. Let the next thing peek above the fold.",
+      "catches": "min-h-screen on the first thing a reader sees"
     },
     {
       "id": "sticky-everything",
@@ -1364,7 +1407,8 @@
         "**/tests/**"
       ],
       "because": "More than one sticky element and the viewport belongs to the chrome rather than the content.",
-      "instead": "One sticky thing at most. Everything else can scroll away."
+      "instead": "One sticky thing at most. Everything else can scroll away.",
+      "catches": "More than one sticky element competing for the viewport"
     },
     {
       "id": "status-chip-soup",
@@ -1394,7 +1438,8 @@
         "**/tests/**"
       ],
       "because": "Badges everywhere is what happens when nothing was prioritised. Every state gets a chip and none of them read.",
-      "instead": "Keep the one or two states a user acts on. Put the rest in text."
+      "instead": "Keep the one or two states a user acts on. Put the rest in text.",
+      "catches": "Four or more badges in one view"
     },
     {
       "id": "cramped-padding",
@@ -1424,7 +1469,8 @@
         "**/tests/**"
       ],
       "because": "Interfaces generated without a spacing decision default to too tight. Padding is the cheapest quality signal there is.",
-      "instead": "Start generous and remove. If it looks empty, the type is probably too small."
+      "instead": "Start generous and remove. If it looks empty, the type is probably too small.",
+      "catches": "p-0 and p-1 where breathing room was needed"
     },
     {
       "id": "magic-spacing",
@@ -1453,8 +1499,9 @@
         "**/test/**",
         "**/tests/**"
       ],
-      "because": "Arbitrary pixel values mean there is no spacing scale — every gap was decided in isolation.",
-      "instead": "Use the scale. If nothing on the scale fits, the scale is wrong and should change."
+      "because": "Arbitrary pixel values mean there is no spacing scale. Every gap was decided in isolation.",
+      "instead": "Use the scale. If nothing on the scale fits, the scale is wrong and should change.",
+      "catches": "Arbitrary pixel spacing off the scale"
     },
     {
       "id": "small-touch-target",
@@ -1484,7 +1531,8 @@
         "**/tests/**"
       ],
       "because": "A button under about 44px is hard to hit and reads as an afterthought.",
-      "instead": "Give interactive targets room. Pad the hit area even when the icon stays small."
+      "instead": "Give interactive targets room. Pad the hit area even when the icon stays small.",
+      "catches": "Buttons under roughly 44px"
     },
     {
       "id": "uniform-fade-in",
@@ -1514,7 +1562,8 @@
         "**/tests/**"
       ],
       "because": "The same fade-in on every element is motion applied as a finish rather than to show a relationship. It delays everything and explains nothing.",
-      "instead": "Animate what changes meaning — a thing arriving, a state flipping. Leave the rest still."
+      "instead": "Animate what changes meaning: a thing arriving, a state flipping. Leave the rest still.",
+      "catches": "The same entrance animation on everything"
     },
     {
       "id": "bounce-easing",
@@ -1542,7 +1591,8 @@
         "**/tests/**"
       ],
       "because": "Overshoot easing on interface motion reads as playful once and cheap thereafter.",
-      "instead": "Ease-out for things entering, ease-in for things leaving. No overshoot on anything a user waits for."
+      "instead": "Ease-out for things entering, ease-in for things leaving. No overshoot on anything a user waits for.",
+      "catches": "Overshoot easing on interface motion"
     },
     {
       "id": "decorative-pulse",
@@ -1574,7 +1624,8 @@
         "**/tests/**"
       ],
       "because": "A pulsing element that is not loading anything is an animation looking for a job.",
-      "instead": "Keep pulse for skeletons and live indicators. Everything else can hold still."
+      "instead": "Keep pulse for skeletons and live indicators. Everything else can hold still.",
+      "catches": "animate-pulse on something that is not loading"
     },
     {
       "id": "slow-transition",
@@ -1604,7 +1655,8 @@
         "**/tests/**"
       ],
       "because": "Transitions over about half a second stop reading as responsive and start reading as lag.",
-      "instead": "150ms to 300ms for most interface motion. Reserve longer for things genuinely travelling a distance."
+      "instead": "150ms to 300ms for most interface motion. Reserve longer for things genuinely travelling a distance.",
+      "catches": "Transitions over half a second"
     },
     {
       "id": "dark-mode-reflex",
@@ -1633,7 +1685,8 @@
         "**/tests/**"
       ],
       "because": "Dark by default is the most common reflex in generated interfaces. Dark is a real choice for some products and a costume for most.",
-      "instead": "Decide. If the product is used in daylight by people reading text, light is probably right."
+      "instead": "Decide. If the product is used in daylight by people reading text, light is probably right.",
+      "catches": "A near-black page background as the default"
     },
     {
       "id": "inline-style-attribute",
@@ -1663,7 +1716,8 @@
         "**/tests/**"
       ],
       "because": "Inline styles bypass whatever system exists, which means the value was chosen locally and relates to nothing.",
-      "instead": "Put it in the stylesheet or the theme. If it is truly dynamic, that is the exception, not the habit."
+      "instead": "Put it in the stylesheet or the theme. If it is truly dynamic, that is the exception, not the habit.",
+      "catches": "Values set inline, bypassing the system"
     },
     {
       "id": "important-override",
@@ -1695,7 +1749,8 @@
         "**/tests/**"
       ],
       "because": "An !important is a note saying the cascade was lost. It is usually a symptom of a system that was never designed.",
-      "instead": "Fix the specificity. If you are overriding a third-party style, scope it instead."
+      "instead": "Fix the specificity. If you are overriding a third-party style, scope it instead.",
+      "catches": "!important"
     },
     {
       "id": "placeholder-as-label",
@@ -1724,7 +1779,8 @@
         "**/tests/**"
       ],
       "because": "A placeholder used as the only label disappears the moment someone types, and takes the field's meaning with it.",
-      "instead": "A real label above the field. Placeholders are for examples, not names."
+      "instead": "A real label above the field. Placeholders are for examples, not names.",
+      "catches": "A placeholder used as the only label"
     }
   ]
 }

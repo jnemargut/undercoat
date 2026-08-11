@@ -1,7 +1,6 @@
 This repo is exempt from its own rules.
 
-Undercoat's README and generated AGENTS.md quote the patterns they describe —
-"from-purple-600", "Lorem ipsum", "images.unsplash.com" — so the rules fire on
+Undercoat's README and generated AGENTS.md quote the patterns they describe, "from-purple-600", "Lorem ipsum", "images.unsplash.com", so the rules fire on
 the documentation about them. Undercoat cannot tell use from mention.
 
 Delete this file to enforce here.

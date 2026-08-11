@@ -3,10 +3,17 @@
   "$id": "https://github.com/jnemargut/undercoat/patterns.schema.json",
   "title": "Undercoat pattern file",
   "type": "object",
-  "required": ["version", "rules"],
+  "required": [
+    "version",
+    "rules"
+  ],
   "properties": {
-    "$schema": { "type": "string" },
-    "version": { "const": 2 },
+    "$schema": {
+      "type": "string"
+    },
+    "version": {
+      "const": 2
+    },
     "_provenance": {
       "type": "object",
       "description": "How the rule set was assembled and what has not been verified.",
@@ -15,19 +22,26 @@
     "rules": {
       "type": "array",
       "minItems": 1,
-      "items": { "$ref": "#/$defs/rule" }
+      "items": {
+        "$ref": "#/$defs/rule"
+      }
     }
   },
   "additionalProperties": false,
-
   "$defs": {
     "rule": {
       "type": "object",
       "description": "Severity is derived from risk, not from consensus (flag-001). A rule may block only if its match is unambiguous AND the pattern is almost never wanted deliberately. Catalog count is recorded as provenance and does not affect severity.",
       "required": [
-        "id", "severity", "match", "in",
-        "unambiguous", "rarely_legitimate",
-        "because", "instead"
+        "id",
+        "severity",
+        "match",
+        "in",
+        "unambiguous",
+        "rarely_legitimate",
+        "because",
+        "instead",
+        "catches"
       ],
       "properties": {
         "id": {
@@ -36,7 +50,10 @@
           "description": "Stable kebab-case identifier. Appears in refusal messages and in .undercoat.local.json mutes."
         },
         "severity": {
-          "enum": ["block", "warn"],
+          "enum": [
+            "block",
+            "warn"
+          ],
           "description": "block refuses the write (exit 2). warn allows it and attaches a note."
         },
         "unambiguous": {
@@ -54,7 +71,7 @@
         "catalogs": {
           "type": "integer",
           "minimum": 0,
-          "description": "How many public catalogs independently name this pattern. Provenance only — since flag-001 this does NOT drive severity."
+          "description": "How many public catalogs independently name this pattern. Provenance only \u2014 since flag-001 this does NOT drive severity."
         },
         "match": {
           "type": "string",
@@ -62,13 +79,17 @@
         },
         "in": {
           "type": "array",
-          "items": { "type": "string" },
+          "items": {
+            "type": "string"
+          },
           "minItems": 1,
           "description": "Glob patterns. The rule only applies to paths matching at least one."
         },
         "not_in": {
           "type": "array",
-          "items": { "type": "string" },
+          "items": {
+            "type": "string"
+          },
           "description": "Glob patterns. A path matching any of these is exempt. The primary false-alarm control."
         },
         "because": {
@@ -80,25 +101,60 @@
           "type": "string",
           "minLength": 10,
           "description": "The direction to go instead. Constrains without prescribing a specific replacement."
+        },
+        "catches": {
+          "type": "string",
+          "minLength": 8,
+          "maxLength": 80,
+          "description": "Short plain-English phrase naming what this rule catches. Used for the rule tables in the README."
         }
       },
       "additionalProperties": false,
       "allOf": [
         {
           "description": "A rule may only block if both risk tests pass.",
-          "if": { "properties": { "severity": { "const": "block" } }, "required": ["severity"] },
+          "if": {
+            "properties": {
+              "severity": {
+                "const": "block"
+              }
+            },
+            "required": [
+              "severity"
+            ]
+          },
           "then": {
             "properties": {
-              "unambiguous": { "const": true },
-              "rarely_legitimate": { "const": true }
+              "unambiguous": {
+                "const": true
+              },
+              "rarely_legitimate": {
+                "const": true
+              }
             },
-            "required": ["unambiguous", "rarely_legitimate"]
+            "required": [
+              "unambiguous",
+              "rarely_legitimate"
+            ]
           }
         },
         {
           "description": "A warn rule must say which test it failed.",
-          "if": { "properties": { "severity": { "const": "warn" } }, "required": ["severity"] },
-          "then": { "required": ["risk_note"] }
+          "if": {
+            "properties": {
+              "severity": {
+                "const": "warn"
+              }
+            },
+            "required": [
+              "severity"
+            ]
+          },
+          "then": {
+            "required": [
+              "risk_note"
+            ]
+          }
         }
       ]
     }

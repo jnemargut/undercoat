@@ -1,4 +1,4 @@
-# Locally muted rules — never shared
+# Locally muted rules, never shared
 .undercoat.local.json
 
 # Installed copies produced by install.sh
@@ -15,5 +15,5 @@ __pycache__/
 # other tooling's per-session state, not part of this repo
 .whogitit/
 
-# decision history — kept locally, not published
+# decision history, kept locally
 .decisions/

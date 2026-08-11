@@ -29,7 +29,7 @@ elif [ -f "${TARGET}/AGENTS.md" ] && head -1 "${TARGET}/AGENTS.md" | grep -q "Ge
   echo "  → removed ${TARGET}/AGENTS.md (it was ours)"
 fi
 
-echo "  · left .undercoat.local.json and the .gitignore line alone — yours to delete"
+echo "  · left .undercoat.local.json and the .gitignore line alone, yours to delete"
 
 if [ -f "$SETTINGS" ]; then
   python3 - "$SETTINGS" <<'PY'
