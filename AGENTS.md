@@ -70,7 +70,7 @@ A zero-offset glow is decoration standing in for hierarchy. Neon-on-dark with gl
 
 **Instead:** Offset shadows describe light and depth. If the element needs emphasis, give it size, weight or space.
 
-*Applies to: `**/*.css`, `**/*.scss`, `**/*.tsx`, `**/*.jsx`*
+*Applies to: `**/*.css`, `**/*.html`, `**/*.jsx`, `**/*.scss`, `**/*.svelte`, `**/*.tsx`, `**/*.vue`*
 
 ### ambient-blur-orb
 
@@ -150,7 +150,7 @@ A comment apologising for the code being a sketch. It is the most direct evidenc
 
 **Instead:** Either finish it or delete the branch. A comment is not a substitute for a decision.
 
-*Applies to: `**/*.tsx`, `**/*.jsx`, `**/*.ts`, `**/*.js`, `**/*.vue`, `**/*.svelte`*
+*Applies to: `**/*.html`, `**/*.js`, `**/*.jsx`, `**/*.svelte`, `**/*.ts`, `**/*.tsx`, `**/*.vue`*
 
 ### stock-placeholder-image
 

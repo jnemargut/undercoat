@@ -1,19 +1,24 @@
 # Undercoat
 
-**Stops your coding agent from writing the same generic-looking page every time.**
+**Stops your coding agent building the same generic page it builds for everyone else.**
 
-You have seen it. Purple gradient, three cards in a row, a button that says Get Started.
+You've seen this page. Everyone has.
 
-Your agent writes that page because it is the most common page in everything it learned.
-Telling it not to works for a while, then it forgets.
+![A generated landing page with ten Undercoat rules labelled on it, seven of which refuse the file](assets/what-it-refuses.png)
 
-Undercoat does not ask. It reads the file while the agent is saving it, and if the file has
-that stuff in it, the save fails.
+Your agent didn't pick the purple, or the headline, or the button that says Get Started.
+None of that was a decision. It's just what comes out when nothing tells the model
+otherwise, because it's the average of every landing page it ever read.
 
-![Undercoat refusing a write, then the agent retrying and getting it right](assets/refusal.gif)
+You can tell it not to. That works for about forty files, and then it forgets.
 
-The agent reads the message and tries again. You are not interrupted, and you never see the
-first version.
+Undercoat doesn't ask. It reads the file while the agent is saving it, and if that stuff is
+in there, the save fails.
+
+![Undercoat refusing a write, the agent retrying, and the second attempt going through](assets/refusal.gif)
+
+The agent reads the message and has another go. You don't get interrupted, and you never
+see the first version.
 
 ## Install it
 
@@ -22,55 +27,62 @@ git clone https://github.com/jnemargut/undercoat
 ./undercoat/install.sh /path/to/your/project
 ```
 
-That is the whole setup. The script prints every change it makes, backs up your settings
-first, and `./undercoat/uninstall.sh` puts everything back.
+That's the whole setup. The script tells you every change it makes as it makes it, backs up
+your settings first, and `./undercoat/uninstall.sh` puts it all back.
 
-If you want it on for everything you build, without setting it up each time:
+If you'd rather have it on for everything you build without setting it up each time:
 
 ```bash
 ./undercoat/install.sh --global
 ```
 
-Then turn it off for any single project with `touch .undercoat.off`.
+Then `touch .undercoat.off` in any project you'd rather it left alone.
 
-No account, no API key, no npm package. Just Python and markdown files, the same as
+There's no account and no API key. It's Python and a couple of markdown files, same as
 [decision-kit](https://github.com/jnemargut/decision-kit).
+
+## What actually changes
+
+![The refused page beside the one that got written, same product and same brief](assets/before-after.png)
+
+Undercoat didn't design the page on the right. It only refused the one on the left and told
+the agent which parts to think about again. The agent did the rest.
 
 ## How it works
 
-![patterns.json feeds two halves: AGENTS.md which advises everywhere, and hook.py which refuses in Claude Code](assets/how-it-works.png)
+![patterns.json feeding AGENTS.md, which advises everywhere, and hook.py, which refuses in Claude Code](assets/how-it-works.png)
 
-You edit one file, `patterns.json`. Everything else comes from it.
+You edit one file, `patterns.json`. Both halves come out of it.
 
-**AGENTS.md** is a plain markdown file that most coding tools read automatically when they
-start a task. It tells the agent what to avoid. It works in Cursor, Codex, Copilot, Aider
-and about two dozen others. It cannot stop anything, it can only advise.
+**AGENTS.md** is plain markdown that most coding tools read on their own when they start a
+task, so it works in Cursor, Codex, Copilot, Aider and a couple of dozen others. It can't
+stop anything. It just tells the agent what to steer clear of.
 
-**The hook** is the part that actually refuses. It works in Claude Code, and it checks every
-file the agent tries to save before the file exists.
+**The hook** is the half that actually refuses, and it only works in Claude Code. It reads
+every file the agent tries to save, before the file exists.
 
-You get the advice everywhere. You get the refusal in Claude Code. Nothing breaks if you
-only have the first one.
+You get the advice everywhere and the refusal in Claude Code. If you've only got the first
+one, nothing breaks.
 
-It also watches shell commands, because an agent that cannot use the save tool will often
-try `cat > file` instead. Undercoat blocks that route and points it back at the normal tool.
+It keeps an eye on shell commands too. An agent that can't use the save tool will happily
+try `cat > file` instead, so Undercoat turns that down and points it back at the normal way.
 
-## What it catches
+## The rules
 
-**56 rules. 20 refuse the file, 36 leave a note and let it through.**
+**56 of them. 20 refuse the file, 36 leave a note and let it through.**
 
 <details>
-<summary><strong>The 20 it refuses</strong></summary>
+<summary><strong>The 20 that refuse</strong></summary>
 
 **Colour**
 
 | Rule | What it catches |
 |---|---|
 | `ai-purple` | Purple, violet or indigo gradient stops |
-| `ai-purple-hex` | The seven hex values models pick for "primary" |
+| `ai-purple-hex` | The seven hex values models reach for when they mean "primary" |
 | `rainbow-gradient` | Gradients with three or more colour stops |
 | `tinted-shadow` | Coloured shadows like shadow-purple-500/50 |
-| `gradient-on-root` | A gradient applied to the page background itself |
+| `gradient-on-root` | A gradient on the page background itself |
 
 **Shadows, blur and shape**
 
@@ -85,18 +97,18 @@ try `cat > file` instead. Undercoat blocks that route and points it back at the 
 
 | Rule | What it catches |
 |---|---|
-| `default-sans-inter` | Inter declared as the typeface |
+| `default-sans-inter` | Inter set as the typeface |
 
 **Words on the page**
 
 | Rule | What it catches |
 |---|---|
-| `generic-cta` | Buttons that say Get Started, Learn More, Click Here |
-| `vague-headline` | Headlines like "Transform your workflow" |
+| `generic-cta` | Buttons saying Get Started, Learn More, Click Here |
+| `vague-headline` | Headlines like "Transform Your Workflow" |
 | `buzzword-copy` | Seamless, cutting-edge, revolutionary, game-changing |
-| `lorem-ipsum` | Placeholder latin left in a real component |
+| `lorem-ipsum` | Placeholder latin still sitting in a real component |
 | `placeholder-copy` | Your Company, Text goes here, Replace this |
-| `fake-testimonial` | John Doe or Acme Inc shown as social proof |
+| `fake-testimonial` | John Doe or Acme Inc used as social proof |
 | `ai-implementation-comment` | Comments like "// In a real implementation this would" |
 
 **Pictures and icons**
@@ -105,15 +117,15 @@ try `cat > file` instead. Undercoat blocks that route and points it back at the 
 |---|---|
 | `stock-placeholder-image` | Hot-linked Unsplash, placehold.co or picsum URLs |
 | `generated-avatar-service` | Procedural avatars from dicebear or ui-avatars |
-| `emoji-as-icon` | Emoji used as an icon inside a heading or button |
+| `emoji-as-icon` | An emoji doing an icon's job in a heading or button |
 
 </details>
 
 <details>
 <summary><strong>The 36 it only mentions</strong></summary>
 
-These are real tells, but each one is sometimes the right call, so Undercoat says something
-and gets out of the way.
+Every one of these is a real tell, but each is also sometimes exactly right, so Undercoat
+says something and gets out of your way.
 
 **Colour**
 
@@ -130,7 +142,7 @@ and gets out of the way.
 |---|---|
 | `glassmorphism` | Frosted glass via backdrop-blur |
 | `default-heavy-shadow` | shadow-xl and shadow-2xl on ordinary cards |
-| `uniform-bubbly-radius` | rounded-3xl applied to every surface |
+| `uniform-bubbly-radius` | rounded-3xl on every surface |
 | `ring-decoration` | Focus rings used as ornament |
 | `border-and-shadow` | A border and a shadow doing the same job |
 
@@ -138,7 +150,7 @@ and gets out of the way.
 
 | Rule | What it catches |
 |---|---|
-| `system-font-only` | The system font stack as the only typographic choice |
+| `system-font-only` | The system stack as the only typographic choice |
 | `all-bold` | font-bold repeated until nothing stands out |
 | `eyebrow-label` | The tiny uppercase letterspaced kicker above a heading |
 | `giant-hero-text` | text-7xl and above |
@@ -149,13 +161,13 @@ and gets out of the way.
 |---|---|
 | `exclamation-marketing` | Exclamation marks in interface copy |
 | `trusted-by-logos` | A "Trusted by" logo strip |
-| `powered-by-ai-copy` | Copy that sells the tech rather than the benefit |
+| `powered-by-ai-copy` | Copy selling the tech instead of the benefit |
 
 **Pictures and icons**
 
 | Rule | What it catches |
 |---|---|
-| `sparkles-icon` | The sparkle or wand icon as shorthand for AI |
+| `sparkles-icon` | The sparkle or wand icon standing in for AI |
 
 **Layout and spacing**
 
@@ -164,15 +176,15 @@ and gets out of the way.
 | `three-card-grid` | Three equal cards as a page's main content |
 | `nested-cards` | A card inside a card |
 | `everything-centered` | Whole sections centre-aligned |
-| `hero-icon-circle` | A large circled icon floating above a heading |
-| `full-height-hero` | min-h-screen on the first thing a reader sees |
-| `default-container-width` | max-w-7xl mx-auto, the width nobody chose |
+| `hero-icon-circle` | A big circled icon floating above a heading |
+| `full-height-hero` | min-h-screen on the first thing anyone sees |
+| `default-container-width` | max-w-7xl mx-auto, the width nobody picked |
 | `sticky-everything` | More than one sticky element fighting for the screen |
 | `status-chip-soup` | Four or more badges in one view |
-| `cramped-padding` | p-0 and p-1 where breathing room was needed |
+| `cramped-padding` | p-0 and p-1 where something needed room |
 | `magic-spacing` | Arbitrary pixel spacing off the scale |
 | `small-touch-target` | Buttons under roughly 44px |
-| `placeholder-as-label` | A placeholder used as the only label |
+| `placeholder-as-label` | A placeholder doing the job of a label |
 
 **Movement**
 
@@ -180,30 +192,30 @@ and gets out of the way.
 |---|---|
 | `uniform-fade-in` | The same entrance animation on everything |
 | `bounce-easing` | Overshoot easing on interface motion |
-| `decorative-pulse` | animate-pulse on something that is not loading |
+| `decorative-pulse` | animate-pulse on something that isn't loading |
 | `slow-transition` | Transitions over half a second |
 
 **Everything else**
 
 | Rule | What it catches |
 |---|---|
-| `dark-mode-reflex` | A near-black page background as the default |
-| `inline-style-attribute` | Values set inline, bypassing the system |
+| `dark-mode-reflex` | A near-black page background by default |
+| `inline-style-attribute` | Values set inline, going round the system |
 | `important-override` | !important |
 
 </details>
 
-### Why some refuse and some do not
+### Why some refuse and some don't
 
-A rule only refuses a file if two things are true: the thing it looks for means one thing
-and nothing else, and almost nobody would want it on purpose.
+A rule only gets to refuse a file if two things hold. What it looks for has to mean one
+thing and nothing else, and almost nobody should ever want it deliberately.
 
-A hot-linked Unsplash photo in shipped code is basically never right, so that one refuses.
-Three cards in a row is a real tell, but plenty of pages legitimately have three cards, so
-that one just leaves a note.
+A hot-linked Unsplash photo in shipped code fails both tests badly enough to refuse. Three
+cards in a row is a genuine tell, but plenty of good pages have three cards in a row, so
+that one just says something and moves on.
 
-That is the whole rule for deciding. It is not about how many people agree the pattern is
-bad. It is about whether stopping you would ever be the wrong call.
+Notice what this isn't measuring. It doesn't matter how many people agree a pattern is
+ugly. The only question is whether stopping you would ever be the wrong call.
 
 ## When a rule gets it wrong
 
@@ -214,51 +226,55 @@ Turn it off for that project:
 { "off": ["ai-purple"] }
 ```
 
-One rule at a time, one project at a time. There is no way to skip a single line, on
-purpose. If there were, the agent could write that skip itself and let its own work through.
+One rule, one project. You can't skip a single line, and that's deliberate, because if you
+could then the agent could write the skip itself and wave its own work through.
 
-If a rule refuses the same file three times, Undercoat stops and hands the problem to you
-instead of letting the agent spin.
+If a rule refuses the same file three times, Undercoat gives up and hands it to you rather
+than letting the agent go round in circles.
 
-## What it cannot do
+## What it can't do
 
-It reads text. That is the whole mechanism, and it has real limits:
+It reads text, and that's all it reads. So:
 
-- **It cannot see layout.** Four identical sections stacked down the page will pass
-  everything. That is where "looks AI-made" really lives.
-- **It cannot see colour in context.** Grey text is unreadable on white and fine on black.
-  Same words in the file, opposite answer.
-- **It cannot tell writing about a pattern from using one.** A style guide that mentions
-  `from-purple-600` gets flagged for it. Turn Undercoat off in those repos.
+- **Layout is invisible to it.** Four identical sections stacked down a page sail straight
+  through, and honestly that's where most of the "AI made this" feeling comes from.
+- **It can't see colour in context.** Grey text is unreadable on white and completely fine
+  on black, and the file looks the same either way.
+- **It can't tell writing about a pattern from using one.** A style guide that mentions
+  `from-purple-600` gets pulled up for it, so turn Undercoat off in those repos.
 
-For anything needing to actually look at the rendered page, use a design reviewer. Undercoat
-is meant to sit alongside one, not replace it.
+If you want something that looks at the rendered page and tells you it's boring, you want a
+design reviewer. Undercoat is meant to sit alongside one.
 
 ## Does it get in the way?
 
-It was tested against shadcn/ui, tailwindcss.com and cal.com, about 4,700 files of good
-hand-written code. It now refuses **0.3% of them**, and the ones it still catches are mostly
-fair. The first version refused a third of tailwindcss.com, which is how five rules got
-demoted and several got narrowed.
+I ran it over shadcn/ui, tailwindcss.com and cal.com, which is about 4,700 files of
+carefully written code by people who know what they're doing. It refuses 0.3% of them now,
+and most of those are fair.
 
-The rules that refuse are judgment calls about what nobody would want on purpose. If one of
-them stops code you meant to write, that judgment was wrong and worth telling me about.
+The first version refused a third of tailwindcss.com, which was how I found out that five
+rules were badly judged and several were far too broad.
+
+The rules that refuse are all judgement calls about what nobody would want on purpose. If
+one of them stops something you meant to write, I got that judgement wrong, and I'd like to
+know.
 
 ## Credit
 
-Other people worked out most of these patterns first. Undercoat's rules describe things
-named by [impeccable](https://github.com/pbakaus/impeccable), [Taste Skill](https://github.com/Leonxlnx/taste-skill), and
-[Anthropic's frontend-design skill](https://github.com/anthropics/skills/tree/main/skills/frontend-design), plus a
-handful of independent write-ups on AI design tells. See `NOTICE`.
+Most of these patterns were worked out by other people first. The rules here describe things
+named by [impeccable](https://github.com/pbakaus/impeccable),
+[Taste Skill](https://github.com/Leonxlnx/taste-skill) and
+[Anthropic's frontend-design skill](https://github.com/anthropics/skills/tree/main/skills/frontend-design),
+plus a handful of write-ups cataloguing AI design tells. There's a fuller note in `NOTICE`.
 
-The list is not the interesting part. The interesting part is when it happens: at the save,
-before the file exists.
+What's different here is the timing. Everything else tells the agent beforehand or checks
+your work afterwards. This one sits on the save.
 
 ## Try it
 
-Install it, point it at whatever you build next, and see what it stops.
+Point it at whatever you're building next and see what it stops.
 
-Then tell me what it got wrong. A rule that refuses something you wanted is worth more than
-ten that fire correctly.
+Then tell me what it got wrong. A rule that refuses something you actually wanted is worth
+more to me than ten that fire correctly.
 
 Apache-2.0. See `LICENSE` and `NOTICE`.

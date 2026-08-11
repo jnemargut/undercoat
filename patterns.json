@@ -441,9 +441,12 @@
       "match": "(?:box-shadow|--[\\w-]*shadow[\\w-]*)\\s*:\\s*[^;{}]*\\b0\\s+0\\s+\\d+px",
       "in": [
         "**/*.css",
+        "**/*.html",
+        "**/*.jsx",
         "**/*.scss",
+        "**/*.svelte",
         "**/*.tsx",
-        "**/*.jsx"
+        "**/*.vue"
       ],
       "not_in": [
         "**/*.spec.*",
@@ -707,7 +710,7 @@
       "unambiguous": true,
       "rarely_legitimate": true,
       "catalogs": 3,
-      "match": ">\\s*(?:Get Started|Get started|Learn More|Learn more|Click Here|Sign Up Free|Try It Free|Try for free|Read More)\\s*<",
+      "match": "(?i)>\\s*(?:Get Started|Learn More|Click Here|Sign Up Free|Try It Free|Try for free|Read More)\\s*<",
       "in": [
         "**/*.tsx",
         "**/*.jsx",
@@ -743,7 +746,7 @@
       "unambiguous": true,
       "rarely_legitimate": true,
       "catalogs": 4,
-      "match": "<h[12][^>]*>\\s*(?:Welcome(?: to)?\\b|Everything you need\\b|The future of\\b|Supercharge your\\b|Build the future\\b|Unlock the power\\b|Transform your\\b|Elevate your\\b|Take your \\w+ to the next level\\b)",
+      "match": "(?i)<h[12][^>]*>\\s*(?:Welcome(?: to)?\\b|Everything you need\\b|The future of\\b|Supercharge your\\b|Build the future\\b|Unlock the power\\b|Transform your\\b|Elevate your\\b|Take your \\w+ to the next level\\b)",
       "in": [
         "**/*.tsx",
         "**/*.jsx",
@@ -779,7 +782,7 @@
       "unambiguous": true,
       "rarely_legitimate": true,
       "catalogs": 1,
-      "match": ">\\s*[^<]{0,80}\\b(?:seamless(?:ly)?|cutting-edge|revolutionary|game-chang\\w+|best-in-class|next-generation|state-of-the-art|effortlessly)\\b",
+      "match": "(?i)>\\s*[^<]{0,80}\\b(?:seamless(?:ly)?|cutting-edge|revolutionary|game-chang\\w+|best-in-class|next-generation|state-of-the-art|effortlessly)\\b",
       "in": [
         "**/*.tsx",
         "**/*.jsx",
@@ -854,7 +857,7 @@
       "unambiguous": true,
       "rarely_legitimate": true,
       "catalogs": 1,
-      "match": "\\bYour (?:Company|Brand|Product|Logo|Text|Name Here)\\b|\\bText goes here\\b|\\bReplace this\\b",
+      "match": "(?i)\\bYour (?:Company|Brand|Product|Logo|Text|Name Here)\\b|\\bText goes here\\b|\\bReplace this\\b",
       "in": [
         "**/*.tsx",
         "**/*.jsx",
@@ -932,12 +935,13 @@
       "catalogs": 1,
       "match": "//\\s*(?:In a real (?:implementation|app|world)|This is a simplified|For demonstration purposes|Note: [Tt]his is a placeholder|Mock data for now)|as an AI\\b",
       "in": [
-        "**/*.tsx",
-        "**/*.jsx",
-        "**/*.ts",
+        "**/*.html",
         "**/*.js",
-        "**/*.vue",
-        "**/*.svelte"
+        "**/*.jsx",
+        "**/*.svelte",
+        "**/*.ts",
+        "**/*.tsx",
+        "**/*.vue"
       ],
       "not_in": [
         "**/*.mock.*",
@@ -993,7 +997,7 @@
       "rarely_legitimate": false,
       "risk_note": "Entirely legitimate once the logos are real.",
       "catalogs": 1,
-      "match": ">\\s*(?:Trusted by|Loved by|Used by|As seen in)\\b",
+      "match": "(?i)>\\s*(?:Trusted by|Loved by|Used by|As seen in)\\b",
       "in": [
         "**/*.tsx",
         "**/*.jsx",
