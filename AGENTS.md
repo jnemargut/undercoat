@@ -40,22 +40,6 @@ A three-stop gradient is decoration with no informational job. It is the 'make i
 
 *Applies to: `**/*.tsx`, `**/*.jsx`, `**/*.vue`, `**/*.svelte`, `**/*.html`*
 
-### tailwind-default-blue
-
-Tailwind's mid-blue as the primary brand colour is the framework default wearing a brand's clothes.
-
-**Instead:** Define one project colour and use it. Any deliberate hue beats the palette you got for free.
-
-*Applies to: `**/*.tsx`, `**/*.jsx`, `**/*.vue`, `**/*.svelte`, `**/*.html`*
-
-### default-grey-body
-
-Light grey body text is the most common accessibility failure in generated UI, and it reads as washed out rather than subtle.
-
-**Instead:** Body copy at full strength. If something should recede, reduce its size or weight, not its contrast.
-
-*Applies to: `**/*.tsx`, `**/*.jsx`, `**/*.vue`, `**/*.svelte`, `**/*.html`*
-
 ### tinted-shadow
 
 A coloured shadow is a glow with extra steps. It is the most-copied way to make a button look special without deciding anything.
@@ -88,35 +72,11 @@ A zero-offset glow is decoration standing in for hierarchy. Neon-on-dark with gl
 
 *Applies to: `**/*.css`, `**/*.scss`, `**/*.tsx`, `**/*.jsx`*
 
-### default-heavy-shadow
-
-The default heavy drop shadow on every card is how generated UI signals 'this is a component'. Real interfaces use shadow sparingly and at one or two depths.
-
-**Instead:** A hairline border, or a shadow one or two steps lighter. Reserve the heaviest depth for things that actually float.
-
-*Applies to: `**/*.tsx`, `**/*.jsx`, `**/*.vue`, `**/*.svelte`, `**/*.html`*
-
-### glassmorphism
-
-Frosted glass on everything is the current default for 'make it look premium'. Applied without a reason it flattens hierarchy and wrecks contrast.
-
-**Instead:** Solid surfaces. If you want separation, use a different background value or real spacing.
-
-*Applies to: `**/*.tsx`, `**/*.jsx`, `**/*.vue`, `**/*.svelte`, `**/*.html`, `**/*.css`, `**/*.scss`*
-
 ### ambient-blur-orb
 
 The giant blurred colour blob floating behind the hero is pure decoration, and it is in every generated landing page written since 2023.
 
 **Instead:** Delete it. If the background needs interest, use a real edge, a rule, or a change of surface.
-
-*Applies to: `**/*.tsx`, `**/*.jsx`, `**/*.vue`, `**/*.svelte`, `**/*.html`*
-
-### uniform-bubbly-radius
-
-Oversized rounding on every surface is a named tell. When cards, buttons and inputs share one bubbly radius, nothing reads as a different kind of thing.
-
-**Instead:** Pick one radius for the project and vary it deliberately — tighter on inputs, looser on containers.
 
 *Applies to: `**/*.tsx`, `**/*.jsx`, `**/*.vue`, `**/*.svelte`, `**/*.html`*
 
@@ -178,7 +138,7 @@ Template scaffolding that shipped. It signals that nobody read the page after it
 
 ### fake-testimonial
 
-Invented social proof is worse than none. Placeholder names in a testimonial block are the clearest possible sign the section was generated wholesale.
+Invented social proof is worse than none. Placeholder names rendered as testimonial text are the clearest sign the section was generated wholesale.
 
 **Instead:** Real quotes with real names, or remove the section until you have them.
 
@@ -219,6 +179,26 @@ Emoji standing in for an icon system is a named tell. It renders differently on 
 ## Think twice about these
 
 Real tells that fail one of the two blocking tests — either the match is a proxy that also catches legitimate code, or the pattern is sometimes wanted deliberately. These do not block anything.
+
+### tailwind-default-blue
+
+Tailwind's mid-blue as the primary brand colour is the framework default wearing a brand's clothes.
+
+**Instead:** Define one project colour and use it. Any deliberate hue beats the palette you got for free.
+
+*Applies to: `**/*.tsx`, `**/*.jsx`, `**/*.vue`, `**/*.svelte`, `**/*.html`*
+
+*Advises rather than blocks: Plenty of real products deliberately use a mid-blue, and Tailwind's is a reasonable one.*
+
+### default-grey-body
+
+Light grey body text is the most common accessibility failure in generated UI, and it reads as washed out rather than subtle. (Dark-mode variants are excluded — dark:text-gray-400 is correct.)
+
+**Instead:** Body copy at full strength. If something should recede, reduce its size or weight, not its contrast.
+
+*Applies to: `**/*.tsx`, `**/*.jsx`, `**/*.vue`, `**/*.svelte`, `**/*.html`*
+
+*Advises rather than blocks: Correct on dark surfaces — tailwindcss.com pairs text-gray-400 with text-white. A regex cannot see the background colour, so this advises.*
 
 ### pure-black-on-white
 
@@ -279,6 +259,36 @@ Enormous hero type is how generated pages signal importance without earning it. 
 *Applies to: `**/*.tsx`, `**/*.jsx`, `**/*.vue`, `**/*.svelte`, `**/*.html`*
 
 *Advises rather than blocks: Deliberate editorial and display work uses these sizes properly.*
+
+### default-heavy-shadow
+
+The default heavy drop shadow on every card is how generated UI signals 'this is a component'. Real interfaces use shadow sparingly and at one or two depths.
+
+**Instead:** A hairline border, or a shadow one or two steps lighter. Reserve the heaviest depth for things that actually float.
+
+*Applies to: `**/*.tsx`, `**/*.jsx`, `**/*.vue`, `**/*.svelte`, `**/*.html`*
+
+*Advises rather than blocks: shadow-xl is the right depth for modals, popovers and dropdowns that genuinely float.*
+
+### glassmorphism
+
+Frosted glass on everything is the current default for 'make it look premium'. Applied without a reason it flattens hierarchy and wrecks contrast.
+
+**Instead:** Solid surfaces. If you want separation, use a different background value or real spacing.
+
+*Applies to: `**/*.tsx`, `**/*.jsx`, `**/*.vue`, `**/*.svelte`, `**/*.html`, `**/*.css`, `**/*.scss`*
+
+*Advises rather than blocks: Correct for translucent navs, modal scrims and overlays. Observed on sticky headers in cal.com; blocking it would break standard practice.*
+
+### uniform-bubbly-radius
+
+Oversized rounding on every surface is a named tell. When cards, buttons and inputs share one bubbly radius, nothing reads as a different kind of thing.
+
+**Instead:** Pick one radius for the project and vary it deliberately — tighter on inputs, looser on containers.
+
+*Applies to: `**/*.tsx`, `**/*.jsx`, `**/*.vue`, `**/*.svelte`, `**/*.html`*
+
+*Advises rather than blocks: rounded-3xl is a legitimate deliberate choice for soft design systems.*
 
 ### ring-decoration
 

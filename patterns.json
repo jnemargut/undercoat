@@ -12,7 +12,8 @@
       "centered-text-density": "A whole-page measurement, not a write-time match.",
       "dead-hover-states": "Requires knowing what the hover does.",
       "icon-larger-than-content": "Relative sizing between elements."
-    }
+    },
+    "corpus_validation": "Validated against shadcn/ui, tailwindcss.com and cal.com. The first run refused 32.7% of tailwindcss.com, which exposed three wrong `rarely_legitimate` calls (dark-mode grey text, backdrop-blur on navs, John Doe as an input placeholder) and four rules that had to be demoted. Demonstration directories are exempt from the copy and asset rules only — placeholder content is correct in a demo; a purple gradient is not. Second pass: default-grey-body demoted (grey on dark is correct and undetectable by regex), and test/fixture directories exempted from every rule."
   },
   "rules": [
     {
@@ -32,10 +33,15 @@
         "**/*.scss"
       ],
       "not_in": [
-        "**/*.test.*",
         "**/*.spec.*",
+        "**/*.stories.*",
+        "**/*.test.*",
+        "**/__fixtures__/**",
+        "**/__tests__/**",
+        "**/fixtures/**",
         "**/node_modules/**",
-        "**/*.stories.*"
+        "**/test/**",
+        "**/tests/**"
       ],
       "because": "The purple-to-violet gradient is the single strongest tell of machine-made UI. Models reach for it because it sits under thousands of SaaS landing pages in the training data.",
       "instead": "One flat colour chosen for this project. If you want depth, use spacing and type weight, not a gradient."
@@ -57,10 +63,15 @@
         "**/*.scss"
       ],
       "not_in": [
-        "**/*.test.*",
         "**/*.spec.*",
+        "**/*.stories.*",
+        "**/*.test.*",
+        "**/__fixtures__/**",
+        "**/__tests__/**",
+        "**/fixtures/**",
         "**/node_modules/**",
-        "**/*.stories.*"
+        "**/test/**",
+        "**/tests/**"
       ],
       "because": "These are the exact hex values models default to for 'primary'. Seeing one hardcoded means the colour was inherited, not chosen.",
       "instead": "Define your own value. Any deliberate hue beats the one that arrived by default."
@@ -80,19 +91,24 @@
         "**/*.html"
       ],
       "not_in": [
-        "**/*.test.*",
         "**/*.spec.*",
+        "**/*.stories.*",
+        "**/*.test.*",
+        "**/__fixtures__/**",
+        "**/__tests__/**",
+        "**/fixtures/**",
         "**/node_modules/**",
-        "**/*.stories.*"
+        "**/test/**",
+        "**/tests/**"
       ],
       "because": "A three-stop gradient is decoration with no informational job. It is the 'make it look exciting' reflex.",
       "instead": "One colour, or a two-stop gradient with a reason. Excitement comes from contrast, not from hue count."
     },
     {
       "id": "tailwind-default-blue",
-      "severity": "block",
+      "severity": "warn",
       "unambiguous": true,
-      "rarely_legitimate": true,
+      "rarely_legitimate": false,
       "catalogs": 2,
       "match": "\\bbg-blue-(?:500|600)\\b",
       "in": [
@@ -103,21 +119,27 @@
         "**/*.html"
       ],
       "not_in": [
-        "**/*.test.*",
         "**/*.spec.*",
+        "**/*.stories.*",
+        "**/*.test.*",
+        "**/__fixtures__/**",
+        "**/__tests__/**",
+        "**/fixtures/**",
         "**/node_modules/**",
-        "**/*.stories.*"
+        "**/test/**",
+        "**/tests/**"
       ],
       "because": "Tailwind's mid-blue as the primary brand colour is the framework default wearing a brand's clothes.",
-      "instead": "Define one project colour and use it. Any deliberate hue beats the palette you got for free."
+      "instead": "Define one project colour and use it. Any deliberate hue beats the palette you got for free.",
+      "risk_note": "Plenty of real products deliberately use a mid-blue, and Tailwind's is a reasonable one."
     },
     {
       "id": "default-grey-body",
-      "severity": "block",
+      "severity": "warn",
       "unambiguous": true,
-      "rarely_legitimate": true,
+      "rarely_legitimate": false,
       "catalogs": 2,
-      "match": "\\btext-(?:gray|grey|slate|zinc|neutral)-(?:300|400)\\b",
+      "match": "(?<!dark:)\\btext-(?:gray|grey|slate|zinc|neutral)-(?:300|400)\\b",
       "in": [
         "**/*.tsx",
         "**/*.jsx",
@@ -126,13 +148,19 @@
         "**/*.html"
       ],
       "not_in": [
-        "**/*.test.*",
         "**/*.spec.*",
+        "**/*.stories.*",
+        "**/*.test.*",
+        "**/__fixtures__/**",
+        "**/__tests__/**",
+        "**/fixtures/**",
         "**/node_modules/**",
-        "**/*.stories.*"
+        "**/test/**",
+        "**/tests/**"
       ],
-      "because": "Light grey body text is the most common accessibility failure in generated UI, and it reads as washed out rather than subtle.",
-      "instead": "Body copy at full strength. If something should recede, reduce its size or weight, not its contrast."
+      "because": "Light grey body text is the most common accessibility failure in generated UI, and it reads as washed out rather than subtle. (Dark-mode variants are excluded — dark:text-gray-400 is correct.)",
+      "instead": "Body copy at full strength. If something should recede, reduce its size or weight, not its contrast.",
+      "risk_note": "Correct on dark surfaces — tailwindcss.com pairs text-gray-400 with text-white. A regex cannot see the background colour, so this advises."
     },
     {
       "id": "tinted-shadow",
@@ -149,10 +177,15 @@
         "**/*.html"
       ],
       "not_in": [
-        "**/*.test.*",
         "**/*.spec.*",
+        "**/*.stories.*",
+        "**/*.test.*",
+        "**/__fixtures__/**",
+        "**/__tests__/**",
+        "**/fixtures/**",
         "**/node_modules/**",
-        "**/*.stories.*"
+        "**/test/**",
+        "**/tests/**"
       ],
       "because": "A coloured shadow is a glow with extra steps. It is the most-copied way to make a button look special without deciding anything.",
       "instead": "Neutral shadow, or none. If the element needs to stand out, change its size, weight or position."
@@ -172,10 +205,15 @@
         "**/*.html"
       ],
       "not_in": [
-        "**/*.test.*",
         "**/*.spec.*",
+        "**/*.stories.*",
+        "**/*.test.*",
+        "**/__fixtures__/**",
+        "**/__tests__/**",
+        "**/fixtures/**",
         "**/node_modules/**",
-        "**/*.stories.*"
+        "**/test/**",
+        "**/tests/**"
       ],
       "because": "A gradient across the whole page background is the default 'premium' move and it fights every piece of content placed on it.",
       "instead": "A flat background. Let the content carry the interest."
@@ -198,10 +236,15 @@
         "**/*.scss"
       ],
       "not_in": [
-        "**/*.test.*",
         "**/*.spec.*",
+        "**/*.stories.*",
+        "**/*.test.*",
+        "**/__fixtures__/**",
+        "**/__tests__/**",
+        "**/fixtures/**",
         "**/node_modules/**",
-        "**/*.stories.*"
+        "**/test/**",
+        "**/tests/**"
       ],
       "because": "Pure black on pure white is harsher than print ever was and reads as untuned.",
       "instead": "Near-black around #14141a. The eye reads it as black and it stops vibrating."
@@ -222,10 +265,15 @@
         "**/*.html"
       ],
       "not_in": [
-        "**/*.test.*",
         "**/*.spec.*",
+        "**/*.stories.*",
+        "**/*.test.*",
+        "**/__fixtures__/**",
+        "**/__tests__/**",
+        "**/fixtures/**",
         "**/node_modules/**",
-        "**/*.stories.*"
+        "**/test/**",
+        "**/tests/**"
       ],
       "because": "Arbitrary hex values scattered through markup means there is no palette — every colour was decided separately and none of them relate.",
       "instead": "Put the value in your theme and use the token. If it is worth using twice it is worth naming."
@@ -245,10 +293,15 @@
         "**/*.html"
       ],
       "not_in": [
-        "**/*.test.*",
         "**/*.spec.*",
+        "**/*.stories.*",
+        "**/*.test.*",
+        "**/__fixtures__/**",
+        "**/__tests__/**",
+        "**/fixtures/**",
         "**/node_modules/**",
-        "**/*.stories.*"
+        "**/test/**",
+        "**/tests/**"
       ],
       "because": "Inter is the default of defaults. It is not a bad typeface; it is the one chosen when nobody chose.",
       "instead": "Pick a face with a point of view and commit to it. Name it in the project's own styles."
@@ -266,7 +319,14 @@
         "**/*.scss"
       ],
       "because": "The system stack alone is the absence of a typographic decision. It is fine for a tool and wrong for anything with a voice.",
-      "instead": "Choose a face for headings at least. One deliberate typeface changes the whole impression."
+      "instead": "Choose a face for headings at least. One deliberate typeface changes the whole impression.",
+      "not_in": [
+        "**/__fixtures__/**",
+        "**/__tests__/**",
+        "**/fixtures/**",
+        "**/test/**",
+        "**/tests/**"
+      ]
     },
     {
       "id": "all-bold",
@@ -285,10 +345,15 @@
         "**/*.svelte"
       ],
       "not_in": [
-        "**/*.test.*",
         "**/*.spec.*",
+        "**/*.stories.*",
+        "**/*.test.*",
+        "**/__fixtures__/**",
+        "**/__tests__/**",
+        "**/fixtures/**",
         "**/node_modules/**",
-        "**/*.stories.*"
+        "**/test/**",
+        "**/tests/**"
       ],
       "because": "When everything is bold nothing is. Uniform heavy weight is what happens when hierarchy was never decided.",
       "instead": "One or two weights doing different jobs. Let size and space carry the rest."
@@ -309,10 +374,15 @@
         "**/*.html"
       ],
       "not_in": [
-        "**/*.test.*",
         "**/*.spec.*",
+        "**/*.stories.*",
+        "**/*.test.*",
+        "**/__fixtures__/**",
+        "**/__tests__/**",
+        "**/fixtures/**",
         "**/node_modules/**",
-        "**/*.stories.*"
+        "**/test/**",
+        "**/tests/**"
       ],
       "because": "The tiny uppercase letterspaced kicker above every heading is a template convention, repeated until it means nothing.",
       "instead": "Say it in the heading, or drop it. A label that adds no information is decoration."
@@ -333,10 +403,15 @@
         "**/*.html"
       ],
       "not_in": [
-        "**/*.test.*",
         "**/*.spec.*",
+        "**/*.stories.*",
+        "**/*.test.*",
+        "**/__fixtures__/**",
+        "**/__tests__/**",
+        "**/fixtures/**",
         "**/node_modules/**",
-        "**/*.stories.*"
+        "**/test/**",
+        "**/tests/**"
       ],
       "because": "Enormous hero type is how generated pages signal importance without earning it. At this size the words usually say less than the space they take.",
       "instead": "Drop a step or two and give the line something worth reading."
@@ -355,19 +430,24 @@
         "**/*.jsx"
       ],
       "not_in": [
-        "**/*.test.*",
         "**/*.spec.*",
+        "**/*.stories.*",
+        "**/*.test.*",
+        "**/__fixtures__/**",
+        "**/__tests__/**",
+        "**/fixtures/**",
         "**/node_modules/**",
-        "**/*.stories.*"
+        "**/test/**",
+        "**/tests/**"
       ],
       "because": "A zero-offset glow is decoration standing in for hierarchy. Neon-on-dark with glowing borders is the v0 and Cursor signature.",
       "instead": "Offset shadows describe light and depth. If the element needs emphasis, give it size, weight or space."
     },
     {
       "id": "default-heavy-shadow",
-      "severity": "block",
+      "severity": "warn",
       "unambiguous": true,
-      "rarely_legitimate": true,
+      "rarely_legitimate": false,
       "catalogs": 2,
       "match": "\\bshadow-(?:xl|2xl)\\b",
       "in": [
@@ -378,19 +458,25 @@
         "**/*.html"
       ],
       "not_in": [
-        "**/*.test.*",
         "**/*.spec.*",
+        "**/*.stories.*",
+        "**/*.test.*",
+        "**/__fixtures__/**",
+        "**/__tests__/**",
+        "**/fixtures/**",
         "**/node_modules/**",
-        "**/*.stories.*"
+        "**/test/**",
+        "**/tests/**"
       ],
       "because": "The default heavy drop shadow on every card is how generated UI signals 'this is a component'. Real interfaces use shadow sparingly and at one or two depths.",
-      "instead": "A hairline border, or a shadow one or two steps lighter. Reserve the heaviest depth for things that actually float."
+      "instead": "A hairline border, or a shadow one or two steps lighter. Reserve the heaviest depth for things that actually float.",
+      "risk_note": "shadow-xl is the right depth for modals, popovers and dropdowns that genuinely float."
     },
     {
       "id": "glassmorphism",
-      "severity": "block",
+      "severity": "warn",
       "unambiguous": true,
-      "rarely_legitimate": true,
+      "rarely_legitimate": false,
       "catalogs": 3,
       "match": "\\bbackdrop-blur(?:-\\w+)?\\b|backdrop-filter\\s*:\\s*[^;{}]*blur\\(",
       "in": [
@@ -403,13 +489,19 @@
         "**/*.scss"
       ],
       "not_in": [
-        "**/*.test.*",
         "**/*.spec.*",
+        "**/*.stories.*",
+        "**/*.test.*",
+        "**/__fixtures__/**",
+        "**/__tests__/**",
+        "**/fixtures/**",
         "**/node_modules/**",
-        "**/*.stories.*"
+        "**/test/**",
+        "**/tests/**"
       ],
       "because": "Frosted glass on everything is the current default for 'make it look premium'. Applied without a reason it flattens hierarchy and wrecks contrast.",
-      "instead": "Solid surfaces. If you want separation, use a different background value or real spacing."
+      "instead": "Solid surfaces. If you want separation, use a different background value or real spacing.",
+      "risk_note": "Correct for translucent navs, modal scrims and overlays. Observed on sticky headers in cal.com; blocking it would break standard practice."
     },
     {
       "id": "ambient-blur-orb",
@@ -426,19 +518,24 @@
         "**/*.html"
       ],
       "not_in": [
-        "**/*.test.*",
         "**/*.spec.*",
+        "**/*.stories.*",
+        "**/*.test.*",
+        "**/__fixtures__/**",
+        "**/__tests__/**",
+        "**/fixtures/**",
         "**/node_modules/**",
-        "**/*.stories.*"
+        "**/test/**",
+        "**/tests/**"
       ],
       "because": "The giant blurred colour blob floating behind the hero is pure decoration, and it is in every generated landing page written since 2023.",
       "instead": "Delete it. If the background needs interest, use a real edge, a rule, or a change of surface."
     },
     {
       "id": "uniform-bubbly-radius",
-      "severity": "block",
+      "severity": "warn",
       "unambiguous": true,
-      "rarely_legitimate": true,
+      "rarely_legitimate": false,
       "catalogs": 2,
       "match": "\\brounded-3xl\\b",
       "in": [
@@ -449,13 +546,19 @@
         "**/*.html"
       ],
       "not_in": [
-        "**/*.test.*",
         "**/*.spec.*",
+        "**/*.stories.*",
+        "**/*.test.*",
+        "**/__fixtures__/**",
+        "**/__tests__/**",
+        "**/fixtures/**",
         "**/node_modules/**",
-        "**/*.stories.*"
+        "**/test/**",
+        "**/tests/**"
       ],
       "because": "Oversized rounding on every surface is a named tell. When cards, buttons and inputs share one bubbly radius, nothing reads as a different kind of thing.",
-      "instead": "Pick one radius for the project and vary it deliberately — tighter on inputs, looser on containers."
+      "instead": "Pick one radius for the project and vary it deliberately — tighter on inputs, looser on containers.",
+      "risk_note": "rounded-3xl is a legitimate deliberate choice for soft design systems."
     },
     {
       "id": "gradient-border-trick",
@@ -472,10 +575,15 @@
         "**/*.html"
       ],
       "not_in": [
-        "**/*.test.*",
         "**/*.spec.*",
+        "**/*.stories.*",
+        "**/*.test.*",
+        "**/__fixtures__/**",
+        "**/__tests__/**",
+        "**/fixtures/**",
         "**/node_modules/**",
-        "**/*.stories.*"
+        "**/test/**",
+        "**/tests/**"
       ],
       "because": "The one-pixel gradient wrapper faking a glowing border is a copied trick, not a design decision.",
       "instead": "A real border in one colour. If the edge needs emphasis, change the surface inside it."
@@ -497,10 +605,15 @@
         "**/*.scss"
       ],
       "not_in": [
-        "**/*.test.*",
         "**/*.spec.*",
+        "**/*.stories.*",
+        "**/*.test.*",
+        "**/__fixtures__/**",
+        "**/__tests__/**",
+        "**/fixtures/**",
         "**/node_modules/**",
-        "**/*.stories.*"
+        "**/test/**",
+        "**/tests/**"
       ],
       "because": "A four-digit z-index means the stacking order was never designed, only fought with.",
       "instead": "Fix the stacking context. If two things overlap, one of them is in the wrong place in the tree."
@@ -521,10 +634,15 @@
         "**/*.html"
       ],
       "not_in": [
-        "**/*.test.*",
         "**/*.spec.*",
+        "**/*.stories.*",
+        "**/*.test.*",
+        "**/__fixtures__/**",
+        "**/__tests__/**",
+        "**/fixtures/**",
         "**/node_modules/**",
-        "**/*.stories.*"
+        "**/test/**",
+        "**/tests/**"
       ],
       "because": "Rings used as decoration rather than focus states dilute the one signal keyboard users depend on.",
       "instead": "Keep ring for focus. For emphasis use a border or a background change."
@@ -545,10 +663,15 @@
         "**/*.html"
       ],
       "not_in": [
-        "**/*.test.*",
         "**/*.spec.*",
+        "**/*.stories.*",
+        "**/*.test.*",
+        "**/__fixtures__/**",
+        "**/__tests__/**",
+        "**/fixtures/**",
         "**/node_modules/**",
-        "**/*.stories.*"
+        "**/test/**",
+        "**/tests/**"
       ],
       "because": "A border and a shadow on the same element is two solutions to one problem, applied because neither was chosen.",
       "instead": "Pick one. Borders suit dense interfaces, shadows suit floating things."
@@ -568,10 +691,22 @@
         "**/*.html"
       ],
       "not_in": [
-        "**/*.test.*",
+        "**/*.mdx",
         "**/*.spec.*",
+        "**/*.stories.*",
+        "**/*.test.*",
+        "**/*demo*",
+        "**/__fixtures__/**",
+        "**/__tests__/**",
+        "**/demo/**",
+        "**/docs/**",
+        "**/examples/**",
+        "**/fixtures/**",
         "**/node_modules/**",
-        "**/*.stories.*"
+        "**/registry/**",
+        "**/templates/**",
+        "**/test/**",
+        "**/tests/**"
       ],
       "because": "A call to action that says nothing about what happens next is the same button on ten thousand pages.",
       "instead": "Name the action in the user's words. 'Start a 14-day trial', 'See it running', 'Read the first chapter'."
@@ -591,10 +726,22 @@
         "**/*.html"
       ],
       "not_in": [
-        "**/*.test.*",
+        "**/*.mdx",
         "**/*.spec.*",
+        "**/*.stories.*",
+        "**/*.test.*",
+        "**/*demo*",
+        "**/__fixtures__/**",
+        "**/__tests__/**",
+        "**/demo/**",
+        "**/docs/**",
+        "**/examples/**",
+        "**/fixtures/**",
         "**/node_modules/**",
-        "**/*.stories.*"
+        "**/registry/**",
+        "**/templates/**",
+        "**/test/**",
+        "**/tests/**"
       ],
       "because": "A headline that could sit on any product's page tells the reader nothing and wastes the only line they are guaranteed to read.",
       "instead": "Say what this specific thing does for this specific person, in their words."
@@ -614,10 +761,22 @@
         "**/*.html"
       ],
       "not_in": [
-        "**/*.test.*",
+        "**/*.mdx",
         "**/*.spec.*",
+        "**/*.stories.*",
+        "**/*.test.*",
+        "**/*demo*",
+        "**/__fixtures__/**",
+        "**/__tests__/**",
+        "**/demo/**",
+        "**/docs/**",
+        "**/examples/**",
+        "**/fixtures/**",
         "**/node_modules/**",
-        "**/*.stories.*"
+        "**/registry/**",
+        "**/templates/**",
+        "**/test/**",
+        "**/tests/**"
       ],
       "because": "Marketing vocabulary with no referent. These words survive because they are hard to disagree with, which is exactly why they persuade nobody.",
       "instead": "Replace the adjective with the fact underneath it. 'Seamless' usually means 'no configuration'. Say that."
@@ -638,13 +797,24 @@
         "**/*.md"
       ],
       "not_in": [
-        "**/*.test.*",
-        "**/*.spec.*",
-        "**/node_modules/**",
-        "**/*.stories.*",
-        "**/fixtures/**",
+        "**/*.mdx",
         "**/*.mock.*",
-        "**/mocks/**"
+        "**/*.spec.*",
+        "**/*.stories.*",
+        "**/*.test.*",
+        "**/*demo*",
+        "**/__fixtures__/**",
+        "**/__tests__/**",
+        "**/demo/**",
+        "**/docs/**",
+        "**/examples/**",
+        "**/fixtures/**",
+        "**/mocks/**",
+        "**/node_modules/**",
+        "**/registry/**",
+        "**/templates/**",
+        "**/test/**",
+        "**/tests/**"
       ],
       "because": "Placeholder copy in a real component means the content question was skipped, and skipped content is where generic layouts come from.",
       "instead": "Write the actual sentence, even badly. Real copy changes the layout you need."
@@ -664,13 +834,24 @@
         "**/*.html"
       ],
       "not_in": [
-        "**/*.test.*",
-        "**/*.spec.*",
-        "**/node_modules/**",
-        "**/*.stories.*",
-        "**/fixtures/**",
+        "**/*.mdx",
         "**/*.mock.*",
-        "**/mocks/**"
+        "**/*.spec.*",
+        "**/*.stories.*",
+        "**/*.test.*",
+        "**/*demo*",
+        "**/__fixtures__/**",
+        "**/__tests__/**",
+        "**/demo/**",
+        "**/docs/**",
+        "**/examples/**",
+        "**/fixtures/**",
+        "**/mocks/**",
+        "**/node_modules/**",
+        "**/registry/**",
+        "**/templates/**",
+        "**/test/**",
+        "**/tests/**"
       ],
       "because": "Template scaffolding that shipped. It signals that nobody read the page after it was generated.",
       "instead": "Write the real thing, or delete the element until you have it."
@@ -681,7 +862,7 @@
       "unambiguous": true,
       "rarely_legitimate": true,
       "catalogs": 1,
-      "match": "\\b(?:John|Jane) (?:Doe|Smith)\\b|\\bAcme (?:Inc|Corp|Co)\\b|@example\\.com\\b",
+      "match": ">[^<]{0,60}(?:\\b(?:John|Jane) (?:Doe|Smith)\\b|\\bAcme (?:Inc|Corp|Co)\\b)",
       "in": [
         "**/*.tsx",
         "**/*.jsx",
@@ -690,15 +871,26 @@
         "**/*.html"
       ],
       "not_in": [
-        "**/*.test.*",
-        "**/*.spec.*",
-        "**/node_modules/**",
-        "**/*.stories.*",
-        "**/fixtures/**",
+        "**/*.mdx",
         "**/*.mock.*",
-        "**/mocks/**"
+        "**/*.spec.*",
+        "**/*.stories.*",
+        "**/*.test.*",
+        "**/*demo*",
+        "**/__fixtures__/**",
+        "**/__tests__/**",
+        "**/demo/**",
+        "**/docs/**",
+        "**/examples/**",
+        "**/fixtures/**",
+        "**/mocks/**",
+        "**/node_modules/**",
+        "**/registry/**",
+        "**/templates/**",
+        "**/test/**",
+        "**/tests/**"
       ],
-      "because": "Invented social proof is worse than none. Placeholder names in a testimonial block are the clearest possible sign the section was generated wholesale.",
+      "because": "Invented social proof is worse than none. Placeholder names rendered as testimonial text are the clearest sign the section was generated wholesale.",
       "instead": "Real quotes with real names, or remove the section until you have them."
     },
     {
@@ -717,13 +909,17 @@
         "**/*.svelte"
       ],
       "not_in": [
-        "**/*.test.*",
-        "**/*.spec.*",
-        "**/node_modules/**",
-        "**/*.stories.*",
-        "**/fixtures/**",
         "**/*.mock.*",
-        "**/mocks/**"
+        "**/*.spec.*",
+        "**/*.stories.*",
+        "**/*.test.*",
+        "**/__fixtures__/**",
+        "**/__tests__/**",
+        "**/fixtures/**",
+        "**/mocks/**",
+        "**/node_modules/**",
+        "**/test/**",
+        "**/tests/**"
       ],
       "because": "A comment apologising for the code being a sketch. It is the most direct evidence possible that generated output shipped unread.",
       "instead": "Either finish it or delete the branch. A comment is not a substitute for a decision."
@@ -744,10 +940,15 @@
         "**/*.html"
       ],
       "not_in": [
-        "**/*.test.*",
         "**/*.spec.*",
+        "**/*.stories.*",
+        "**/*.test.*",
+        "**/__fixtures__/**",
+        "**/__tests__/**",
+        "**/fixtures/**",
         "**/node_modules/**",
-        "**/*.stories.*"
+        "**/test/**",
+        "**/tests/**"
       ],
       "because": "Exclamation marks in interface copy are enthusiasm applied to a reader who did not ask for it.",
       "instead": "Say it flat. If the news is good the reader will supply the feeling."
@@ -768,10 +969,22 @@
         "**/*.html"
       ],
       "not_in": [
-        "**/*.test.*",
+        "**/*.mdx",
         "**/*.spec.*",
+        "**/*.stories.*",
+        "**/*.test.*",
+        "**/*demo*",
+        "**/__fixtures__/**",
+        "**/__tests__/**",
+        "**/demo/**",
+        "**/docs/**",
+        "**/examples/**",
+        "**/fixtures/**",
         "**/node_modules/**",
-        "**/*.stories.*"
+        "**/registry/**",
+        "**/templates/**",
+        "**/test/**",
+        "**/tests/**"
       ],
       "because": "The logo strip is a template slot. When it appears before there are real customers, it is a slot filled rather than a claim made.",
       "instead": "Only if the logos are real and you have permission. Otherwise the space is better empty."
@@ -792,10 +1005,22 @@
         "**/*.html"
       ],
       "not_in": [
-        "**/*.test.*",
+        "**/*.mdx",
         "**/*.spec.*",
+        "**/*.stories.*",
+        "**/*.test.*",
+        "**/*demo*",
+        "**/__fixtures__/**",
+        "**/__tests__/**",
+        "**/demo/**",
+        "**/docs/**",
+        "**/examples/**",
+        "**/fixtures/**",
         "**/node_modules/**",
-        "**/*.stories.*"
+        "**/registry/**",
+        "**/templates/**",
+        "**/test/**",
+        "**/tests/**"
       ],
       "because": "Saying it is AI-powered describes the implementation, not the benefit. It is the first thing generated copy reaches for.",
       "instead": "Say what it does for the reader. They do not care what is behind it."
@@ -817,13 +1042,24 @@
         "**/*.scss"
       ],
       "not_in": [
-        "**/*.test.*",
-        "**/*.spec.*",
-        "**/node_modules/**",
-        "**/*.stories.*",
-        "**/fixtures/**",
+        "**/*.mdx",
         "**/*.mock.*",
-        "**/mocks/**"
+        "**/*.spec.*",
+        "**/*.stories.*",
+        "**/*.test.*",
+        "**/*demo*",
+        "**/__fixtures__/**",
+        "**/__tests__/**",
+        "**/demo/**",
+        "**/docs/**",
+        "**/examples/**",
+        "**/fixtures/**",
+        "**/mocks/**",
+        "**/node_modules/**",
+        "**/registry/**",
+        "**/templates/**",
+        "**/test/**",
+        "**/tests/**"
       ],
       "because": "Hot-linked stock photography is a placeholder that ships. It breaks offline, leaks referrers, and guarantees someone else's site looks identical.",
       "instead": "A real asset in the repo, or an honest empty state. A blank space beats a stranger's photograph."
@@ -843,13 +1079,24 @@
         "**/*.html"
       ],
       "not_in": [
-        "**/*.test.*",
-        "**/*.spec.*",
-        "**/node_modules/**",
-        "**/*.stories.*",
-        "**/fixtures/**",
+        "**/*.mdx",
         "**/*.mock.*",
-        "**/mocks/**"
+        "**/*.spec.*",
+        "**/*.stories.*",
+        "**/*.test.*",
+        "**/*demo*",
+        "**/__fixtures__/**",
+        "**/__tests__/**",
+        "**/demo/**",
+        "**/docs/**",
+        "**/examples/**",
+        "**/fixtures/**",
+        "**/mocks/**",
+        "**/node_modules/**",
+        "**/registry/**",
+        "**/templates/**",
+        "**/test/**",
+        "**/tests/**"
       ],
       "because": "Procedurally generated avatars are the visual equivalent of Lorem ipsum, and they make every user look like a placeholder.",
       "instead": "Initials on a flat background, or the user's real image. Both beat a robot face."
@@ -869,10 +1116,15 @@
         "**/*.html"
       ],
       "not_in": [
-        "**/*.test.*",
         "**/*.spec.*",
+        "**/*.stories.*",
+        "**/*.test.*",
+        "**/__fixtures__/**",
+        "**/__tests__/**",
+        "**/fixtures/**",
         "**/node_modules/**",
-        "**/*.stories.*"
+        "**/test/**",
+        "**/tests/**"
       ],
       "because": "Emoji standing in for an icon system is a named tell. It renders differently on every platform and signals that no icon decision was made.",
       "instead": "A real icon set, or no icon. If the label needs an emoji to carry meaning, the label needs rewriting."
@@ -894,10 +1146,15 @@
         "**/*.svelte"
       ],
       "not_in": [
-        "**/*.test.*",
         "**/*.spec.*",
+        "**/*.stories.*",
+        "**/*.test.*",
+        "**/__fixtures__/**",
+        "**/__tests__/**",
+        "**/fixtures/**",
         "**/node_modules/**",
-        "**/*.stories.*"
+        "**/test/**",
+        "**/tests/**"
       ],
       "because": "The sparkle icon is the universal shorthand for 'this bit is AI'. It arrived with the first wave of AI products and has meant nothing since.",
       "instead": "An icon that describes the action. If the action is 'generate', draw generating."
@@ -917,10 +1174,15 @@
         "**/App.tsx"
       ],
       "not_in": [
-        "**/*.test.*",
         "**/*.spec.*",
+        "**/*.stories.*",
+        "**/*.test.*",
+        "**/__fixtures__/**",
+        "**/__tests__/**",
+        "**/fixtures/**",
         "**/node_modules/**",
-        "**/*.stories.*"
+        "**/test/**",
+        "**/tests/**"
       ],
       "because": "Three equal-weight cards in a row is the default answer to 'show some features', repeated for every section. It gives every item the same importance, which usually means none were ranked.",
       "instead": "Decide which one matters most and let the layout say so."
@@ -942,10 +1204,15 @@
         "**/*.svelte"
       ],
       "not_in": [
-        "**/*.test.*",
         "**/*.spec.*",
+        "**/*.stories.*",
+        "**/*.test.*",
+        "**/__fixtures__/**",
+        "**/__tests__/**",
+        "**/fixtures/**",
         "**/node_modules/**",
-        "**/*.stories.*"
+        "**/test/**",
+        "**/tests/**"
       ],
       "because": "Every generated page is 1280px centred. It is not wrong, it is the width nobody chose, and it makes unrelated products feel like the same site.",
       "instead": "Pick a measure from your type. Long-form reading wants far narrower; a dashboard usually wants wider."
@@ -966,10 +1233,15 @@
         "**/*.html"
       ],
       "not_in": [
-        "**/*.test.*",
         "**/*.spec.*",
+        "**/*.stories.*",
+        "**/*.test.*",
+        "**/__fixtures__/**",
+        "**/__tests__/**",
+        "**/fixtures/**",
         "**/node_modules/**",
-        "**/*.stories.*"
+        "**/test/**",
+        "**/tests/**"
       ],
       "because": "Centred everything is the layout equivalent of a shrug. Centred text is hard to read in paragraphs and removes the left edge the eye scans against.",
       "instead": "Left-align body copy. Centre only short, deliberate lines."
@@ -991,10 +1263,15 @@
         "**/*.svelte"
       ],
       "not_in": [
-        "**/*.test.*",
         "**/*.spec.*",
+        "**/*.stories.*",
+        "**/*.test.*",
+        "**/__fixtures__/**",
+        "**/__tests__/**",
+        "**/fixtures/**",
         "**/node_modules/**",
-        "**/*.stories.*"
+        "**/test/**",
+        "**/tests/**"
       ],
       "because": "Everything wrapped in a card, then cards inside cards — three levels of container because hierarchy was never decided.",
       "instead": "One container. Use spacing to group what is inside it."
@@ -1016,11 +1293,16 @@
         "**/*.svelte"
       ],
       "not_in": [
-        "**/*.test.*",
         "**/*.spec.*",
-        "**/node_modules/**",
         "**/*.stories.*",
-        "**/Avatar.*"
+        "**/*.test.*",
+        "**/Avatar.*",
+        "**/__fixtures__/**",
+        "**/__tests__/**",
+        "**/fixtures/**",
+        "**/node_modules/**",
+        "**/test/**",
+        "**/tests/**"
       ],
       "because": "The big circled icon floating above a centred heading is a named tell — decoration sized larger than the message it introduces.",
       "instead": "Lose the circle. If the icon earns its place, let it sit inline at text scale."
@@ -1041,10 +1323,15 @@
         "**/*.html"
       ],
       "not_in": [
-        "**/*.test.*",
         "**/*.spec.*",
+        "**/*.stories.*",
+        "**/*.test.*",
+        "**/__fixtures__/**",
+        "**/__tests__/**",
+        "**/fixtures/**",
         "**/node_modules/**",
-        "**/*.stories.*"
+        "**/test/**",
+        "**/tests/**"
       ],
       "because": "A hero that fills the viewport before saying anything is the template default. It costs the reader a scroll to learn nothing.",
       "instead": "Size the section to its content. Let the next thing peek above the fold."
@@ -1066,10 +1353,15 @@
         "**/*.svelte"
       ],
       "not_in": [
-        "**/*.test.*",
         "**/*.spec.*",
+        "**/*.stories.*",
+        "**/*.test.*",
+        "**/__fixtures__/**",
+        "**/__tests__/**",
+        "**/fixtures/**",
         "**/node_modules/**",
-        "**/*.stories.*"
+        "**/test/**",
+        "**/tests/**"
       ],
       "because": "More than one sticky element and the viewport belongs to the chrome rather than the content.",
       "instead": "One sticky thing at most. Everything else can scroll away."
@@ -1091,10 +1383,15 @@
         "**/*.svelte"
       ],
       "not_in": [
-        "**/*.test.*",
         "**/*.spec.*",
+        "**/*.stories.*",
+        "**/*.test.*",
+        "**/__fixtures__/**",
+        "**/__tests__/**",
+        "**/fixtures/**",
         "**/node_modules/**",
-        "**/*.stories.*"
+        "**/test/**",
+        "**/tests/**"
       ],
       "because": "Badges everywhere is what happens when nothing was prioritised. Every state gets a chip and none of them read.",
       "instead": "Keep the one or two states a user acts on. Put the rest in text."
@@ -1116,10 +1413,15 @@
         "**/*.svelte"
       ],
       "not_in": [
-        "**/*.test.*",
         "**/*.spec.*",
+        "**/*.stories.*",
+        "**/*.test.*",
+        "**/__fixtures__/**",
+        "**/__tests__/**",
+        "**/fixtures/**",
         "**/node_modules/**",
-        "**/*.stories.*"
+        "**/test/**",
+        "**/tests/**"
       ],
       "because": "Interfaces generated without a spacing decision default to too tight. Padding is the cheapest quality signal there is.",
       "instead": "Start generous and remove. If it looks empty, the type is probably too small."
@@ -1141,10 +1443,15 @@
         "**/*.svelte"
       ],
       "not_in": [
-        "**/*.test.*",
         "**/*.spec.*",
+        "**/*.stories.*",
+        "**/*.test.*",
+        "**/__fixtures__/**",
+        "**/__tests__/**",
+        "**/fixtures/**",
         "**/node_modules/**",
-        "**/*.stories.*"
+        "**/test/**",
+        "**/tests/**"
       ],
       "because": "Arbitrary pixel values mean there is no spacing scale — every gap was decided in isolation.",
       "instead": "Use the scale. If nothing on the scale fits, the scale is wrong and should change."
@@ -1166,10 +1473,15 @@
         "**/*.svelte"
       ],
       "not_in": [
-        "**/*.test.*",
         "**/*.spec.*",
+        "**/*.stories.*",
+        "**/*.test.*",
+        "**/__fixtures__/**",
+        "**/__tests__/**",
+        "**/fixtures/**",
         "**/node_modules/**",
-        "**/*.stories.*"
+        "**/test/**",
+        "**/tests/**"
       ],
       "because": "A button under about 44px is hard to hit and reads as an afterthought.",
       "instead": "Give interactive targets room. Pad the hit area even when the icon stays small."
@@ -1191,10 +1503,15 @@
         "**/*.svelte"
       ],
       "not_in": [
-        "**/*.test.*",
         "**/*.spec.*",
+        "**/*.stories.*",
+        "**/*.test.*",
+        "**/__fixtures__/**",
+        "**/__tests__/**",
+        "**/fixtures/**",
         "**/node_modules/**",
-        "**/*.stories.*"
+        "**/test/**",
+        "**/tests/**"
       ],
       "because": "The same fade-in on every element is motion applied as a finish rather than to show a relationship. It delays everything and explains nothing.",
       "instead": "Animate what changes meaning — a thing arriving, a state flipping. Leave the rest still."
@@ -1214,10 +1531,15 @@
         "**/*.jsx"
       ],
       "not_in": [
-        "**/*.test.*",
         "**/*.spec.*",
+        "**/*.stories.*",
+        "**/*.test.*",
+        "**/__fixtures__/**",
+        "**/__tests__/**",
+        "**/fixtures/**",
         "**/node_modules/**",
-        "**/*.stories.*"
+        "**/test/**",
+        "**/tests/**"
       ],
       "because": "Overshoot easing on interface motion reads as playful once and cheap thereafter.",
       "instead": "Ease-out for things entering, ease-in for things leaving. No overshoot on anything a user waits for."
@@ -1239,12 +1561,17 @@
         "**/*.svelte"
       ],
       "not_in": [
-        "**/*.test.*",
         "**/*.spec.*",
-        "**/node_modules/**",
         "**/*.stories.*",
+        "**/*.test.*",
+        "**/*[Ll]oading*",
         "**/[Ss]keleton*",
-        "**/*[Ll]oading*"
+        "**/__fixtures__/**",
+        "**/__tests__/**",
+        "**/fixtures/**",
+        "**/node_modules/**",
+        "**/test/**",
+        "**/tests/**"
       ],
       "because": "A pulsing element that is not loading anything is an animation looking for a job.",
       "instead": "Keep pulse for skeletons and live indicators. Everything else can hold still."
@@ -1266,10 +1593,15 @@
         "**/*.svelte"
       ],
       "not_in": [
-        "**/*.test.*",
         "**/*.spec.*",
+        "**/*.stories.*",
+        "**/*.test.*",
+        "**/__fixtures__/**",
+        "**/__tests__/**",
+        "**/fixtures/**",
         "**/node_modules/**",
-        "**/*.stories.*"
+        "**/test/**",
+        "**/tests/**"
       ],
       "because": "Transitions over about half a second stop reading as responsive and start reading as lag.",
       "instead": "150ms to 300ms for most interface motion. Reserve longer for things genuinely travelling a distance."
@@ -1290,10 +1622,15 @@
         "**/*.scss"
       ],
       "not_in": [
-        "**/*.test.*",
         "**/*.spec.*",
+        "**/*.stories.*",
+        "**/*.test.*",
+        "**/__fixtures__/**",
+        "**/__tests__/**",
+        "**/fixtures/**",
         "**/node_modules/**",
-        "**/*.stories.*"
+        "**/test/**",
+        "**/tests/**"
       ],
       "because": "Dark by default is the most common reflex in generated interfaces. Dark is a real choice for some products and a costume for most.",
       "instead": "Decide. If the product is used in daylight by people reading text, light is probably right."
@@ -1315,10 +1652,15 @@
         "**/*.svelte"
       ],
       "not_in": [
-        "**/*.test.*",
         "**/*.spec.*",
+        "**/*.stories.*",
+        "**/*.test.*",
+        "**/__fixtures__/**",
+        "**/__tests__/**",
+        "**/fixtures/**",
         "**/node_modules/**",
-        "**/*.stories.*"
+        "**/test/**",
+        "**/tests/**"
       ],
       "because": "Inline styles bypass whatever system exists, which means the value was chosen locally and relates to nothing.",
       "instead": "Put it in the stylesheet or the theme. If it is truly dynamic, that is the exception, not the habit."
@@ -1342,10 +1684,15 @@
         "**/*.svelte"
       ],
       "not_in": [
-        "**/*.test.*",
         "**/*.spec.*",
+        "**/*.stories.*",
+        "**/*.test.*",
+        "**/__fixtures__/**",
+        "**/__tests__/**",
+        "**/fixtures/**",
         "**/node_modules/**",
-        "**/*.stories.*"
+        "**/test/**",
+        "**/tests/**"
       ],
       "because": "An !important is a note saying the cascade was lost. It is usually a symptom of a system that was never designed.",
       "instead": "Fix the specificity. If you are overriding a third-party style, scope it instead."
@@ -1366,10 +1713,15 @@
         "**/*.html"
       ],
       "not_in": [
-        "**/*.test.*",
         "**/*.spec.*",
+        "**/*.stories.*",
+        "**/*.test.*",
+        "**/__fixtures__/**",
+        "**/__tests__/**",
+        "**/fixtures/**",
         "**/node_modules/**",
-        "**/*.stories.*"
+        "**/test/**",
+        "**/tests/**"
       ],
       "because": "A placeholder used as the only label disappears the moment someone types, and takes the field's meaning with it.",
       "instead": "A real label above the field. Placeholders are for examples, not names."

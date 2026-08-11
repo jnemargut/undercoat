@@ -71,7 +71,7 @@ Undercoat refuses the *route* and points the agent back at the Write tool.
 
 ## The rules
 
-56 rules: **25 block, 31 advise.**
+56 rules: **20 block, 36 advise.**
 
 Severity comes from risk, not popularity. A rule refuses a write only if both are true:
 
@@ -129,9 +129,22 @@ longer drive severity, which lowers the cost of that gap. And the `rarely_legiti
 calls are **judgments, not measurements**. They are the first thing to audit if a block
 ever fires on code you wanted.
 
-The 25 blocking rules have been checked two ways — against deliberately good markup that
-must pass clean, and against deliberately generic markup that must be caught. Neither is
-a substitute for running it on a real build, which is the next thing to do.
+**Validated against real code.** The rules were run over shadcn/ui, tailwindcss.com and
+cal.com — 4,722 files of well-regarded hand-written UI. The first run refused **32.7% of
+tailwindcss.com**, which exposed three wrong `rarely_legitimate` calls and five rules that
+had to be demoted or rescoped. After those fixes:
+
+| corpus | before | after |
+|---|---|---|
+| shadcn/ui | 9.6% | **0.03%** |
+| tailwindcss.com | 32.7% | **3.27%** |
+| cal.com | 4.5% | **0.68%** |
+
+Detection was re-checked afterwards so the improvement isn't just a weaker tool: a generic
+landing page still trips seven blocking rules at once.
+
+Known residue: `buzzword-copy` can fire on prose inside code comments, and Tailwind's own
+site legitimately demos purple swatches. Both are rare and both are wrong-block risks.
 
 Requires `python3` (present on macOS and most Linux). No npm package, no account, no key.
 

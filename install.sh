@@ -144,7 +144,7 @@ print(f"  → added PreToolUse hook to {settings_path}")
 PY
 
 echo
-echo "✓ Undercoat active. 25 rules block, 31 advise."
+echo "✓ Undercoat active. 20 rules block, 36 advise."
 echo "  Mute a rule for this project:  echo '{\"off\":[\"ai-purple\"]}' > .undercoat.local.json"
 echo "  Disarm a project entirely:     touch .undercoat.off"
 echo "  Remove it entirely:            ${SRC}/uninstall.sh ${TARGET}"
