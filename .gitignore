@@ -11,3 +11,6 @@ __pycache__/
 
 # other tooling's working notes, not part of this repo
 .bettercompact/
+
+# other tooling's per-session state, not part of this repo
+.whogitit/
