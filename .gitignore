@@ -14,3 +14,6 @@ __pycache__/
 
 # other tooling's per-session state, not part of this repo
 .whogitit/
+
+# decision history — kept locally, not published
+.decisions/

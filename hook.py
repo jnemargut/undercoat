@@ -12,11 +12,11 @@ Implemented in Python rather than shell because the job is JSON + regex + globs,
 python3 is present on more machines than jq is. The plan called this hook.sh; the
 behaviour is unchanged.
 
-Design decisions this implements, from .decisions/:
-  D1  rules carry scope globs, a reason, and a direction
-  D3  Write / Edit / MultiEdit / NotebookEdit, plus Bash write *routes*
-  D5  block for consensus rules, warn for opinionated ones, per-project mutes
-  D6  agent-directive message shape, plus the retry cap D6 did not include
+What this implements:
+  rules carry scope globs, a reason, and a direction
+  Write / Edit / MultiEdit / NotebookEdit, plus Bash write *routes*
+  block where refusing is safe, warn otherwise, per-project mutes
+  agent-directive refusal message, and a retry cap so a stuck agent stops
 """
 
 import json
