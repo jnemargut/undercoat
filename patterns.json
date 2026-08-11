@@ -17,7 +17,8 @@
     "method": "Patterns are drawn from publicly documented catalogs of AI design tells: impeccable (https://github.com/pbakaus/impeccable), Taste Skill (https://github.com/Leonxlnx/taste-skill), Anthropic's frontend-design skill (https://github.com/anthropics/skills/tree/main/skills/frontend-design), the UI/UX Pro Max anti-pattern database, and several independent 2026 write-ups.",
     "correction": "An earlier version of this file cited a catalog called 'web-taste'. That could not be verified as a distinct project and has been removed. Some `catalogs` counts may therefore be overstated by one. Since flag-001 those counts are provenance only and do not affect severity.",
     "hero_italic_note": "hero-italic-emphasis came from a user spotting it as a tell rather than from a catalog, so catalogs is 0. It blocks because it measured 0 hits across 4,516 real files, which is the evidence for rarely_legitimate.",
-    "floor_review": "stat-row, marketing-eyebrow, hero-pill-badge, testimonial-triplet, card-icon-tile, pricing-most-popular, invented-faq, repeated-cta and hardcoded-slate all came from a human reviewing pages that had already passed the floor, so catalogs is 0 for each. Every one blocks on measured evidence: 0 to 2 hits across 4,722 files of careful hand-written UI. vague-headline was widened to catch 'Everything your X needs'."
+    "floor_review": "stat-row, marketing-eyebrow, hero-pill-badge, testimonial-triplet, card-icon-tile, pricing-most-popular, invented-faq, repeated-cta and hardcoded-slate all came from a human reviewing pages that had already passed the floor, so catalogs is 0 for each. Every one blocks on measured evidence: 0 to 2 hits across 4,722 files of careful hand-written UI. vague-headline was widened to catch 'Everything your X needs'.",
+    "iterations": "Rules were found by generating pages that already passed the floor and reviewing them. Round 1 (human review) produced 9 rules. Round 2 produced 5 and forced hardcoded-slate to be merged into hardcoded-neutral-ramp at warn, because hardcoding neutral hexes turned out to be common in real code. Round 3 produced 2 and found the docs page essentially clean, which is where returns started falling off."
   },
   "rules": [
     {
@@ -1796,7 +1797,7 @@
       "unambiguous": true,
       "rarely_legitimate": true,
       "catalogs": 0,
-      "match": "(?i)<h[12][^>]*\\bitalic\\b|<h[12][^>]*>[\\s\\S]{0,200}?<(?:em|i)\\b|<h[12][^>]*>[\\s\\S]{0,200}?<span[^>]*\\bitalic\\b|<h[12][^>]*>[\\s\\S]{0,200}?font-style\\s*:\\s*italic",
+      "match": "(?i)<h[12][^>]*\\bitalic\\b|<h[12][^>]*>[\\s\\S]{0,200}?<em\\b|<h[12][^>]*>[\\s\\S]{0,200}?<i\\b[^>]*>[A-Za-z][^<]{1,}|<h[12][^>]*>[\\s\\S]{0,200}?<span[^>]*\\bitalic\\b|<h[12][^>]*>[\\s\\S]{0,200}?font-style\\s*:\\s*italic",
       "in": [
         "**/*.tsx",
         "**/*.jsx",
@@ -1969,7 +1970,7 @@
       "unambiguous": true,
       "rarely_legitimate": true,
       "catalogs": 0,
-      "match": "(?:w-(?:10|11|12|14)[^\\\"'`]{0,40}h-(?:10|11|12|14)|h-(?:10|11|12|14)[^\\\"'`]{0,40}w-(?:10|11|12|14))[^\\\"'`]{0,40}rounded-(?:lg|xl|2xl)|rounded-(?:lg|xl|2xl)[^\\\"'`]{0,40}(?:w-(?:10|11|12|14)[^\\\"'`]{0,40}h-(?:10|11|12|14))",
+      "match": "(?:w-(?:10|11|12|14|16|20|24|28)[^\\\"'`]{0,40}h-(?:10|11|12|14|16|20|24|28)|h-(?:10|11|12|14|16|20|24|28)[^\\\"'`]{0,40}w-(?:10|11|12|14|16|20|24|28))[^\\\"'`]{0,40}rounded-(?:lg|xl|2xl)|rounded-(?:lg|xl|2xl)[^\\\"'`]{0,40}(?:w-(?:10|11|12|14|16|20|24|28)[^\\\"'`]{0,40}h-(?:10|11|12|14|16|20|24|28))",
       "in": [
         "**/*.tsx",
         "**/*.jsx",
@@ -1995,9 +1996,9 @@
         "**/test/**",
         "**/tests/**"
       ],
-      "because": "The tinted rounded tile with an outline icon in it, once per feature card. It is decoration standing in for a picture nobody had. Measured against 4,722 files of hand-written UI from shadcn/ui, tailwindcss.com and cal.com: 2 hits.",
+      "because": "The tinted rounded tile with an outline icon in it, once per feature card. It is decoration standing in for a picture nobody had. Measured across 4,722 files: 2 hits.",
       "instead": "Drop the tile. An icon can sit inline at text size, or the card can lead with its heading.",
-      "catches": "An icon in a small rounded square at the top of a card"
+      "catches": "An icon in a tinted rounded square, on a card or above an empty state"
     },
     {
       "id": "pricing-most-popular",
@@ -2108,12 +2109,13 @@
       "catches": "The same button wording repeated down the page"
     },
     {
-      "id": "hardcoded-slate",
-      "severity": "block",
+      "id": "hardcoded-neutral-ramp",
+      "severity": "warn",
       "unambiguous": true,
-      "rarely_legitimate": true,
+      "rarely_legitimate": false,
+      "risk_note": "Hardcoding these hexes is common in real code: 20 hits across 4,722 files, spread through production views rather than one palette file. It advises instead of refusing. Note this supersedes the old hardcoded-slate rule, which blocked only because slate happened to be rarer in the sample.",
       "catalogs": 0,
-      "match": "#(?:0f172a|1e293b|334155|475569|64748b|94a3b8|cbd5e1|e2e8f0|f1f5f9|f8fafc)\\b",
+      "match": "#(?:0f172a|1e293b|334155|475569|64748b|94a3b8|cbd5e1|e2e8f0|f1f5f9|f8fafc|18181b|27272a|3f3f46|52525b|71717a|a1a1aa|d4d4d8|e4e4e7|f4f4f5|fafafa|111827|1f2937|374151|4b5563|6b7280|9ca3af|d1d5db|e5e7eb|f3f4f6|f9fafb|1c1917|292524|44403c|57534e|78716c|a8a29e|d6d3d1|e7e5e4|f5f5f4)\\b",
       "in": [
         "**/*.tsx",
         "**/*.jsx",
@@ -2141,9 +2143,230 @@
         "**/test/**",
         "**/tests/**"
       ],
-      "because": "Slate is what a model reaches for the moment blue and purple are off the table. Hardcoding the ramp means the greys were inherited rather than chosen. Measured against 4,722 files of hand-written UI from shadcn/ui, tailwindcss.com and cal.com: 1 hit.",
-      "instead": "Pick a neutral with a temperature. Warm greys, cool greys and true greys all read differently, and any deliberate choice beats the default.",
-      "catches": "Tailwind's slate ramp hardcoded as the palette"
+      "because": "The reflex you fall into once the obvious colours are closed off. Close one default grey and a model reaches for the next, which is how you can tell nobody picked it.",
+      "instead": "Choose a neutral and say why. A grey with a little warmth or a little blue in it reads as a decision; the stock ramp reads as none.",
+      "catches": "Tailwind's slate, zinc, gray or stone ramps hardcoded as the palette"
+    },
+    {
+      "id": "min-read-byline",
+      "severity": "block",
+      "unambiguous": true,
+      "rarely_legitimate": true,
+      "catalogs": 0,
+      "match": "(?i)\\b\\d{1,2}\\s*min(?:ute)?s?\\s+read\\b",
+      "in": [
+        "**/*.tsx",
+        "**/*.jsx",
+        "**/*.vue",
+        "**/*.svelte",
+        "**/*.html",
+        "**/*.md",
+        "**/*.mdx"
+      ],
+      "not_in": [
+        "**/*.mdx",
+        "**/*.spec.*",
+        "**/*.stories.*",
+        "**/*.test.*",
+        "**/*demo*",
+        "**/__fixtures__/**",
+        "**/__tests__/**",
+        "**/demo/**",
+        "**/docs/**",
+        "**/examples/**",
+        "**/fixtures/**",
+        "**/node_modules/**",
+        "**/registry/**",
+        "**/templates/**",
+        "**/test/**",
+        "**/tests/**"
+      ],
+      "because": "The reading time under the headline. It arrived with content marketing and it tells the reader how long to feel guilty for, not whether the piece is worth their time. Measured across 5,739 files of hand-written code: 0 hits.",
+      "instead": "Nothing. If the piece is long, the scrollbar already says so.",
+      "catches": "An X min read estimate in a byline"
+    },
+    {
+      "id": "related-reading",
+      "severity": "block",
+      "unambiguous": true,
+      "rarely_legitimate": true,
+      "catalogs": 0,
+      "match": "(?i)>\\s*(?:Related (?:reading|articles|posts)|You might also like|Keep reading|More from|Recommended for you)\\s*<",
+      "in": [
+        "**/*.tsx",
+        "**/*.jsx",
+        "**/*.vue",
+        "**/*.svelte",
+        "**/*.html"
+      ],
+      "not_in": [
+        "**/*.mdx",
+        "**/*.spec.*",
+        "**/*.stories.*",
+        "**/*.test.*",
+        "**/*demo*",
+        "**/__fixtures__/**",
+        "**/__tests__/**",
+        "**/demo/**",
+        "**/docs/**",
+        "**/examples/**",
+        "**/fixtures/**",
+        "**/node_modules/**",
+        "**/registry/**",
+        "**/templates/**",
+        "**/test/**",
+        "**/tests/**"
+      ],
+      "because": "The block of things you did not ask for at the bottom of the thing you did. It exists to raise time on page rather than to help. Measured across 5,739 files of hand-written code: 0 hits.",
+      "instead": "Link the one piece that genuinely follows on, in the sentence where it belongs.",
+      "catches": "A Related reading or You might also like block"
+    },
+    {
+      "id": "tip-callout",
+      "severity": "block",
+      "unambiguous": true,
+      "rarely_legitimate": true,
+      "catalogs": 0,
+      "match": "(?i)>\\s*(?:Pro tip|Worth knowing|Did you know|Good to know|Quick tip|Note:)\\s*<",
+      "in": [
+        "**/*.tsx",
+        "**/*.jsx",
+        "**/*.vue",
+        "**/*.svelte",
+        "**/*.html",
+        "**/*.md",
+        "**/*.mdx"
+      ],
+      "not_in": [
+        "**/*.mdx",
+        "**/*.spec.*",
+        "**/*.stories.*",
+        "**/*.test.*",
+        "**/*demo*",
+        "**/__fixtures__/**",
+        "**/__tests__/**",
+        "**/demo/**",
+        "**/docs/**",
+        "**/examples/**",
+        "**/fixtures/**",
+        "**/node_modules/**",
+        "**/registry/**",
+        "**/templates/**",
+        "**/test/**",
+        "**/tests/**"
+      ],
+      "because": "A grey box with a friendly label, holding a sentence that was not important enough for the paragraph above it. Measured across 5,739 files of hand-written code: 0 hits.",
+      "instead": "Put it in the prose, or cut it. A box is not an argument for keeping something.",
+      "catches": "A Pro tip or Worth knowing callout box"
+    },
+    {
+      "id": "checkmark-benefit-list",
+      "severity": "block",
+      "unambiguous": true,
+      "rarely_legitimate": true,
+      "catalogs": 0,
+      "match": "(?:M20 6\\s*[L ]?\\s*9 17l?-5-5[\\s\\S]{0,600}?){3,}",
+      "in": [
+        "**/*.tsx",
+        "**/*.jsx",
+        "**/*.vue",
+        "**/*.svelte",
+        "**/*.html"
+      ],
+      "not_in": [
+        "**/*.mdx",
+        "**/*.spec.*",
+        "**/*.stories.*",
+        "**/*.test.*",
+        "**/*demo*",
+        "**/__fixtures__/**",
+        "**/__tests__/**",
+        "**/demo/**",
+        "**/docs/**",
+        "**/examples/**",
+        "**/fixtures/**",
+        "**/node_modules/**",
+        "**/registry/**",
+        "**/templates/**",
+        "**/test/**",
+        "**/tests/**"
+      ],
+      "because": "The lucide check, repeated down a list of things that are all equally good. It is what fills a card when nobody ranked the features. Measured across 5,739 files of hand-written code: 0 hits.",
+      "instead": "Drop the ticks. A plain list reads faster, and the ones that matter can be said in a sentence.",
+      "catches": "Three or more identical tick icons beside short benefit lines"
+    },
+    {
+      "id": "nothing-here-yet",
+      "severity": "warn",
+      "unambiguous": true,
+      "rarely_legitimate": false,
+      "risk_note": "6 hits across 4,722 files. Real apps do write 'No results found', and sometimes that is the honest thing to say, so it advises rather than refuses.",
+      "catalogs": 0,
+      "match": "(?i)>\\s*(?:No [a-z ]{2,24} (?:yet|found)|Nothing (?:here|to see)(?: yet)?|You have no [a-z ]{2,24}|It'?s empty (?:here|in here))\\s*[.!]?\\s*<",
+      "in": [
+        "**/*.tsx",
+        "**/*.jsx",
+        "**/*.vue",
+        "**/*.svelte",
+        "**/*.html"
+      ],
+      "not_in": [
+        "**/*.mdx",
+        "**/*.spec.*",
+        "**/*.stories.*",
+        "**/*.test.*",
+        "**/*demo*",
+        "**/__fixtures__/**",
+        "**/__tests__/**",
+        "**/demo/**",
+        "**/docs/**",
+        "**/examples/**",
+        "**/fixtures/**",
+        "**/node_modules/**",
+        "**/registry/**",
+        "**/templates/**",
+        "**/test/**",
+        "**/tests/**"
+      ],
+      "because": "The heading that states the obvious. The screen is already empty; saying so uses the one line where you could have said what to do instead.",
+      "instead": "Lead with the action or the reason. 'Connect a repository to see releases' does the same job and moves someone along.",
+      "catches": "A No X yet or Nothing here yet empty state heading"
+    },
+    {
+      "id": "setup-checklist",
+      "severity": "block",
+      "unambiguous": true,
+      "rarely_legitimate": true,
+      "catalogs": 0,
+      "match": "(?i)>\\s*(?:Finish setting up|Complete your (?:setup|profile|account)|Getting started checklist|Set up your \\w+|Quick start guide)\\s*<",
+      "in": [
+        "**/*.tsx",
+        "**/*.jsx",
+        "**/*.vue",
+        "**/*.svelte",
+        "**/*.html"
+      ],
+      "not_in": [
+        "**/*.mdx",
+        "**/*.spec.*",
+        "**/*.stories.*",
+        "**/*.test.*",
+        "**/*demo*",
+        "**/__fixtures__/**",
+        "**/__tests__/**",
+        "**/demo/**",
+        "**/docs/**",
+        "**/examples/**",
+        "**/fixtures/**",
+        "**/node_modules/**",
+        "**/registry/**",
+        "**/templates/**",
+        "**/test/**",
+        "**/tests/**"
+      ],
+      "because": "The onboarding checklist with the first item already ticked, so the bar looks like progress. It is a gamified to-do list bolted onto a screen that had nothing to show. Measured across 4,722 files of hand-written code: 0 hits.",
+      "instead": "Put the single next action where the empty content would have been, and drop the rest until it matters.",
+      "catches": "A numbered Finish setting up checklist card"
     }
   ]
 }

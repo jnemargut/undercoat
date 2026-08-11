@@ -218,7 +218,7 @@ Three testimonials of near-identical length, side by side, each with a grey circ
 
 ### card-icon-tile
 
-The tinted rounded tile with an outline icon in it, once per feature card. It is decoration standing in for a picture nobody had. Measured against 4,722 files of hand-written UI from shadcn/ui, tailwindcss.com and cal.com: 2 hits.
+The tinted rounded tile with an outline icon in it, once per feature card. It is decoration standing in for a picture nobody had. Measured across 4,722 files: 2 hits.
 
 **Instead:** Drop the tile. An icon can sit inline at text size, or the card can lead with its heading.
 
@@ -248,13 +248,45 @@ The identical call to action at the top and again at the bottom. Saying it twice
 
 *Applies to: `**/*.tsx`, `**/*.jsx`, `**/*.vue`, `**/*.svelte`, `**/*.html`*
 
-### hardcoded-slate
+### min-read-byline
 
-Slate is what a model reaches for the moment blue and purple are off the table. Hardcoding the ramp means the greys were inherited rather than chosen. Measured against 4,722 files of hand-written UI from shadcn/ui, tailwindcss.com and cal.com: 1 hit.
+The reading time under the headline. It arrived with content marketing and it tells the reader how long to feel guilty for, not whether the piece is worth their time. Measured across 5,739 files of hand-written code: 0 hits.
 
-**Instead:** Pick a neutral with a temperature. Warm greys, cool greys and true greys all read differently, and any deliberate choice beats the default.
+**Instead:** Nothing. If the piece is long, the scrollbar already says so.
 
-*Applies to: `**/*.tsx`, `**/*.jsx`, `**/*.vue`, `**/*.svelte`, `**/*.html`, `**/*.css`, `**/*.scss`*
+*Applies to: `**/*.tsx`, `**/*.jsx`, `**/*.vue`, `**/*.svelte`, `**/*.html`, `**/*.md`, `**/*.mdx`*
+
+### related-reading
+
+The block of things you did not ask for at the bottom of the thing you did. It exists to raise time on page rather than to help. Measured across 5,739 files of hand-written code: 0 hits.
+
+**Instead:** Link the one piece that genuinely follows on, in the sentence where it belongs.
+
+*Applies to: `**/*.tsx`, `**/*.jsx`, `**/*.vue`, `**/*.svelte`, `**/*.html`*
+
+### tip-callout
+
+A grey box with a friendly label, holding a sentence that was not important enough for the paragraph above it. Measured across 5,739 files of hand-written code: 0 hits.
+
+**Instead:** Put it in the prose, or cut it. A box is not an argument for keeping something.
+
+*Applies to: `**/*.tsx`, `**/*.jsx`, `**/*.vue`, `**/*.svelte`, `**/*.html`, `**/*.md`, `**/*.mdx`*
+
+### checkmark-benefit-list
+
+The lucide check, repeated down a list of things that are all equally good. It is what fills a card when nobody ranked the features. Measured across 5,739 files of hand-written code: 0 hits.
+
+**Instead:** Drop the ticks. A plain list reads faster, and the ones that matter can be said in a sentence.
+
+*Applies to: `**/*.tsx`, `**/*.jsx`, `**/*.vue`, `**/*.svelte`, `**/*.html`*
+
+### setup-checklist
+
+The onboarding checklist with the first item already ticked, so the bar looks like progress. It is a gamified to-do list bolted onto a screen that had nothing to show. Measured across 4,722 files of hand-written code: 0 hits.
+
+**Instead:** Put the single next action where the empty content would have been, and drop the rest until it matters.
+
+*Applies to: `**/*.tsx`, `**/*.jsx`, `**/*.vue`, `**/*.svelte`, `**/*.html`*
 
 ## Think twice about these
 
@@ -619,6 +651,26 @@ A placeholder used as the only label disappears the moment someone types, and ta
 *Applies to: `**/*.tsx`, `**/*.jsx`, `**/*.vue`, `**/*.svelte`, `**/*.html`*
 
 *Advises rather than blocks: The negative lookaheads are a crude proxy for 'has a label' and will misfire on wrapped components.*
+
+### hardcoded-neutral-ramp
+
+The reflex you fall into once the obvious colours are closed off. Close one default grey and a model reaches for the next, which is how you can tell nobody picked it.
+
+**Instead:** Choose a neutral and say why. A grey with a little warmth or a little blue in it reads as a decision; the stock ramp reads as none.
+
+*Applies to: `**/*.tsx`, `**/*.jsx`, `**/*.vue`, `**/*.svelte`, `**/*.html`, `**/*.css`, `**/*.scss`*
+
+*Advises rather than blocks: Hardcoding these hexes is common in real code: 20 hits across 4,722 files, spread through production views rather than one palette file. It advises instead of refusing. Note this supersedes the old hardcoded-slate rule, which blocked only because slate happened to be rarer in the sample.*
+
+### nothing-here-yet
+
+The heading that states the obvious. The screen is already empty; saying so uses the one line where you could have said what to do instead.
+
+**Instead:** Lead with the action or the reason. 'Connect a repository to see releases' does the same job and moves someone along.
+
+*Applies to: `**/*.tsx`, `**/*.jsx`, `**/*.vue`, `**/*.svelte`, `**/*.html`*
+
+*Advises rather than blocks: 6 hits across 4,722 files. Real apps do write 'No results found', and sometimes that is the honest thing to say, so it advises rather than refuses.*
 
 ## When a rule is wrong
 
