@@ -12,8 +12,8 @@ otherwise, because it's the average of every landing page it ever read.
 
 You can tell it not to. That works for about forty files, and then it forgets.
 
-Undercoat doesn't ask. It reads the file while the agent is saving it, and if that stuff is
-in there, the save fails.
+Undercoat doesn't ask. It reads each file as the agent goes to save it, and if that stuff is
+in there, the save just fails.
 
 ![Undercoat refusing a write, the agent retrying, and the second attempt going through](assets/refusal.gif)
 
@@ -207,15 +207,15 @@ says something and gets out of your way.
 
 ### Why some refuse and some don't
 
-A rule only gets to refuse a file if two things hold. What it looks for has to mean one
-thing and nothing else, and almost nobody should ever want it deliberately.
+A rule only gets to refuse a file if two things are true. What it looks for has to mean one
+thing and nothing else, and almost nobody should ever want it on purpose.
 
-A hot-linked Unsplash photo in shipped code fails both tests badly enough to refuse. Three
-cards in a row is a genuine tell, but plenty of good pages have three cards in a row, so
-that one just says something and moves on.
+Take a hot-linked Unsplash photo in shipped code. It means one thing, and almost nobody
+wants it, so that one refuses. Three cards in a row is a genuine tell, but plenty of good
+pages have three cards in a row, so that one just says something and moves on.
 
-Notice what this isn't measuring. It doesn't matter how many people agree a pattern is
-ugly. The only question is whether stopping you would ever be the wrong call.
+How many people agree a pattern is ugly doesn't come into it. The only question is whether
+stopping you would ever be the wrong call.
 
 ## When a rule gets it wrong
 
@@ -243,8 +243,8 @@ It reads text, and that's all it reads. So:
 - **It can't tell writing about a pattern from using one.** A style guide that mentions
   `from-purple-600` gets pulled up for it, so turn Undercoat off in those repos.
 
-If you want something that looks at the rendered page and tells you it's boring, you want a
-design reviewer. Undercoat is meant to sit alongside one.
+If you want something that looks at the finished page and tells you it's boring, you want a
+design reviewer. Undercoat is built to work alongside one, not replace it.
 
 ## Does it get in the way?
 
@@ -267,8 +267,9 @@ named by [impeccable](https://github.com/pbakaus/impeccable),
 [Anthropic's frontend-design skill](https://github.com/anthropics/skills/tree/main/skills/frontend-design),
 plus a handful of write-ups cataloguing AI design tells. There's a fuller note in `NOTICE`.
 
-What's different here is the timing. Everything else tells the agent beforehand or checks
-your work afterwards. This one sits on the save.
+What's different here is when it happens. Other tools tell the agent what to do before it
+starts, or check your code once it's finished. This one stops the file from being written
+in the first place.
 
 ## Try it
 
