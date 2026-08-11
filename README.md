@@ -4,7 +4,7 @@
 
 You've seen this page. Everyone has.
 
-![A generated landing page with ten Undercoat rules labelled on it, seven of which send it back](assets/what-it-refuses.png)
+![A generated landing page with eleven Undercoat rules labelled on it, eight of which send it back. The labels include a purple gradient, a vague headline, a generic call to action, an emoji standing in for an icon, and an invented testimonial](assets/what-it-refuses.png)
 
 Your agent didn't pick the purple, or the headline, or the button that says Get Started.
 None of that was a decision. It's just what comes out when nothing tells the model
@@ -137,7 +137,7 @@ try `cat > file` instead, so Undercoat turns that down and points it back at the
 |---|---|
 | `stock-placeholder-image` | Hot-linked Unsplash, placehold.co or picsum URLs |
 | `generated-avatar-service` | Procedural avatars from dicebear or ui-avatars |
-| `emoji-as-icon` | An emoji doing an icon's job in a heading or button |
+| `emoji-as-icon` | An emoji doing an icon's job, alone in a tile or beside text in a heading or button |
 
 </details>
 

@@ -170,7 +170,7 @@ Procedurally generated avatars are the visual equivalent of Lorem ipsum, and the
 
 ### emoji-as-icon
 
-Emoji standing in for an icon system is a named tell. It renders differently on every platform and signals that no icon decision was made.
+The rocket, the lock, the sparkles. An emoji standing in for an icon system is one of the most legible tells there is, and it renders differently on every platform your reader might be on.
 
 **Instead:** A real icon set, or no icon. If the label needs an emoji to carry meaning, the label needs rewriting.
 
