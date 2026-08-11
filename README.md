@@ -4,7 +4,7 @@
 
 You've seen this page. Everyone has.
 
-![A generated landing page with eleven Undercoat rules labelled on it, eight of which send it back. The labels include a purple gradient, a vague headline, a generic call to action, an emoji standing in for an icon, and an invented testimonial](assets/what-it-refuses.png)
+![A generated landing page with eleven Undercoat rules labeled on it, eight of which send it back. The labels include a purple gradient, a vague headline, a generic call to action, an emoji standing in for an icon, and an invented testimonial](assets/what-it-refuses.png)
 
 Your agent didn't pick the purple, or the headline, or the button that says Get Started.
 None of that was a decision. It's just what comes out when nothing tells the model
@@ -75,14 +75,14 @@ try `cat > file` instead, so Undercoat turns that down and points it back at the
 <details>
 <summary><strong>The 34 that send it back</strong></summary>
 
-**Colour**
+**Color**
 
 | Rule | What it catches |
 |---|---|
 | `ai-purple` | Purple, violet or indigo gradient stops |
 | `ai-purple-hex` | The seven hex values models reach for when they mean "primary" |
-| `rainbow-gradient` | Gradients with three or more colour stops |
-| `tinted-shadow` | Coloured shadows like shadow-purple-500/50 |
+| `rainbow-gradient` | Gradients with three or more color stops |
+| `tinted-shadow` | Colored shadows like shadow-purple-500/50 |
 | `gradient-on-root` | A gradient on the page background itself |
 
 **Shadows, blur and shape**
@@ -90,7 +90,7 @@ try `cat > file` instead, so Undercoat turns that down and points it back at the
 | Rule | What it catches |
 |---|---|
 | `neon-glow` | Zero-offset box shadows used as a glow |
-| `ambient-blur-orb` | The blurred colour blob floating behind a hero |
+| `ambient-blur-orb` | The blurred color blob floating behind a hero |
 | `gradient-border-trick` | A 1px gradient wrapper faking a glowing border |
 | `z-index-nuke` | Four-digit z-index values |
 
@@ -142,18 +142,18 @@ try `cat > file` instead, so Undercoat turns that down and points it back at the
 </details>
 
 <details>
-<summary><strong>The 36 it only mentions</strong></summary>
+<summary><strong>The 38 it only mentions</strong></summary>
 
 Every one of these is a real tell, but each is also sometimes exactly right, so Undercoat
 says something and gets out of your way.
 
-**Colour**
+**Color**
 
 | Rule | What it catches |
 |---|---|
-| `tailwind-default-blue` | bg-blue-500 or bg-blue-600 as the brand colour |
+| `tailwind-default-blue` | bg-blue-500 or bg-blue-600 as the brand color |
 | `hardcoded-neutral-ramp` | Tailwind's slate, zinc, gray or stone ramps hardcoded as the palette |
-| `default-grey-body` | Light grey body text on a light background |
+| `default-grey-body` | Light gray body text on a light background |
 | `pure-black-on-white` | Pure #000 text |
 | `hardcoded-hex-in-markup` | Arbitrary hex values inline in class names |
 
@@ -196,7 +196,7 @@ says something and gets out of your way.
 |---|---|
 | `three-card-grid` | Three equal cards as a page's main content |
 | `nested-cards` | A card inside a card |
-| `everything-centered` | Whole sections centre-aligned |
+| `everything-centered` | Whole sections center-aligned |
 | `hero-icon-circle` | A big circled icon floating above a heading |
 | `full-height-hero` | min-h-screen on the first thing anyone sees |
 | `default-container-width` | max-w-7xl mx-auto, the width nobody picked |
@@ -260,7 +260,7 @@ It reads text, and that's all it reads. So:
 
 - **Layout is invisible to it.** Four identical sections stacked down a page sail straight
   through, and honestly that's where most of the "AI made this" feeling comes from.
-- **It can't see colour in context.** Grey text is unreadable on white and completely fine
+- **It can't see color in context.** Gray text is unreadable on white and completely fine
   on black, and the file looks the same either way.
 - **It can't tell writing about a pattern from using one.** A style guide that mentions
   `from-purple-600` gets pulled up for it, so turn Undercoat off in those repos.
@@ -295,7 +295,7 @@ Most of these patterns were worked out by other people first. The rules here des
 named by [impeccable](https://github.com/pbakaus/impeccable),
 [Taste Skill](https://github.com/Leonxlnx/taste-skill) and
 [Anthropic's frontend-design skill](https://github.com/anthropics/skills/tree/main/skills/frontend-design),
-plus a handful of write-ups cataloguing AI design tells. There's a fuller note in `NOTICE`.
+plus a handful of write-ups cataloging AI design tells. There's a fuller note in `NOTICE`.
 
 What's different here is when it happens. Other tools tell the agent what to do before it
 starts, or check your code once it's finished. This one catches the file on its way to disk

@@ -20,13 +20,13 @@ Patterns that mean one thing and that almost nobody wants on purpose. On Claude 
 
 The purple-to-violet gradient is the single strongest tell of machine-made UI. Models reach for it because it sits under thousands of SaaS landing pages in the training data.
 
-**Instead:** One flat colour chosen for this project. If you want depth, use spacing and type weight, not a gradient.
+**Instead:** One flat color chosen for this project. If you want depth, use spacing and type weight, not a gradient.
 
 *Applies to: `**/*.tsx`, `**/*.jsx`, `**/*.vue`, `**/*.svelte`, `**/*.html`, `**/*.css`, `**/*.scss`*
 
 ### ai-purple-hex
 
-These are the exact hex values models default to for 'primary'. Seeing one hardcoded means the colour was inherited, not chosen.
+These are the exact hex values models default to for 'primary'. Seeing one hardcoded means the color was inherited, not chosen.
 
 **Instead:** Define your own value. Any deliberate hue beats the one that arrived by default.
 
@@ -36,13 +36,13 @@ These are the exact hex values models default to for 'primary'. Seeing one hardc
 
 A three-stop gradient is decoration with no informational job. It is the 'make it look exciting' reflex.
 
-**Instead:** One colour, or a two-stop gradient with a reason. Excitement comes from contrast, not from hue count.
+**Instead:** One color, or a two-stop gradient with a reason. Excitement comes from contrast, not from hue count.
 
 *Applies to: `**/*.tsx`, `**/*.jsx`, `**/*.vue`, `**/*.svelte`, `**/*.html`*
 
 ### tinted-shadow
 
-A coloured shadow is a glow with extra steps. It is the most-copied way to make a button look special without deciding anything.
+A colored shadow is a glow with extra steps. It is the most-copied way to make a button look special without deciding anything.
 
 **Instead:** Neutral shadow, or none. If the element needs to stand out, change its size, weight or position.
 
@@ -74,7 +74,7 @@ A zero-offset glow is decoration standing in for hierarchy. Neon-on-dark with gl
 
 ### ambient-blur-orb
 
-The giant blurred colour blob floating behind the hero is pure decoration, and it is in every generated landing page written since 2023.
+The giant blurred color blob floating behind the hero is pure decoration, and it is in every generated landing page written since 2023.
 
 **Instead:** Delete it. If the background needs interest, use a real edge, a rule, or a change of surface.
 
@@ -84,7 +84,7 @@ The giant blurred colour blob floating behind the hero is pure decoration, and i
 
 The one-pixel gradient wrapper faking a glowing border is a copied trick, not a design decision.
 
-**Instead:** A real border in one colour. If the edge needs emphasis, change the surface inside it.
+**Instead:** A real border in one color. If the edge needs emphasis, change the surface inside it.
 
 *Applies to: `**/*.tsx`, `**/*.jsx`, `**/*.vue`, `**/*.svelte`, `**/*.html`*
 
@@ -178,7 +178,7 @@ The rocket, the lock, the sparkles. An emoji standing in for an icon system is o
 
 ### hero-italic-emphasis
 
-One word of the headline set in italic, usually in a different colour, is a template move. It is emphasis applied because the layout felt flat, not because that word carries more weight than the others. Checked against 4,516 files of hand-written UI from shadcn/ui, tailwindcss.com and cal.com: it appears zero times.
+One word of the headline set in italic, usually in a different color, is a template move. It is emphasis applied because the layout felt flat, not because that word carries more weight than the others. Checked against 4,516 files of hand-written UI from shadcn/ui, tailwindcss.com and cal.com: it appears zero times.
 
 **Instead:** Let the sentence do it. If a word matters more, the headline probably needs rewriting rather than restyling.
 
@@ -194,7 +194,7 @@ The wall of impressive figures. 12,000+ / 99.9% / 40+ with no source and no date
 
 ### marketing-eyebrow
 
-A one-word label above a centred heading above a centred sentence. It is the same block repeated down the page, and the label never tells the reader anything the heading did not. Measured against 4,722 files of hand-written UI from shadcn/ui, tailwindcss.com and cal.com: 1 hit.
+A one-word label above a centered heading above a centered sentence. It is the same block repeated down the page, and the label never tells the reader anything the heading did not. Measured against 4,722 files of hand-written UI from shadcn/ui, tailwindcss.com and cal.com: 1 hit.
 
 **Instead:** Delete the label. If the heading needs a preamble to make sense, rewrite the heading.
 
@@ -210,7 +210,7 @@ The little pill announcing a feature nobody asked about yet. It is the default w
 
 ### testimonial-triplet
 
-Three testimonials of near-identical length, side by side, each with a grey circle where a face should be. Real praise does not arrive in matching sizes. Measured against 4,722 files of hand-written UI from shadcn/ui, tailwindcss.com and cal.com: 0 hits.
+Three testimonials of near-identical length, side by side, each with a gray circle where a face should be. Real praise does not arrive in matching sizes. Measured against 4,722 files of hand-written UI from shadcn/ui, tailwindcss.com and cal.com: 0 hits.
 
 **Instead:** One real quote you can attribute, or none. Three invented ones read as three invented ones.
 
@@ -266,7 +266,7 @@ The block of things you did not ask for at the bottom of the thing you did. It e
 
 ### tip-callout
 
-A grey box with a friendly label, holding a sentence that was not important enough for the paragraph above it. Measured across 5,739 files of hand-written code: 0 hits.
+A gray box with a friendly label, holding a sentence that was not important enough for the paragraph above it. Measured across 5,739 files of hand-written code: 0 hits.
 
 **Instead:** Put it in the prose, or cut it. A box is not an argument for keeping something.
 
@@ -294,9 +294,9 @@ Real tells that fail one of the two blocking tests. Either the match is a proxy 
 
 ### tailwind-default-blue
 
-Tailwind's mid-blue as the primary brand colour is the framework default wearing a brand's clothes.
+Tailwind's mid-blue as the primary brand color is the framework default wearing a brand's clothes.
 
-**Instead:** Define one project colour and use it. Any deliberate hue beats the palette you got for free.
+**Instead:** Define one project color and use it. Any deliberate hue beats the palette you got for free.
 
 *Applies to: `**/*.tsx`, `**/*.jsx`, `**/*.vue`, `**/*.svelte`, `**/*.html`*
 
@@ -304,13 +304,13 @@ Tailwind's mid-blue as the primary brand colour is the framework default wearing
 
 ### default-grey-body
 
-Light grey body text is the most common accessibility failure in generated UI, and it reads as washed out rather than subtle. Dark-mode variants are excluded, since dark:text-gray-400 is correct.
+Light gray body text is the most common accessibility failure in generated UI, and it reads as washed out rather than subtle. Dark-mode variants are excluded, since dark:text-gray-400 is correct.
 
 **Instead:** Body copy at full strength. If something should recede, reduce its size or weight, not its contrast.
 
 *Applies to: `**/*.tsx`, `**/*.jsx`, `**/*.vue`, `**/*.svelte`, `**/*.html`*
 
-*Advises rather than blocks: Correct on dark surfaces. tailwindcss.com pairs text-gray-400 with text-white, and a regex cannot see the background colour, so this advises.*
+*Advises rather than blocks: Correct on dark surfaces. tailwindcss.com pairs text-gray-400 with text-white, and a regex cannot see the background color, so this advises.*
 
 ### pure-black-on-white
 
@@ -324,13 +324,13 @@ Pure black on pure white is harsher than print ever was and reads as untuned.
 
 ### hardcoded-hex-in-markup
 
-Arbitrary hex values scattered through markup means there is no palette. Every colour was decided separately and none of them relate.
+Arbitrary hex values scattered through markup means there is no palette. Every color was decided separately and none of them relate.
 
 **Instead:** Put the value in your theme and use the token. If it is worth using twice it is worth naming.
 
 *Applies to: `**/*.tsx`, `**/*.jsx`, `**/*.vue`, `**/*.svelte`, `**/*.html`*
 
-*Advises rather than blocks: One-off arbitrary colours are sometimes correct, so this advises.*
+*Advises rather than blocks: One-off arbitrary colors are sometimes correct, so this advises.*
 
 ### system-font-only
 
@@ -474,7 +474,7 @@ Three equal-weight cards in a row is the default answer to 'show some features',
 
 ### default-container-width
 
-Every generated page is 1280px centred. It is not wrong, it is the width nobody chose, and it makes unrelated products feel like the same site.
+Every generated page is 1280px centered. It is not wrong, it is the width nobody chose, and it makes unrelated products feel like the same site.
 
 **Instead:** Pick a measure from your type. Long-form reading wants far narrower; a dashboard usually wants wider.
 
@@ -484,13 +484,13 @@ Every generated page is 1280px centred. It is not wrong, it is the width nobody 
 
 ### everything-centered
 
-Centred everything is the layout equivalent of a shrug. Centred text is hard to read in paragraphs and removes the left edge the eye scans against.
+Centered everything is the layout equivalent of a shrug. Centered text is hard to read in paragraphs and removes the left edge the eye scans against.
 
-**Instead:** Left-align body copy. Centre only short, deliberate lines.
+**Instead:** Left-align body copy. Center only short, deliberate lines.
 
 *Applies to: `**/*.tsx`, `**/*.jsx`, `**/*.vue`, `**/*.svelte`, `**/*.html`*
 
-*Advises rather than blocks: Centred sections are correct for short hero content.*
+*Advises rather than blocks: Centered sections are correct for short hero content.*
 
 ### nested-cards
 
@@ -504,7 +504,7 @@ Everything wrapped in a card, then cards inside cards. Three levels of container
 
 ### hero-icon-circle
 
-The big circled icon floating above a centred heading is a named tell. The decoration is sized larger than the message it introduces.
+The big circled icon floating above a centered heading is a named tell. The decoration is sized larger than the message it introduces.
 
 **Instead:** Lose the circle. If the icon earns its place, let it sit inline at text scale.
 
@@ -534,7 +534,7 @@ More than one sticky element and the viewport belongs to the chrome rather than 
 
 ### status-chip-soup
 
-Badges everywhere is what happens when nothing was prioritised. Every state gets a chip and none of them read.
+Badges everywhere is what happens when nothing was prioritized. Every state gets a chip and none of them read.
 
 **Instead:** Keep the one or two states a user acts on. Put the rest in text.
 
@@ -606,7 +606,7 @@ A pulsing element that is not loading anything is an animation looking for a job
 
 Transitions over about half a second stop reading as responsive and start reading as lag.
 
-**Instead:** 150ms to 300ms for most interface motion. Reserve longer for things genuinely travelling a distance.
+**Instead:** 150ms to 300ms for most interface motion. Reserve longer for things genuinely traveling a distance.
 
 *Applies to: `**/*.tsx`, `**/*.jsx`, `**/*.ts`, `**/*.js`, `**/*.vue`, `**/*.svelte`*
 
@@ -654,9 +654,9 @@ A placeholder used as the only label disappears the moment someone types, and ta
 
 ### hardcoded-neutral-ramp
 
-The reflex you fall into once the obvious colours are closed off. Close one default grey and a model reaches for the next, which is how you can tell nobody picked it.
+The reflex you fall into once the obvious colors are closed off. Close one default gray and a model reaches for the next, which is how you can tell nobody picked it.
 
-**Instead:** Choose a neutral and say why. A grey with a little warmth or a little blue in it reads as a decision; the stock ramp reads as none.
+**Instead:** Choose a neutral and say why. A gray with a little warmth or a little blue in it reads as a decision; the stock ramp reads as none.
 
 *Applies to: `**/*.tsx`, `**/*.jsx`, `**/*.vue`, `**/*.svelte`, `**/*.html`, `**/*.css`, `**/*.scss`*
 

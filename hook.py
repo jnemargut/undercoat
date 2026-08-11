@@ -10,7 +10,7 @@ against patterns.json, and refuses the write before the file lands.
 
 Implemented in Python rather than shell because the job is JSON + regex + globs, and
 python3 is present on more machines than jq is. The plan called this hook.sh; the
-behaviour is unchanged.
+behavior is unchanged.
 
 What this implements:
   rules carry scope globs, a reason, and a direction
@@ -161,7 +161,7 @@ def targets_from(tool_name: str, tool_input: dict):
 
 
 # Shell constructs that put bytes into a file. We refuse the *route*, not the
-# content travelling down it, a far smaller job than parsing shell.
+# content traveling down it, a far smaller job than parsing shell.
 BASH_WRITE_ROUTES = [
     (re.compile(r"(?<![0-9&])>>?\s*([^\s;|&'\"<>]+)"), "redirect"),
     (re.compile(r"\btee\b(?:\s+-\w+)*\s+([^\s;|&'\"<>]+)"), "tee"),

@@ -61,13 +61,13 @@ Set `severity` from risk, never from how many people agree:
 Popularity is not safety. A pattern every catalog names can still be legitimate constantly,
 and a pattern only one names can still be almost never wanted. Judge the second question.
 
-Every rule needs a scope. The `in`/`not_in` globs are the main defence against false
+Every rule needs a scope. The `in`/`not_in` globs are the main defense against false
 alarms, and a false alarm costs far more than a missed pattern, a wrong block breaks
 a build, a miss only lets a gradient through.
 
 ## When the user asks what the floor covers
 
-Summarise from `patterns.json`: how many block, how many warn, and what categories.
+Summarize from `patterns.json`: how many block, how many warn, and what categories.
 Be straight about the limits. Undercoat matches text, so it catches banned tokens and
 cannot see composition. "This layout is boring" is outside what it can do, by design.
 For that, a post-hoc auditor is the right tool and Undercoat is meant to compose with
