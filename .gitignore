@@ -1,0 +1,13 @@
+# Locally muted rules — never shared
+.undercoat.local.json
+
+# Installed copies produced by install.sh
+UNDERCOAT.md
+.undercoat.patterns.json
+
+.DS_Store
+__pycache__/
+*.pyc
+
+# other tooling's working notes, not part of this repo
+.bettercompact/

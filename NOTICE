@@ -1,0 +1,18 @@
+Undercoat
+Copyright 2026 Jon Nemargut
+
+This product includes design anti-pattern knowledge derived from publicly documented
+catalogs. Undercoat's rules are written independently, but the patterns they describe
+were identified and named by these projects:
+
+  impeccable — https://github.com/pbakaus/impeccable
+    Licensed under the Apache License, Version 2.0.
+    Copyright Paul Bakaus.
+
+  Taste Skill — https://www.tasteskill.dev/
+  web-taste
+  frontend-design (Anthropic)
+
+No rule files were copied from these projects. The `catalogs` counts in patterns.json
+are reconstructed from each project's published descriptions and write-ups, and have
+NOT been verified against their source rule files. See patterns.json `_provenance`.
