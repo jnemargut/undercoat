@@ -274,26 +274,6 @@ It reads text, and that's all it reads. So:
 If you want something that looks at the finished page and tells you it's boring, you want a
 design reviewer. Undercoat is built to work alongside one, not replace it.
 
-## Does it get in the way?
-
-I ran it over shadcn/ui, tailwindcss.com and cal.com, which is about 4,700 files of
-carefully written code by people who know what they're doing. It sends back 0.3% of them now,
-and most of those are fair.
-
-Those three codebases are also how most of the rules got written. The loop is: generate a
-page that already passes every rule, look at what's still wrong with it, write a rule for
-that, then measure the new rule against real code before letting it stop anything.
-
-Three rounds of that produced sixteen rules. It also killed one. `hardcoded-slate` used to
-send files back, until widening it to zinc and gray showed that hardcoding neutral hexes is
-normal in real code. It only leaves a note now.
-
-The first version sent back a third of tailwindcss.com. That's how I found five rules I'd
-judged badly and several that were far too broad.
-
-Every rule with teeth is my judgment about what nobody would want on purpose. If one of them
-sends back something you meant to write, I got that judgment wrong, and I'd like to know.
-
 ## Credit
 
 Most of these patterns were worked out by other people first. The rules here describe things
