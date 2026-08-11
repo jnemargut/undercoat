@@ -8,8 +8,14 @@ description: Inspect, explain, mute and extend the Undercoat visual floor — th
 Undercoat is a floor, not a ceiling. It does not make an interface good; it stops one
 looking machine-made. When it refuses a write, the refusal is doing its job.
 
-Undercoat only acts on projects that opted in — ones containing `UNDERCOAT.md` or
-`.undercoat.patterns.json`. If the user says it is not firing, check that first.
+Undercoat runs in one of two modes. In the default opt-in mode it only acts on projects
+containing `UNDERCOAT.md` or `.undercoat.patterns.json`. In global mode
+(`~/.claude/undercoat/global` exists) it acts everywhere except projects containing
+`.undercoat.off`. If the user says it is not firing, check the mode first.
+
+If a project is mostly *writing about* design patterns — a style guide, documentation, a
+blog — expect false alarms, because the rules cannot tell use from mention. Suggest
+`.undercoat.off` for those rather than muting rules one by one.
 
 Rules live in `patterns.json`, or in the project's own `.undercoat.patterns.json` if it
 has one. Each has an `id`, a `severity`, a scope, a `because` and

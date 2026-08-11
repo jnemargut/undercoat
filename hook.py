@@ -30,10 +30,16 @@ HERE = Path(__file__).resolve().parent
 PATTERNS_FILE = HERE / "patterns.json"
 LOCAL_MUTES = ".undercoat.local.json"
 
-# The hook is registered globally in settings.json, but it must only act on projects
-# that opted in. install.sh drops these markers into the target project; without one,
-# the hook exits immediately and every other repo on the machine is untouched.
+# The hook is registered globally in settings.json. Which projects it acts on depends
+# on the mode:
+#
+#   default        opt-in.  A project is covered only if install.sh dropped a marker.
+#   --global mode  opt-out. Every project is covered except those carrying .undercoat.off.
+#
+# Opt-out always wins over opt-in, so a single file disarms any project in either mode.
 OPT_IN_MARKERS = (".undercoat.patterns.json", "UNDERCOAT.md")
+OPT_OUT_MARKER = ".undercoat.off"
+GLOBAL_FLAG = HERE / "global"
 
 # D6 assumption: three attempts on the same rule and file, then stop and hand it to
 # the human rather than letting the agent loop.
@@ -84,13 +90,24 @@ def rule_applies_to(rule: dict, path: str) -> bool:
 # --------------------------------------------------------------------------- config
 
 def project_root():
-    """Nearest ancestor that opted in, or None. Stops at the repo boundary."""
+    """
+    The directory to enforce in, or None to do nothing.
+
+    Walks up from the cwd to the repo boundary looking for a marker. An opt-out
+    marker stops enforcement anywhere it is found, in either mode. Otherwise an
+    opt-in marker enables it; in global mode the repo root enables it by default.
+    """
+    global_mode = GLOBAL_FLAG.exists()
+
     for base in (Path.cwd(), *Path.cwd().parents):
+        if (base / OPT_OUT_MARKER).exists():
+            return None
         if any((base / marker).exists() for marker in OPT_IN_MARKERS):
             return base
         if (base / ".git").exists():
-            return None
-    return None
+            return base if global_mode else None
+
+    return Path.cwd() if global_mode else None
 
 
 def load_rules(root: Path):

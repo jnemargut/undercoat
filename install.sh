@@ -16,11 +16,26 @@ CLAUDE_DIR="${HOME}/.claude"
 SETTINGS="${CLAUDE_DIR}/settings.json"
 HOOK_DEST="${CLAUDE_DIR}/undercoat/hook.py"
 WANT_HOOK=1
+WANT_GLOBAL=0
 
 for arg in "$@"; do
   [ "$arg" = "--no-hook" ] && WANT_HOOK=0
+  [ "$arg" = "--global" ] && WANT_GLOBAL=1
 done
-[ "${1:-}" = "--no-hook" ] && TARGET="$PWD"
+case "${1:-}" in --no-hook|--global) TARGET="$PWD" ;; esac
+
+# --global covers every project on the machine; no per-project files needed.
+if [ "$WANT_GLOBAL" -eq 1 ]; then
+  mkdir -p "${CLAUDE_DIR}/undercoat"
+  cp "${SRC}/hook.py" "${CLAUDE_DIR}/undercoat/hook.py"
+  cp "${SRC}/patterns.json" "${CLAUDE_DIR}/undercoat/patterns.json"
+  chmod +x "${CLAUDE_DIR}/undercoat/hook.py"
+  : > "${CLAUDE_DIR}/undercoat/global"
+  echo "Undercoat -> global mode"
+  echo "  -> installed hook to ${CLAUDE_DIR}/undercoat/hook.py"
+  echo "  -> enabled global mode (${CLAUDE_DIR}/undercoat/global)"
+  echo "  · every project is now covered unless it contains .undercoat.off"
+fi
 
 if [ "$TARGET" = "$SRC" ]; then
   echo "Refusing to install into Undercoat's own directory."
@@ -31,6 +46,12 @@ fi
 echo "Undercoat → ${TARGET}"
 
 # --- 1. the portable half -----------------------------------------------------
+if [ "$WANT_GLOBAL" -eq 1 ] && [ "$TARGET" = "$PWD" ] && [ ! -d "${TARGET}/.git" ]; then
+  echo
+  echo "✓ Global mode on. Disarm any project with: touch .undercoat.off"
+  exit 0
+fi
+
 cp "${SRC}/AGENTS.md" "${TARGET}/UNDERCOAT.md"
 echo "  → wrote ${TARGET}/UNDERCOAT.md"
 
@@ -125,4 +146,5 @@ PY
 echo
 echo "✓ Undercoat active. 25 rules block, 31 advise."
 echo "  Mute a rule for this project:  echo '{\"off\":[\"ai-purple\"]}' > .undercoat.local.json"
+echo "  Disarm a project entirely:     touch .undercoat.off"
 echo "  Remove it entirely:            ${SRC}/uninstall.sh ${TARGET}"

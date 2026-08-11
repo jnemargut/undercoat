@@ -65,6 +65,9 @@ else:
 PY
 fi
 
+if [ -f "${CLAUDE_DIR}/undercoat/global" ]; then
+  echo "  → global mode was on; clearing it"
+fi
 rm -rf "${CLAUDE_DIR}/undercoat"
 echo "  → removed ${CLAUDE_DIR}/undercoat"
 rm -f /tmp/undercoat-*.json 2>/dev/null || true

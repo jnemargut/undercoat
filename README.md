@@ -20,11 +20,18 @@ git clone https://github.com/jnemargut/undercoat
 That's it. The script prints every action, backs up your settings first, and
 `./undercoat/uninstall.sh` reverses all of it.
 
-**Scope.** The hook is registered once in `~/.claude/settings.json`, but it only acts on
-projects that opted in — those containing `UNDERCOAT.md` or `.undercoat.patterns.json`.
-Every other repo on your machine is untouched. Run `install.sh` once per project you want
-covered. A project can also ship its own `.undercoat.patterns.json` and the hook will use
-that instead of the installed rule set.
+**Scope.** Two modes.
+
+*Opt-in (default).* The hook is registered once in `~/.claude/settings.json` but only acts
+on projects containing `UNDERCOAT.md` or `.undercoat.patterns.json`. Every other repo is
+untouched. Run `install.sh` once per project.
+
+*Global.* `./undercoat/install.sh --global` covers every project on the machine with no
+per-project setup — the right mode if you want a new idea protected from the first file.
+Disarm any project with `touch .undercoat.off`, which wins in both modes.
+
+A project can also ship its own `.undercoat.patterns.json`, and the hook will use that
+instead of the installed rule set.
 
 Guidance only, no enforcement:
 
@@ -80,6 +87,11 @@ constantly — not safe to block. Catalog counts are still recorded, as provenan
 Undercoat matches text. It cannot see composition, and it does not try to. Contrast
 ratios and line length need computed layout and are deliberately not shipped — that is a
 post-hoc auditor's job. Undercoat is built to compose with one, not replace it.
+
+**Known false alarm: writing about the patterns.** A style guide, design doc or blog post
+that quotes `from-purple-600` or "Lorem ipsum" trips the rule describing it. Undercoat
+cannot tell use from mention. Disarm those projects with `.undercoat.off` — this repo
+carries one for exactly that reason.
 
 ## When a rule is wrong
 
