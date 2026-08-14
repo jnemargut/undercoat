@@ -288,6 +288,14 @@ The onboarding checklist with the first item already ticked, so the bar looks li
 
 *Applies to: `**/*.tsx`, `**/*.jsx`, `**/*.vue`, `**/*.svelte`, `**/*.html`*
 
+### hardcoded-relative-time
+
+A relative time is computed from a date. Three of them sitting in the markup as literal text means the data is invented, and it will still say 2 hours ago next year.
+
+**Instead:** Render them from real timestamps. If there is no data yet, build the empty state instead of filling the screen with times that were never true.
+
+*Applies to: `**/*.tsx`, `**/*.jsx`, `**/*.vue`, `**/*.svelte`, `**/*.html`*
+
 ## Think twice about these
 
 Real tells that fail one of the two blocking tests. Either the match is a proxy that also catches legitimate code, or the pattern is sometimes wanted deliberately. These do not block anything.
@@ -358,7 +366,7 @@ The tiny uppercase letterspaced kicker above every heading is a template convent
 
 **Instead:** Say it in the heading, or drop it. A label that adds no information is decoration.
 
-*Applies to: `**/*.tsx`, `**/*.jsx`, `**/*.vue`, `**/*.svelte`, `**/*.html`*
+*Applies to: `**/*.css`, `**/*.html`, `**/*.jsx`, `**/*.scss`, `**/*.svelte`, `**/*.tsx`, `**/*.vue`*
 
 *Advises rather than blocks: Genuinely correct in editorial layouts, so it advises rather than refuses.*
 
@@ -671,6 +679,36 @@ The heading that states the obvious. The screen is already empty; saying so uses
 *Applies to: `**/*.tsx`, `**/*.jsx`, `**/*.vue`, `**/*.svelte`, `**/*.html`*
 
 *Advises rather than blocks: 6 hits across 4,722 files. Real apps do write 'No results found', and sometimes that is the honest thing to say, so it advises rather than refuses.*
+
+### status-stripe-accent
+
+The 4px colored bar down the left of a card is how a model color-codes status when nobody asked it to. Green for done, amber for pending, red for blocked. It reads as a system, but the color is carrying meaning that the words already carry, and the reader has to learn the legend to get anything from it.
+
+**Instead:** Say the status in words where it belongs. If it needs to be scannable, one small label reads faster than a color the reader has to decode.
+
+*Applies to: `**/*.tsx`, `**/*.jsx`, `**/*.vue`, `**/*.svelte`, `**/*.html`, `**/*.css`, `**/*.scss`*
+
+*Advises rather than blocks: Alert and callout components legitimately use a colored left edge to carry severity. This only fires when there are two or more in a file, which is the status-coding case.*
+
+### traffic-light-status
+
+Green for good, amber for waiting, red for bad is the first thing a model reaches for when something has a state. It makes the reader learn a legend to get information the label already gives them, and roughly one man in twelve cannot tell the green from the red.
+
+**Instead:** Let the word carry the status and keep the color for the one state that genuinely needs attention. If every state is colored, none of them stands out.
+
+*Applies to: `**/*.tsx`, `**/*.jsx`, `**/*.vue`, `**/*.svelte`, `**/*.html`, `**/*.css`, `**/*.scss`*
+
+*Advises rather than blocks: Genuinely correct for dashboards where states are compared at a glance, and for anything conveying real severity.*
+
+### danger-zone-heading
+
+GitHub's settings page had one, so now every generated settings page has one. The heading names a container rather than an action, so the reader still has to read on to find out what is actually in it.
+
+**Instead:** Name the action. Delete this workspace tells someone what they are looking at; Danger Zone does not.
+
+*Applies to: `**/*.tsx`, `**/*.jsx`, `**/*.vue`, `**/*.svelte`, `**/*.html`*
+
+*Advises rather than blocks: A deliberate convention in developer tools, where people have learned to look for it.*
 
 ## When a rule is wrong
 

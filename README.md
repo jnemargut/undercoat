@@ -70,10 +70,10 @@ try `cat > file` instead, so Undercoat turns that down and points it back at the
 
 ## The rules
 
-**72 of them. 34 send the file back to be rewritten, 38 leave a note and let it through.**
+**76 of them. 35 send the file back to be rewritten, 41 leave a note and let it through.**
 
 <details>
-<summary><strong>The 34 that send it back</strong></summary>
+<summary><strong>The 35 that send it back</strong></summary>
 
 **Color**
 
@@ -130,6 +130,7 @@ try `cat > file` instead, so Undercoat turns that down and points it back at the
 | `placeholder-copy` | Your Company, Text goes here, Replace this |
 | `fake-testimonial` | John Doe or Acme Inc used as social proof |
 | `ai-implementation-comment` | Comments like "// In a real implementation this would" |
+| `hardcoded-relative-time` | Three or more X ago timestamps written into the markup |
 
 **Pictures and icons**
 
@@ -142,7 +143,7 @@ try `cat > file` instead, so Undercoat turns that down and points it back at the
 </details>
 
 <details>
-<summary><strong>The 38 it only mentions</strong></summary>
+<summary><strong>The 41 it only mentions</strong></summary>
 
 Every one of these is a real tell, but each is also sometimes exactly right, so Undercoat
 says something and gets out of your way.
@@ -156,6 +157,8 @@ says something and gets out of your way.
 | `default-grey-body` | Light gray body text on a light background |
 | `pure-black-on-white` | Pure #000 text |
 | `hardcoded-hex-in-markup` | Arbitrary hex values inline in class names |
+| `status-stripe-accent` | Two or more cards tagged with different colored left-edge stripes |
+| `traffic-light-status` | Green, amber and red all used together as status colors |
 
 **Shadows, blur and shape**
 
@@ -173,13 +176,14 @@ says something and gets out of your way.
 |---|---|
 | `system-font-only` | The system stack as the only typographic choice |
 | `all-bold` | font-bold repeated until nothing stands out |
-| `eyebrow-label` | The tiny uppercase letterspaced kicker above a heading |
+| `eyebrow-label` | The tiny uppercase letterspaced kicker, in utility classes or plain CSS |
 | `giant-hero-text` | text-7xl and above |
 
 **Words on the page**
 
 | Rule | What it catches |
 |---|---|
+| `danger-zone-heading` | A section headed Danger Zone |
 | `exclamation-marketing` | Exclamation marks in interface copy |
 | `trusted-by-logos` | A "Trusted by" logo strip |
 | `powered-by-ai-copy` | Copy selling the tech instead of the benefit |
