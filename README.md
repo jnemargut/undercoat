@@ -4,7 +4,7 @@
 
 You've seen this page. Everyone has.
 
-![A generated landing page with thirteen Undercoat rules caught on it, eight of which send it back. The labels include a purple gradient, a vague headline, a generic call to action, an emoji standing in for an icon, and an invented testimonial](assets/what-it-refuses.png)
+![A generated landing page with sixteen Undercoat rules caught on it, ten of which send it back. The labels include a purple gradient, a vague headline, a generic call to action, an emoji standing in for an icon, and an invented testimonial](assets/what-it-refuses.png)
 
 Your agent didn't pick the purple, or the headline, or the button that says Get Started.
 None of that was a decision. It's just what comes out when nothing tells the model
@@ -80,17 +80,17 @@ try `cat > file` instead, so Undercoat turns that down and points it back at the
 | Rule | What it catches |
 |---|---|
 | `ai-purple` | Purple, violet or indigo gradient stops |
-| `ai-purple-hex` | The seven hex values models reach for when they mean "primary" |
+| `ai-purple-hex` | The seven hex values models pick for 'primary' |
 | `rainbow-gradient` | Gradients with three or more color stops |
 | `tinted-shadow` | Colored shadows like shadow-purple-500/50 |
-| `gradient-on-root` | A gradient on the page background itself |
+| `gradient-on-root` | A gradient applied to the page background itself |
 
 **Shadows, blur and shape**
 
 | Rule | What it catches |
 |---|---|
 | `neon-glow` | Zero-offset box shadows used as a glow |
-| `ambient-blur-orb` | The blurred color blob floating behind a hero |
+| `ambient-blur-orb` | A big blurred circle positioned behind a hero |
 | `gradient-border-trick` | A 1px gradient wrapper faking a glowing border |
 | `z-index-nuke` | Four-digit z-index values |
 
@@ -98,8 +98,8 @@ try `cat > file` instead, so Undercoat turns that down and points it back at the
 
 | Rule | What it catches |
 |---|---|
-| `default-sans-inter` | Inter set as the typeface |
-| `hero-italic-emphasis` | One italic word inside a hero headline |
+| `default-sans-inter` | Inter declared as the typeface |
+| `hero-italic-emphasis` | An italic word inside a hero headline |
 
 **The template page**
 
@@ -123,13 +123,13 @@ try `cat > file` instead, so Undercoat turns that down and points it back at the
 
 | Rule | What it catches |
 |---|---|
-| `generic-cta` | Buttons saying Get Started, Learn More, Click Here |
-| `vague-headline` | Headlines like "Transform Your Workflow" |
+| `generic-cta` | Buttons that say Get Started, Learn More, Click Here |
+| `vague-headline` | Headlines like Transform your workflow or Unlock the power |
 | `buzzword-copy` | Seamless, cutting-edge, revolutionary, game-changing |
-| `lorem-ipsum` | Placeholder latin still sitting in a real component |
+| `lorem-ipsum` | Placeholder latin left in a real component |
 | `placeholder-copy` | Your Company, Text goes here, Replace this |
-| `fake-testimonial` | John Doe or Acme Inc used as social proof |
-| `ai-implementation-comment` | Comments like "// In a real implementation this would" |
+| `fake-testimonial` | John Doe or Acme Inc rendered as social proof |
+| `ai-implementation-comment` | Comments like // In a real implementation this would |
 | `hardcoded-relative-time` | Three or more X ago timestamps written into the markup |
 
 **Pictures and icons**
@@ -152,12 +152,12 @@ says something and gets out of your way.
 
 | Rule | What it catches |
 |---|---|
-| `tailwind-default-blue` | bg-blue-500 or bg-blue-600 as the brand color |
+| `tailwind-default-blue` | bg-blue-500, bg-blue-600 or #3b82f6 as the brand color |
 | `hardcoded-neutral-ramp` | Tailwind's slate, zinc, gray or stone ramps hardcoded as the palette |
 | `default-grey-body` | Light gray body text on a light background |
 | `pure-black-on-white` | Pure #000 text |
 | `hardcoded-hex-in-markup` | Arbitrary hex values inline in class names |
-| `status-stripe-accent` | Two or more cards tagged with different colored left-edge stripes |
+| `status-stripe-accent` | Two or more cards or rows tagged with different colored left-edge stripes |
 | `traffic-light-status` | Green, amber and red all used together as status colors |
 
 **Shadows, blur and shape**
@@ -165,8 +165,8 @@ says something and gets out of your way.
 | Rule | What it catches |
 |---|---|
 | `glassmorphism` | Frosted glass via backdrop-blur |
-| `default-heavy-shadow` | shadow-xl and shadow-2xl on ordinary cards |
-| `uniform-bubbly-radius` | rounded-3xl on every surface |
+| `default-heavy-shadow` | shadow-xl and shadow-2xl, or their CSS equivalent, on ordinary cards |
+| `uniform-bubbly-radius` | rounded-3xl, or a 24px-plus radius, on every surface |
 | `ring-decoration` | Focus rings used as ornament |
 | `border-and-shadow` | A border and a shadow doing the same job |
 
@@ -174,9 +174,9 @@ says something and gets out of your way.
 
 | Rule | What it catches |
 |---|---|
-| `system-font-only` | The system stack as the only typographic choice |
-| `all-bold` | font-bold repeated until nothing stands out |
-| `eyebrow-label` | The tiny uppercase letterspaced kicker, in utility classes or plain CSS |
+| `system-font-only` | The system font stack as the only typographic choice |
+| `all-bold` | font-bold or font-weight 700 repeated until nothing stands out |
+| `eyebrow-label` | The tiny uppercase letterspaced kicker above a heading, in utility classes or plain CSS |
 | `giant-hero-text` | text-7xl and above |
 
 **Words on the page**
@@ -185,14 +185,14 @@ says something and gets out of your way.
 |---|---|
 | `danger-zone-heading` | A section headed Danger Zone |
 | `exclamation-marketing` | Exclamation marks in interface copy |
-| `trusted-by-logos` | A "Trusted by" logo strip |
-| `powered-by-ai-copy` | Copy selling the tech instead of the benefit |
+| `trusted-by-logos` | A Trusted by logo strip |
+| `powered-by-ai-copy` | Copy that sells the implementation rather than the benefit |
 
 **Pictures and icons**
 
 | Rule | What it catches |
 |---|---|
-| `sparkles-icon` | The sparkle or wand icon standing in for AI |
+| `sparkles-icon` | The sparkle or wand icon as shorthand for AI |
 
 **Layout and spacing**
 
@@ -201,15 +201,15 @@ says something and gets out of your way.
 | `three-card-grid` | Three equal cards as a page's main content |
 | `nested-cards` | A card inside a card |
 | `everything-centered` | Whole sections center-aligned |
-| `hero-icon-circle` | A big circled icon floating above a heading |
-| `full-height-hero` | min-h-screen on the first thing anyone sees |
-| `default-container-width` | max-w-7xl mx-auto, the width nobody picked |
-| `sticky-everything` | More than one sticky element fighting for the screen |
+| `hero-icon-circle` | A large circled icon floating above a heading |
+| `full-height-hero` | min-h-screen on the first thing a reader sees |
+| `default-container-width` | max-w-7xl mx-auto, or a 1280px centered container, the width nobody chose |
+| `sticky-everything` | More than one sticky element competing for the viewport |
 | `status-chip-soup` | Four or more badges in one view |
-| `cramped-padding` | p-0 and p-1 where something needed room |
+| `cramped-padding` | p-0 and p-1 where breathing room was needed |
 | `magic-spacing` | Arbitrary pixel spacing off the scale |
 | `small-touch-target` | Buttons under roughly 44px |
-| `placeholder-as-label` | A placeholder doing the job of a label |
+| `placeholder-as-label` | A placeholder used as the only label |
 | `nothing-here-yet` | A No X yet or Nothing here yet empty state heading |
 
 **Movement**
@@ -218,15 +218,15 @@ says something and gets out of your way.
 |---|---|
 | `uniform-fade-in` | The same entrance animation on everything |
 | `bounce-easing` | Overshoot easing on interface motion |
-| `decorative-pulse` | animate-pulse on something that isn't loading |
+| `decorative-pulse` | animate-pulse on something that is not loading |
 | `slow-transition` | Transitions over half a second |
 
 **Everything else**
 
 | Rule | What it catches |
 |---|---|
-| `dark-mode-reflex` | A near-black page background by default |
-| `inline-style-attribute` | Values set inline, going round the system |
+| `dark-mode-reflex` | A near-black page background as the default |
+| `inline-style-attribute` | Values set inline, bypassing the system |
 | `important-override` | !important |
 
 </details>

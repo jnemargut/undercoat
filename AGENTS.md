@@ -38,7 +38,7 @@ A three-stop gradient is decoration with no informational job. It is the 'make i
 
 **Instead:** One color, or a two-stop gradient with a reason. Excitement comes from contrast, not from hue count.
 
-*Applies to: `**/*.tsx`, `**/*.jsx`, `**/*.vue`, `**/*.svelte`, `**/*.html`*
+*Applies to: `**/*.css`, `**/*.html`, `**/*.jsx`, `**/*.scss`, `**/*.svelte`, `**/*.tsx`, `**/*.vue`*
 
 ### tinted-shadow
 
@@ -54,7 +54,7 @@ A gradient across the whole page background is the default 'premium' move and it
 
 **Instead:** A flat background. Let the content carry the interest.
 
-*Applies to: `**/*.tsx`, `**/*.jsx`, `**/*.vue`, `**/*.svelte`, `**/*.html`*
+*Applies to: `**/*.css`, `**/*.html`, `**/*.jsx`, `**/*.scss`, `**/*.svelte`, `**/*.tsx`, `**/*.vue`*
 
 ### default-sans-inter
 
@@ -78,7 +78,7 @@ The giant blurred color blob floating behind the hero is pure decoration, and it
 
 **Instead:** Delete it. If the background needs interest, use a real edge, a rule, or a change of surface.
 
-*Applies to: `**/*.tsx`, `**/*.jsx`, `**/*.vue`, `**/*.svelte`, `**/*.html`*
+*Applies to: `**/*.css`, `**/*.html`, `**/*.jsx`, `**/*.scss`, `**/*.svelte`, `**/*.tsx`, `**/*.vue`*
 
 ### gradient-border-trick
 
@@ -306,7 +306,7 @@ Tailwind's mid-blue as the primary brand color is the framework default wearing 
 
 **Instead:** Define one project color and use it. Any deliberate hue beats the palette you got for free.
 
-*Applies to: `**/*.tsx`, `**/*.jsx`, `**/*.vue`, `**/*.svelte`, `**/*.html`*
+*Applies to: `**/*.css`, `**/*.html`, `**/*.jsx`, `**/*.scss`, `**/*.svelte`, `**/*.tsx`, `**/*.vue`*
 
 *Advises rather than blocks: Plenty of real products deliberately use a mid-blue, and Tailwind's is a reasonable one.*
 
@@ -356,7 +356,7 @@ When everything is bold nothing is. Uniform heavy weight is what happens when hi
 
 **Instead:** One or two weights doing different jobs. Let size and space carry the rest.
 
-*Applies to: `**/*.tsx`, `**/*.jsx`, `**/*.ts`, `**/*.js`, `**/*.vue`, `**/*.svelte`*
+*Applies to: `**/*.css`, `**/*.js`, `**/*.jsx`, `**/*.scss`, `**/*.svelte`, `**/*.ts`, `**/*.tsx`, `**/*.vue`*
 
 *Advises rather than blocks: Counting occurrences in a window is a proxy, and a dense component can trip it legitimately.*
 
@@ -386,7 +386,7 @@ The default heavy drop shadow on every card is how generated UI signals 'this is
 
 **Instead:** A hairline border, or a shadow one or two steps lighter. Reserve the heaviest depth for things that actually float.
 
-*Applies to: `**/*.tsx`, `**/*.jsx`, `**/*.vue`, `**/*.svelte`, `**/*.html`*
+*Applies to: `**/*.css`, `**/*.html`, `**/*.jsx`, `**/*.scss`, `**/*.svelte`, `**/*.tsx`, `**/*.vue`*
 
 *Advises rather than blocks: shadow-xl is the right depth for modals, popovers and dropdowns that genuinely float.*
 
@@ -406,7 +406,7 @@ Oversized rounding on every surface is a named tell. When cards, buttons and inp
 
 **Instead:** Pick one radius for the project and vary it deliberately: tighter on inputs, looser on containers.
 
-*Applies to: `**/*.tsx`, `**/*.jsx`, `**/*.vue`, `**/*.svelte`, `**/*.html`*
+*Applies to: `**/*.css`, `**/*.html`, `**/*.jsx`, `**/*.scss`, `**/*.svelte`, `**/*.tsx`, `**/*.vue`*
 
 *Advises rather than blocks: rounded-3xl is a legitimate deliberate choice for soft design systems.*
 
@@ -486,7 +486,7 @@ Every generated page is 1280px centered. It is not wrong, it is the width nobody
 
 **Instead:** Pick a measure from your type. Long-form reading wants far narrower; a dashboard usually wants wider.
 
-*Applies to: `**/*.tsx`, `**/*.jsx`, `**/*.ts`, `**/*.js`, `**/*.vue`, `**/*.svelte`*
+*Applies to: `**/*.css`, `**/*.js`, `**/*.jsx`, `**/*.scss`, `**/*.svelte`, `**/*.ts`, `**/*.tsx`, `**/*.vue`*
 
 *Advises rather than blocks: A perfectly reasonable width that many real projects pick deliberately.*
 
@@ -496,7 +496,7 @@ Centered everything is the layout equivalent of a shrug. Centered text is hard t
 
 **Instead:** Left-align body copy. Center only short, deliberate lines.
 
-*Applies to: `**/*.tsx`, `**/*.jsx`, `**/*.vue`, `**/*.svelte`, `**/*.html`*
+*Applies to: `**/*.css`, `**/*.html`, `**/*.jsx`, `**/*.scss`, `**/*.svelte`, `**/*.tsx`, `**/*.vue`*
 
 *Advises rather than blocks: Centered sections are correct for short hero content.*
 
@@ -516,7 +516,7 @@ The big circled icon floating above a centered heading is a named tell. The deco
 
 **Instead:** Lose the circle. If the icon earns its place, let it sit inline at text scale.
 
-*Applies to: `**/*.tsx`, `**/*.jsx`, `**/*.ts`, `**/*.js`, `**/*.vue`, `**/*.svelte`*
+*Applies to: `**/*.css`, `**/*.js`, `**/*.jsx`, `**/*.scss`, `**/*.svelte`, `**/*.ts`, `**/*.tsx`, `**/*.vue`*
 
 *Advises rather than blocks: Needs relative sizing and position to detect properly; also fires on large avatars.*
 
@@ -536,7 +536,7 @@ More than one sticky element and the viewport belongs to the chrome rather than 
 
 **Instead:** One sticky thing at most. Everything else can scroll away.
 
-*Applies to: `**/*.tsx`, `**/*.jsx`, `**/*.ts`, `**/*.js`, `**/*.vue`, `**/*.svelte`*
+*Applies to: `**/*.css`, `**/*.js`, `**/*.jsx`, `**/*.scss`, `**/*.svelte`, `**/*.ts`, `**/*.tsx`, `**/*.vue`*
 
 *Advises rather than blocks: Counting in a window is a proxy and can trip on legitimate layouts.*
 
@@ -626,7 +626,7 @@ Dark by default is the most common reflex in generated interfaces. Dark is a rea
 
 **Instead:** Decide. If the product is used in daylight by people reading text, light is probably right.
 
-*Applies to: `**/layout.tsx`, `**/App.tsx`, `**/index.html`, `**/*.css`, `**/*.scss`*
+*Applies to: `**/*.css`, `**/*.scss`, `**/App.tsx`, `**/index.html`, `**/layout.tsx`*
 
 *Advises rather than blocks: Whether dark is a reflex or a decision cannot be read from a class name.*
 

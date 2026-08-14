@@ -251,7 +251,7 @@ body{margin:0;background:#0b0e14;font-family:Inter,system-ui,sans-serif}
 .tot small{font:600 13px Inter;color:#8b95a8;display:block;margin-top:6px}
 .key div{display:flex;align-items:center;gap:8px;font-size:12.5px;color:#c3cddf;margin-bottom:8px}
 .sw{width:11px;height:11px;border-radius:3px}
-.note{margin-top:18px;font-size:13px;line-height:1.7;color:#8b95a8;border-top:1px solid #263041;padding-top:14px}
+.note{margin-top:16px;font-size:12.5px;line-height:1.65;color:#8b95a8;border-top:1px solid #263041;padding-top:13px}
 .note b{color:#fecdd3}
 """
 
@@ -268,8 +268,10 @@ ANNO = {
     "a_who":   ' data-rule="fake-testimonial" data-side="br"',
 }
 # Fires on the file but has nothing to point at in a picture.
-INVISIBLE = {"default-sans-inter": "the typeface", "neon-glow": "the glow around that button",
-             "eyebrow-label": "the letterspaced caps", "hardcoded-neutral-ramp": "the greys"}
+INVISIBLE = {"default-sans-inter": "the typeface", "neon-glow": "the glow on that button",
+             "eyebrow-label": "the letterspaced caps", "hardcoded-neutral-ramp": "the grays",
+             "rainbow-gradient": "three color stops", "ambient-blur-orb": "the blurred blobs",
+             "default-heavy-shadow": "the shadows under the cards"}
 
 
 def write_annotated(fired):

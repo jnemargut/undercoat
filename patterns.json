@@ -18,7 +18,8 @@
     "correction": "An earlier version of this file cited a catalog called 'web-taste'. That could not be verified as a distinct project and has been removed. Some `catalogs` counts may therefore be overstated by one. Since flag-001 those counts are provenance only and do not affect severity.",
     "hero_italic_note": "hero-italic-emphasis came from a user spotting it as a tell rather than from a catalog, so catalogs is 0. It blocks because it measured 0 hits across 4,516 real files, which is the evidence for rarely_legitimate.",
     "floor_review": "stat-row, marketing-eyebrow, hero-pill-badge, testimonial-triplet, card-icon-tile, pricing-most-popular, invented-faq, repeated-cta and hardcoded-slate all came from a human reviewing pages that had already passed the floor, so catalogs is 0 for each. Every one blocks on measured evidence: 0 to 2 hits across 4,722 files of careful hand-written UI. vague-headline was widened to catch 'Everything your X needs'.",
-    "iterations": "Rules were found by generating pages that already passed the floor and reviewing them. Round 1 (human review) produced 9 rules. Round 2 produced 5 and forced hardcoded-slate to be merged into hardcoded-neutral-ramp at warn, because hardcoding neutral hexes turned out to be common in real code. Round 3 produced 2 and found the docs page essentially clean, which is where returns started falling off."
+    "iterations": "Rules were found by generating pages that already passed the floor and reviewing them. Round 1 (human review) produced 9 rules. Round 2 produced 5 and forced hardcoded-slate to be merged into hardcoded-neutral-ramp at warn, because hardcoding neutral hexes turned out to be common in real code. Round 3 produced 2 and found the docs page essentially clean, which is where returns started falling off.",
+    "css_parity_audit": "Rules written utility-class-first were missing the plain-CSS spelling, so a project not using Tailwind got a thinner floor than one that did. Twelve rules were given their CSS equivalent and scoped to .css/.scss. Each extension measured 0-22 hits across 4,727 files of shadcn/ui, tailwindcss.com and cal.com before being added. Scoping block rules into CSS files exposed ambient-blur-orb matching a bare blur-2xl, which is a blur utility rather than an orb; it now requires the absolute-positioned rounded shape, taking it from 8 hits to 0."
   },
   "rules": [
     {
@@ -89,13 +90,15 @@
       "unambiguous": true,
       "rarely_legitimate": true,
       "catalogs": 2,
-      "match": "from-\\w+-[1-9]00[^\\\"'`]{0,60}via-\\w+-[1-9]00[^\\\"'`]{0,60}to-\\w+-[1-9]00",
+      "match": "from-\\w+-[1-9]00[^\\\"'`]{0,60}via-\\w+-[1-9]00[^\\\"'`]{0,60}to-\\w+-[1-9]00|linear-gradient\\((?:[^;{}#]{0,40}#[0-9a-fA-F]{3,8}){3}",
       "in": [
-        "**/*.tsx",
+        "**/*.css",
+        "**/*.html",
         "**/*.jsx",
-        "**/*.vue",
+        "**/*.scss",
         "**/*.svelte",
-        "**/*.html"
+        "**/*.tsx",
+        "**/*.vue"
       ],
       "not_in": [
         "**/*.spec.*",
@@ -118,13 +121,15 @@
       "unambiguous": true,
       "rarely_legitimate": false,
       "catalogs": 2,
-      "match": "\\bbg-blue-(?:500|600)\\b",
+      "match": "\\bbg-blue-(?:500|600)\\b|#(?:3b82f6|2563eb)\\b",
       "in": [
-        "**/*.tsx",
+        "**/*.css",
+        "**/*.html",
         "**/*.jsx",
-        "**/*.vue",
+        "**/*.scss",
         "**/*.svelte",
-        "**/*.html"
+        "**/*.tsx",
+        "**/*.vue"
       ],
       "not_in": [
         "**/*.spec.*",
@@ -140,7 +145,7 @@
       "because": "Tailwind's mid-blue as the primary brand color is the framework default wearing a brand's clothes.",
       "instead": "Define one project color and use it. Any deliberate hue beats the palette you got for free.",
       "risk_note": "Plenty of real products deliberately use a mid-blue, and Tailwind's is a reasonable one.",
-      "catches": "bg-blue-500 or bg-blue-600 as the brand color"
+      "catches": "bg-blue-500, bg-blue-600 or #3b82f6 as the brand color"
     },
     {
       "id": "default-grey-body",
@@ -207,13 +212,15 @@
       "unambiguous": true,
       "rarely_legitimate": true,
       "catalogs": 1,
-      "match": "<(?:body|html)[^>]*\\bbg-gradient-to-",
+      "match": "<(?:body|html)[^>]*\\bbg-gradient-to-|(?:^|[};])\\s*(?:body|html)[^{}]{0,60}\\{[^{}]{0,300}background(?:-image|-color)?\\s*:[^;{}]{0,80}linear-gradient",
       "in": [
-        "**/*.tsx",
+        "**/*.css",
+        "**/*.html",
         "**/*.jsx",
-        "**/*.vue",
+        "**/*.scss",
         "**/*.svelte",
-        "**/*.html"
+        "**/*.tsx",
+        "**/*.vue"
       ],
       "not_in": [
         "**/*.spec.*",
@@ -351,14 +358,16 @@
       "rarely_legitimate": true,
       "risk_note": "Counting occurrences in a window is a proxy, and a dense component can trip it legitimately.",
       "catalogs": 1,
-      "match": "(?:\\bfont-bold\\b[\\s\\S]{0,300}){4,}",
+      "match": "(?:\\bfont-bold\\b[\\s\\S]{0,300}){4,}|(?:font-weight\\s*:\\s*(?:bold|700|800|900)[\\s\\S]{0,400}?){5,}",
       "in": [
-        "**/*.tsx",
-        "**/*.jsx",
-        "**/*.ts",
+        "**/*.css",
         "**/*.js",
-        "**/*.vue",
-        "**/*.svelte"
+        "**/*.jsx",
+        "**/*.scss",
+        "**/*.svelte",
+        "**/*.ts",
+        "**/*.tsx",
+        "**/*.vue"
       ],
       "not_in": [
         "**/*.spec.*",
@@ -373,7 +382,7 @@
       ],
       "because": "When everything is bold nothing is. Uniform heavy weight is what happens when hierarchy was never decided.",
       "instead": "One or two weights doing different jobs. Let size and space carry the rest.",
-      "catches": "font-bold repeated until nothing stands out"
+      "catches": "font-bold or font-weight 700 repeated until nothing stands out"
     },
     {
       "id": "eyebrow-label",
@@ -474,13 +483,15 @@
       "unambiguous": true,
       "rarely_legitimate": false,
       "catalogs": 2,
-      "match": "\\bshadow-(?:xl|2xl)\\b",
+      "match": "\\bshadow-(?:xl|2xl)\\b|box-shadow\\s*:[^;{}]{0,30}\\s\\d{1,3}px\\s+(?:[4-9]\\d|\\d{3,})px",
       "in": [
-        "**/*.tsx",
+        "**/*.css",
+        "**/*.html",
         "**/*.jsx",
-        "**/*.vue",
+        "**/*.scss",
         "**/*.svelte",
-        "**/*.html"
+        "**/*.tsx",
+        "**/*.vue"
       ],
       "not_in": [
         "**/*.spec.*",
@@ -496,7 +507,7 @@
       "because": "The default heavy drop shadow on every card is how generated UI signals 'this is a component'. Real interfaces use shadow sparingly and at one or two depths.",
       "instead": "A hairline border, or a shadow one or two steps lighter. Reserve the heaviest depth for things that actually float.",
       "risk_note": "shadow-xl is the right depth for modals, popovers and dropdowns that genuinely float.",
-      "catches": "shadow-xl and shadow-2xl on ordinary cards"
+      "catches": "shadow-xl and shadow-2xl, or their CSS equivalent, on ordinary cards"
     },
     {
       "id": "glassmorphism",
@@ -536,13 +547,15 @@
       "unambiguous": true,
       "rarely_legitimate": true,
       "catalogs": 1,
-      "match": "\\bblur-(?:2xl|3xl)\\b",
+      "match": "\\babsolute\\b[^\\\"'`]{0,80}\\brounded-full\\b[^\\\"'`]{0,80}\\bblur-(?:2xl|3xl)\\b|\\bblur-(?:2xl|3xl)\\b[^\\\"'`]{0,80}\\brounded-full\\b[^\\\"'`]{0,80}\\babsolute\\b|\\brounded-full\\b[^\\\"'`]{0,80}\\bblur-(?:2xl|3xl)\\b[^\\\"'`]{0,80}\\babsolute\\b|position\\s*:\\s*absolute[^{}]{0,220}filter\\s*:\\s*blur\\(\\s*(?:[3-9]\\d|\\d{3,})p|filter\\s*:\\s*blur\\(\\s*(?:[3-9]\\d|\\d{3,})p[^{}]{0,220}position\\s*:\\s*absolute",
       "in": [
-        "**/*.tsx",
+        "**/*.css",
+        "**/*.html",
         "**/*.jsx",
-        "**/*.vue",
+        "**/*.scss",
         "**/*.svelte",
-        "**/*.html"
+        "**/*.tsx",
+        "**/*.vue"
       ],
       "not_in": [
         "**/*.spec.*",
@@ -557,7 +570,7 @@
       ],
       "because": "The giant blurred color blob floating behind the hero is pure decoration, and it is in every generated landing page written since 2023.",
       "instead": "Delete it. If the background needs interest, use a real edge, a rule, or a change of surface.",
-      "catches": "The blurred color blob floating behind a hero"
+      "catches": "A big blurred circle positioned behind a hero"
     },
     {
       "id": "uniform-bubbly-radius",
@@ -565,13 +578,15 @@
       "unambiguous": true,
       "rarely_legitimate": false,
       "catalogs": 2,
-      "match": "\\brounded-3xl\\b",
+      "match": "\\brounded-3xl\\b|(?:border-radius\\s*:\\s*(?:2[0-9]|3[0-9]|4[0-9])px[\\s\\S]{0,500}?){3,}",
       "in": [
-        "**/*.tsx",
+        "**/*.css",
+        "**/*.html",
         "**/*.jsx",
-        "**/*.vue",
+        "**/*.scss",
         "**/*.svelte",
-        "**/*.html"
+        "**/*.tsx",
+        "**/*.vue"
       ],
       "not_in": [
         "**/*.spec.*",
@@ -587,7 +602,7 @@
       "because": "Oversized rounding on every surface is a named tell. When cards, buttons and inputs share one bubbly radius, nothing reads as a different kind of thing.",
       "instead": "Pick one radius for the project and vary it deliberately: tighter on inputs, looser on containers.",
       "risk_note": "rounded-3xl is a legitimate deliberate choice for soft design systems.",
-      "catches": "rounded-3xl applied to every surface"
+      "catches": "rounded-3xl, or a 24px-plus radius, on every surface"
     },
     {
       "id": "gradient-border-trick",
@@ -1243,14 +1258,16 @@
       "rarely_legitimate": false,
       "risk_note": "A perfectly reasonable width that many real projects pick deliberately.",
       "catalogs": 1,
-      "match": "\\bmax-w-7xl\\s+mx-auto\\b|\\bmx-auto\\s+max-w-7xl\\b",
+      "match": "\\bmax-w-7xl\\s+mx-auto\\b|\\bmx-auto\\s+max-w-7xl\\b|max-width\\s*:\\s*1(?:280|200|152)px[^{}]{0,120}margin\\s*:[^;{}]{0,30}auto|margin\\s*:[^;{}]{0,30}auto[^{}]{0,120}max-width\\s*:\\s*1(?:280|200|152)px",
       "in": [
-        "**/*.tsx",
-        "**/*.jsx",
-        "**/*.ts",
+        "**/*.css",
         "**/*.js",
-        "**/*.vue",
-        "**/*.svelte"
+        "**/*.jsx",
+        "**/*.scss",
+        "**/*.svelte",
+        "**/*.ts",
+        "**/*.tsx",
+        "**/*.vue"
       ],
       "not_in": [
         "**/*.spec.*",
@@ -1265,7 +1282,7 @@
       ],
       "because": "Every generated page is 1280px centered. It is not wrong, it is the width nobody chose, and it makes unrelated products feel like the same site.",
       "instead": "Pick a measure from your type. Long-form reading wants far narrower; a dashboard usually wants wider.",
-      "catches": "max-w-7xl mx-auto, the width nobody chose"
+      "catches": "max-w-7xl mx-auto, or a 1280px centered container, the width nobody chose"
     },
     {
       "id": "everything-centered",
@@ -1274,13 +1291,15 @@
       "rarely_legitimate": false,
       "risk_note": "Centered sections are correct for short hero content.",
       "catalogs": 1,
-      "match": "<section[^>]*\\btext-center\\b|<main[^>]*\\btext-center\\b",
+      "match": "<section[^>]*\\btext-center\\b|<main[^>]*\\btext-center\\b|(?:text-align\\s*:\\s*center[\\s\\S]{0,600}?){4,}",
       "in": [
-        "**/*.tsx",
+        "**/*.css",
+        "**/*.html",
         "**/*.jsx",
-        "**/*.vue",
+        "**/*.scss",
         "**/*.svelte",
-        "**/*.html"
+        "**/*.tsx",
+        "**/*.vue"
       ],
       "not_in": [
         "**/*.spec.*",
@@ -1335,14 +1354,16 @@
       "rarely_legitimate": true,
       "risk_note": "Needs relative sizing and position to detect properly; also fires on large avatars.",
       "catalogs": 2,
-      "match": "rounded-full[^\\\"'`]{0,60}\\b(?:w-16|w-20|w-24|h-16|h-20|h-24)\\b|\\b(?:w-16|w-20|w-24)[^\\\"'`]{0,60}rounded-full",
+      "match": "rounded-full[^\\\"'`]{0,60}\\b(?:w-16|w-20|w-24|h-16|h-20|h-24)\\b|\\b(?:w-16|w-20|w-24)[^\\\"'`]{0,60}rounded-full|width\\s*:\\s*(?:[5-9]\\d|100)px[^{}]{0,120}border-radius\\s*:\\s*(?:9999px|50%)|border-radius\\s*:\\s*(?:9999px|50%)[^{}]{0,120}width\\s*:\\s*(?:[5-9]\\d|100)px",
       "in": [
-        "**/*.tsx",
-        "**/*.jsx",
-        "**/*.ts",
+        "**/*.css",
         "**/*.js",
-        "**/*.vue",
-        "**/*.svelte"
+        "**/*.jsx",
+        "**/*.scss",
+        "**/*.svelte",
+        "**/*.ts",
+        "**/*.tsx",
+        "**/*.vue"
       ],
       "not_in": [
         "**/*.spec.*",
@@ -1397,14 +1418,16 @@
       "rarely_legitimate": true,
       "risk_note": "Counting in a window is a proxy and can trip on legitimate layouts.",
       "catalogs": 1,
-      "match": "(?:\\bsticky\\b[^\\\"'`]{0,40}\\btop-0\\b[\\s\\S]{0,600}){2,}",
+      "match": "(?:\\bsticky\\b[^\\\"'`]{0,40}\\btop-0\\b[\\s\\S]{0,600}){2,}|(?:position\\s*:\\s*sticky[\\s\\S]{0,500}?){2,}",
       "in": [
-        "**/*.tsx",
-        "**/*.jsx",
-        "**/*.ts",
+        "**/*.css",
         "**/*.js",
-        "**/*.vue",
-        "**/*.svelte"
+        "**/*.jsx",
+        "**/*.scss",
+        "**/*.svelte",
+        "**/*.ts",
+        "**/*.tsx",
+        "**/*.vue"
       ],
       "not_in": [
         "**/*.spec.*",
@@ -1676,13 +1699,13 @@
       "rarely_legitimate": true,
       "risk_note": "Whether dark is a reflex or a decision cannot be read from a class name.",
       "catalogs": 2,
-      "match": "\\bbg-(?:gray|grey|slate|zinc|neutral)-9(?:00|50)\\b",
+      "match": "\\bbg-(?:gray|grey|slate|zinc|neutral)-9(?:00|50)\\b|(?:^|[};])\\s*(?:body|html)[^{}]{0,60}\\{[^{}]{0,220}background(?:-color)?\\s*:\\s*#[0-1][0-9a-fA-F][0-1][0-9a-fA-F][0-2][0-9a-fA-F]\\b",
       "in": [
-        "**/layout.tsx",
+        "**/*.css",
+        "**/*.scss",
         "**/App.tsx",
         "**/index.html",
-        "**/*.css",
-        "**/*.scss"
+        "**/layout.tsx"
       ],
       "not_in": [
         "**/*.spec.*",
