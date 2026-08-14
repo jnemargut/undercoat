@@ -4,7 +4,7 @@
 
 You've seen this page. Everyone has.
 
-![A generated landing page with eleven Undercoat rules labeled on it, eight of which send it back. The labels include a purple gradient, a vague headline, a generic call to action, an emoji standing in for an icon, and an invented testimonial](assets/what-it-refuses.png)
+![A generated landing page with thirteen Undercoat rules caught on it, eight of which send it back. The labels include a purple gradient, a vague headline, a generic call to action, an emoji standing in for an icon, and an invented testimonial](assets/what-it-refuses.png)
 
 Your agent didn't pick the purple, or the headline, or the button that says Get Started.
 None of that was a decision. It's just what comes out when nothing tells the model
